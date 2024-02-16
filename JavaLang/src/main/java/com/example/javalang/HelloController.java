@@ -1,4 +1,4 @@
-package com.example.dstu;
+package com.example.javalang;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

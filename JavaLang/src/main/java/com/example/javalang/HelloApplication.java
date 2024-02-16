@@ -1,4 +1,4 @@
-package com.example.dstu;
+package com.example.javalang;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

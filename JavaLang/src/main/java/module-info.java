@@ -1,8 +1,9 @@
-module com.example.dstu {
+module com.example.javalang {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
-    opens com.example.dstu to javafx.fxml;
-    exports com.example.dstu;
+    opens com.example.javalang to javafx.fxml;
+    exports com.example.javalang;
 }
