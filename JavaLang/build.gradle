@@ -17,20 +17,19 @@ ext {
   junitVersion = '5.10.0'
 }
 
-sourceCompatibility = '21'
-targetCompatibility = '21'
+// sourceCompatibility = '21'
+// targetCompatibility = '21'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
 }
 
 application {
-  mainModule = 'com.example.dstu'
-  mainClass = 'com.example.dstu.HelloApplication'
+  mainClass = 'programmingLanguages.laboratories.GUI.Main'
 }
 
 javafx {
-  version = '21'
+  version = '21.0.2'
   modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -41,7 +40,8 @@ dependencies {
 }
 
 test {
-useJUnitPlatform()}
+  useJUnitPlatform()
+}
 
 jlink {
   imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
