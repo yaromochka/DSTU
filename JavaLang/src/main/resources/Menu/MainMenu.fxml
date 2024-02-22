@@ -102,12 +102,12 @@
       </Text>
    </children>
    <effect>
-      <InnerShadow choke="0.65" height="3.32" radius="24.005" width="94.7">
+      <InnerShadow choke="0.65" height="49.01" radius="35.4275" width="94.7">
          <input>
             <Glow level="0.28" />
          </input>
          <color>
-            <Color red="0.6753624677658081" green="0.2935550808906555" blue="0.8026315569877625" />
+            <Color red="0.6745098233222961" green="0.29411765933036804" blue="0.8039215803146362" />
          </color>
       </InnerShadow>
    </effect>
