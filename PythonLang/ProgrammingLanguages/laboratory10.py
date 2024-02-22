@@ -1,23 +1,30 @@
 import numpy as np
 
+
 def first():
     return reversed([f'Первые четыре строки: ', *[''.join(str(matrix[i])) for i in range(4)], f'Строка с элементами, возведёнными в квадрат: ', *[''.join(str(np.power(i, 2))) for i in matrix[0:4, :]]])
+
 
 def second():
     return reversed([f'Вектор сумм по столбцам: ', ' '.join([str(np.sum(i)) for i in matrix.T])])
 
+
 def third():
     return reversed([f'Вектор сумм по строкам: ', ' '.join([str(np.sum(i)) for i in matrix])])
+
 
 def fourthy():
     return reversed([f'Заменённая матрица на нули: ', *[''.join(str(i)) for i in np.zeros_like(matrix)]])
 
+
 def fifth():
     return reversed([f'Матрица с четырьмя удалёнными строками: ', *[''.join(str(i)) for i in matrix[-4::]]])
+
 
 def sixth():
     matrix[:, [0, -1]]= matrix[:, [-1, 0]]
     return reversed(['Матрица с поменянными столбцами: ', *[''.join(str(i)) for i in matrix]])
+
 
 def seventh(mas):
     mas = mas.split(', ')
@@ -30,6 +37,7 @@ def seventh(mas):
         return reversed([f'Количество цифр {mas} в матрице равно {counter}'])
     else: return False
 
+
 def eighth(mas):
     mas = mas.split(', ')
     if len(mas) == 3 and all([i.isdigit() for i in mas]):
@@ -39,6 +47,7 @@ def eighth(mas):
             return reversed([f'Изменённое число: {temp}', f'Новая матрица:', *[''.join(str(i)) for i in matrix]])
         else: return False
     else: return False
+
 
 def main(n, *, mas):
     global matrix
@@ -61,6 +70,7 @@ def main(n, *, mas):
     if n == '7': return seventh(mas)
     if n == '8': return eighth(mas)
     else: return False
+
 
 if __name__ == '__main__':
     main()

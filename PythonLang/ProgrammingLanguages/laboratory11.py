@@ -86,7 +86,7 @@ def modify_item(s):
     days = {}
     temp = cursor.fetchall()
     for i in temp: days[i[1]] = i[0]
-    day, num, new_name = s.split(' ')[2], s.split(' ')[3], s.split(' ')[6]
+    day, num, new_name = s.split(' ')[2], s.split(' ')[3], ' '.join(s.split(' ')[6:])
     insert_data = """ 
     UPDATE discipline
     SET name = ?

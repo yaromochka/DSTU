@@ -33,12 +33,12 @@ def distribution_on_the_part(rules, length, left_part, right_part, ind):
 
 if __name__ == '__main__':
 
-    left = [], right = [], buff_right = [], buff_left = []
+    left, right, buff_right, buff_left = [], [], [], []
     ind, kz, ks, gen_form, pl, s, count = 1, 0, 0, 0, 0, 0, 0
 
     not_term = input('Введите нетерминалы: ')
     term = input('Введите терминалы: ')
-    buff_rules = input('Введите правило по типу N -> T\n').split(' -> ')
+    buff_rules = input('Введите правило по типу N -> T\n').split('->')
     length = len(buff_rules)
     if buff_rules[0] != 'S':
         print('Первое правило должно начинаться с S')

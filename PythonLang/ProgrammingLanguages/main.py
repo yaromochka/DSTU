@@ -1,18 +1,7 @@
 import customtkinter as CTk
 import CTkListbox
 import configparser
-import laboratory1
-# import laboratory2
-# import laboratory3
-import laboratory4
-import laboratory5
-import laboratory7
-import laboratory8
-import laboratory9
-import laboratory10
-import laboratory11
-import laboratory12
-import laboratory13
+import laboratory1, laboratory2, laboratory3, laboratory4, laboratory5, laboratory7, laboratory8, laboratory9, laboratory10, laboratory11, laboratory12, laboratory13, laboratory14
 
 
 class App(CTk.CTk):
@@ -23,7 +12,7 @@ class App(CTk.CTk):
         CTk.set_appearance_mode('dark')
         CTk.set_default_color_theme('green')
 
-        self.geometry(f'900x600')
+        self.geometry('900x600')
         self.title('SuperProgramm')
         self.resizable(False, False)
         self.main_frame()
@@ -58,7 +47,7 @@ class App(CTk.CTk):
         """ВЕРТИКАЛЬНЫЙ СПИСОК"""
         self.lis = CTkListbox.CTkListbox(master=self, font=('Helvetica Bold', 20), command=self.lists_com)
         self.lis.pack(side='left', fill='y')
-        for i in range(1, 12):
+        for i in range(1, 15):
             self.lis.insert('END', f'Лабораторная №{i}')
         
         """ВЫВОД ОПИСАНИЯ ЗАДАНИЯ"""
@@ -66,11 +55,11 @@ class App(CTk.CTk):
         self.task_frame.pack(side='top', fill='x')
         self.task_frame.pack_propagate(False)
 
-        self.task_desc = CTk.CTkTextbox(master=self.task_frame, height=150, fg_color='transparent', font=('Helvetica Bold', 24), text_color='ivory3', wrap='word')
+        self.task_desc = CTk.CTkTextbox(master=self.task_frame, height=150, fg_color='transparent', font=('Helvetica Bold', 24), text_color='ivory3', wrap='word', state='disabled')
         self.task_desc.pack(padx=(15, 15), side='top', fill='both', anchor='n', expand=True)
 
         """ВЫПАДАЮЩИЙ СПИСОК ЗАДАНИЙ"""
-        self.tasks_menu = CTk.CTkOptionMenu(master=self.task_frame, values=['Задание 1', 'Задание 2', 'Задание 3', 'Задание 4'], width=200, height=50, font=('Helvetica Bold', 25), dropdown_font=('Helvetica Bold', 18), state='disabled', command=self.lists_com)
+        self.tasks_menu = CTk.CTkOptionMenu(master=self.task_frame, values=[f'Задание {i + 1}' for i in range(4)], width=200, height=50, font=('Helvetica Bold', 25), dropdown_font=('Helvetica Bold', 18), state='disabled', command=self.lists_com)
         self.tasks_menu.pack(pady=(10, 10), padx=(0, 10), side='right', anchor='se')
 
         """КНОПКА ПОЛУЧЕНИЯ ДАННЫХ"""
@@ -81,7 +70,7 @@ class App(CTk.CTk):
         self.ans_frame.pack(side='bottom', anchor='s', fill='x')
         self.ans_frame.pack_propagate(False)
 
-        self.ans_label = CTk.CTkTextbox(master=self.ans_frame, height=150, fg_color='transparent', font=('Helvetica Bold', 24), text_color='ivory3', wrap='word')
+        self.ans_label = CTk.CTkTextbox(master=self.ans_frame, height=150, fg_color='transparent', font=('Helvetica Bold', 24), text_color='ivory3', wrap='word', state='disabled')
         self.ans_label.pack(padx=(15, 15), fill='both', anchor='center', expand=True)
 
         self.toplevel_window = None
@@ -95,7 +84,7 @@ class App(CTk.CTk):
         if self.a is not None:
             """ПОЛУЧЕНИЕ ТЕКУЩЕЙ ЛАБОРАТОРНОЙ И ЗАДАНИЯ"""
             self.lab_num = str(self.lis.curselection() + 1)
-            self.task_num = self.tasks_menu.get()[-1]
+            self.task_num =  str(self.tasks_menu.get()).split(' ')[1]
             self.ans_num = self.lab_num + self.task_num
             """RETURN ЛАБОРАТОРНОЙ"""
             self.ret = self.labors(self.lab_num)
@@ -122,6 +111,12 @@ class App(CTk.CTk):
         """ОЖИВЛЕНИЕ КНОПКИ И СПИСКА"""
         self.tasks_menu.configure(state='normal')
         self.button.configure(state='normal')
+        if (int(self.lis.curselection()) + 1) == 10: self.tasks_menu.configure(values=[f'Задание {i + 1}' for i in range(8)])
+        elif (int(self.lis.curselection()) + 1) == 11: self.tasks_menu.configure(values=[f'Задание {i + 1}' for i in range(5)])
+        elif (int(self.lis.curselection()) + 1) == 14: self.tasks_menu.configure(values=[f'Задание {i + 1}' for i in range(6)])
+        elif (int(self.lis.curselection()) + 1) == 13: self.tasks_menu.configure(values=[f'Задание {i + 1}' for i in range(13)])
+        elif (int(self.lis.curselection()) + 1) == 8 or (int(self.lis.curselection()) + 1) == 12: self.tasks_menu.configure(values=[f'Задание {i + 1}' for i in range(3)])
+        else: self.tasks_menu.configure(values=[f'Задание {i + 1}' for i in range(4)])
 
         """УДАЛЕНИЕ ОТВЕТА ПРОШЛОГО ЗАДАНИЯ"""
         self.ans_label.configure(state='normal')
@@ -131,14 +126,14 @@ class App(CTk.CTk):
 
         """ПОЛУЧЕНИЕ ДАННЫХ О ТЕКУЩЕЙ ЛАБОРАТОРНОЙ И ЗАДАНИИ"""
         self.lab_num = str(self.lis.curselection() + 1)
-        self.task_num = self.tasks_menu.get()[-1]
+        self.task_num = str(self.tasks_menu.get()).split(' ')[1]
 
         """ВЫВОД ОПИСАНИЯ ЗАДАНИЯ"""
         self.task_desc.configure(state='normal')
         if self.task_desc is not None:
             self.task_desc.delete("0.0", "end")
         self.task_pars = configparser.ConfigParser()
-        self.task_pars.read(r'~/IdeaProjects/DSTU/PythonLang/ProgrammingLanguages/tasks.ini', encoding="utf-8")
+        self.task_pars.read(r'tasks.ini', encoding="utf-8")
         self.task_desc.insert('0.0', self.task_pars.get('Tasks',  f'{self.lab_num + self.task_num}', fallback='Ещё не сделано =((').replace('"', ''))
         self.task_desc.configure(state='disabled')
 
@@ -146,7 +141,24 @@ class App(CTk.CTk):
         for widget in self.winfo_children():
             widget.destroy()
 
-    def exit(self): exit()
+    def exit(self):
+        self.toplevel_window = None
+        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+            self.toplevel_window = CTk.CTkToplevel()
+            self.toplevel_window.title('Изменения')
+            self.toplevel_window.geometry('300x200')
+            self.toplevel_window.resizable(False, False)
+            self.tplvl_label = CTk.CTkTextbox(master=self.toplevel_window, font=('Helvetica Bold', 22), fg_color='transparent', wrap='word', height=120)
+            self.tplvl_label.pack(fill='x')
+            self.tplvl_label.configure(state='normal')
+            self.tplvl_label.insert('0.0', '\nВы точно хотите выйти?')
+            self.tplvl_label.configure(state='disabled')
+            self.yes_but = CTk.CTkButton(master=self.toplevel_window, text='Да', width=100, command=self.yes)
+            self.yes_but.pack(side='left', anchor='sw', padx=(10, 10), pady=(0, 50))
+            self.no_but = CTk.CTkButton(master=self.toplevel_window, text='Нет', width=100, command=self.no)
+            self.no_but.pack(side='right', anchor='se', padx=(10, 10), pady=(0, 50))
+    def yes(self): exit()
+    def no(self): self.toplevel_window.destroy()
 
 
     """МЕТОД ОБРАЩЕНИЯ К ЛАБОРАТОРНЫМ"""
@@ -157,16 +169,18 @@ class App(CTk.CTk):
             self.ans_label.delete("0.0", "end")
         self.ans_label.configure(state='disabled')
         if num == '1': return laboratory1.main(self.task_num, mas=self.a)
-        # if num == '2': return laboratory2.main(self.task_num, mas=self.a)
-        # if num == '3': return laboratory3.main(self.task_num, mas=self.a)
+        if num == '2': return laboratory2.main(self.task_num, mas=self.a)
+        if num == '3': return laboratory3.main(self.task_num, mas=self.a)
         if num == '4': return laboratory4.main(self.task_num, mas=self.a)
         if num == '5': return laboratory5.main(self.task_num, mas=self.a)
+        if num == '7': return laboratory7.main(self.task_num, mas=self.a)
         if num == '8': return laboratory8.main(self.task_num, mas=self.a)
         if num == '9': return laboratory9.main(self.task_num, mas=self.a)
         if num == '10': return laboratory10.main(self.task_num, mas=self.a)
         if num == '11': return laboratory11.main(self.task_num, mas=self.a)
         if num == '12': return laboratory12.main(self.task_num, mas=self.a)
         if num == '13': return laboratory13.main(self.task_num, mas=self.a)
+        if num == '14': return laboratory14.main(self.task_num, mas=self.a)
 
 
 if __name__ == '__main__':
