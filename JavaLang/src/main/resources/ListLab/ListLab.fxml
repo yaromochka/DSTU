@@ -16,14 +16,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#C062D3, #4D2982); -fx-border-color: linear-gradient(#62247F, #B165D4); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#C062D3, #4D2982); -fx-border-color: linear-gradient(#62247F, #B165D4); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.ListLab">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7f1fff" height="331.0" layoutX="169.0" layoutY="48.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="388.0" />
-      <ChoiceBox layoutX="352.0" layoutY="57.0" prefHeight="39.0" prefWidth="182.0" />
-      <TextField layoutX="193.0" layoutY="265.0" prefHeight="39.0" prefWidth="341.0" />
-      <TextArea layoutX="193.0" layoutY="109.0" prefHeight="121.0" prefWidth="341.0" />
-      <Button layoutX="379.0" layoutY="317.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ОЧИСТИТЬ" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
+      <TextField fx:id="textField" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="265.0" prefHeight="39.0" prefWidth="341.0" />
+      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="109.0" prefHeight="121.0" prefWidth="341.0" />
+      <Button fx:id="clearButton" layoutX="379.0" layoutY="317.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ОЧИСТИТЬ" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
@@ -45,7 +43,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button layoutX="193.0" layoutY="317.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ВВЕСТИ" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
+      <Button fx:id="sendButton" layoutX="193.0" layoutY="317.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ВВЕСТИ" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
@@ -76,7 +74,7 @@
          <children>
             <VBox layoutX="19.0" prefHeight="331.0" prefWidth="149.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ЛР3" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
+                  <Button fx:id="laboratoryThirdButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ЛР3" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -98,7 +96,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ЛР3.1" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
+                  <Button fx:id="laboratoryThirdDotFirstButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ЛР3.1" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -120,7 +118,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ЛР4" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
+                  <Button fx:id="laboratoryFourthButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@../Menu/style.css" text="ЛР4" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -146,6 +144,7 @@
             </VBox>
          </children>
       </AnchorPane>
+      <ChoiceBox fx:id="choiceBox" layoutX="376.0" layoutY="57.0" prefHeight="39.0" prefWidth="158.0" style="-fx-background-color: #B165D9; -fx-background-radius: 15;" />
    </children>
    <effect>
       <InnerShadow choke="0.65" height="49.01" radius="35.4275" width="94.7">

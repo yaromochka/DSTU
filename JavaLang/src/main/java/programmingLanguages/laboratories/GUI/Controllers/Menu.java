@@ -6,7 +6,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import programmingLanguages.laboratories.GUI.Controllers.SceneController;
+
+import java.io.IOException;
 
 public class Menu {
     @FXML
@@ -20,8 +21,11 @@ public class Menu {
         laboratoryButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-                System.out.println("Hello World!");
+                try {
+                    SceneController.switchToLaboratories(mouseEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#C062D3, #4D2982); -fx-border-color: linear-gradient(#62247F, #B165D4); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#C062D3, #4D2982); -fx-border-color: linear-gradient(#62247F, #B165D4); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.Menu">
    <children>
       <Button fx:id="projectButton" layoutX="357.0" layoutY="196.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@style.css" text="ПРОЕКТ" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
          <font>
@@ -72,7 +72,7 @@
             <Image url="@pulp_fiction.gif" />
          </image>
       </ImageView>
-      <Button fx:id="laboratoryButton" layoutX="357.0" layoutY="100.0" mnemonicParsing="false" onAction="#switchToLaboratories" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@style.css" text="ЛР" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
+      <Button fx:id="laboratoryButton" layoutX="357.0" layoutY="100.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@style.css" text="ЛР" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
          <font>
             <Font size="26.0" />
          </font>
