@@ -6,8 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import programmingLanguages.laboratories.GUI.Buttons.ButtonMove;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -22,10 +25,11 @@ public class SceneController {
 
     @FXML
     public static void switchToLaboratories(MouseEvent mouseEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource("/ListLab/ListLab.fxml")));
-        stage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        ButtonMove.moveTo(mouseEvent, "/ListLab/ListLab.fxml");
+    }
+
+    @FXML
+    public static void switchToMenu(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/Menu/MainMenu.fxml");
     }
 }

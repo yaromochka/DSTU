@@ -1,8 +1,6 @@
 package programmingLanguages.laboratories.GUI.Controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -34,6 +32,9 @@ public class ListLab implements Initializable {
     private Button sendButton;
 
     @FXML
+    private static String numberOfLaboratory;
+
+    @FXML
     private ChoiceBox<String> choiceBox;
 
     @Override
@@ -45,7 +46,30 @@ public class ListLab implements Initializable {
 
         choiceBox.setItems(FXCollections.observableArrayList(arr));
         choiceBox.setValue("");
+
+        laboratoryThirdButton.setOnMouseClicked(event -> numberOfLaboratory = "3");
+        laboratoryThirdDotFirstButton.setOnMouseClicked(event -> numberOfLaboratory = "3.1");
+        laboratoryFourthButton.setOnMouseClicked(event -> numberOfLaboratory = "4");
+
+        sendButton.setOnMouseClicked(event -> {
+            var numberOfTask = choiceBox.getValue();
+            if (numberOfTask != null && numberOfLaboratory != null) {
+                numberOfTask = numberOfTask.replaceAll("[^0-9]", "");
+                System.out.println(numberOfTask + " " + numberOfLaboratory);
+            }
+        });
     }
+
+//    public void buttonName() {
+//        try {
+//            laboratoryThirdButton.setOnMouseClicked(event -> numberOfLaboratory = "3");
+//            laboratoryThirdDotFirstButton.setOnMouseClicked(event -> numberOfLaboratory = "3.1");
+//            laboratoryFourthButton.setOnMouseClicked(event -> numberOfLaboratory = "4");
+//        }
+//        catch (Exception ignored) {}
+//    }
+
+
 /*
     @FXML
     public void addInputToComboBox(ActionEvent event) {

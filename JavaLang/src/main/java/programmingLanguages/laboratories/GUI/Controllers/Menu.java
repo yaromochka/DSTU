@@ -18,14 +18,11 @@ public class Menu {
 
     @FXML
     public void initialize() {
-        laboratoryButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    SceneController.switchToLaboratories(mouseEvent);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        laboratoryButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                SceneController.switchToLaboratories(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
     }
