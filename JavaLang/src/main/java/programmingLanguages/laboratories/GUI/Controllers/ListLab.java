@@ -4,12 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import programmingLanguages.laboratories.GUI.LaboratoryControllers.ChooseLaboratory;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
+/* Декоратор (?) FXML используется для того, чтобы предъявить
+* доступ библиотеке JavaFX к переменным и методам
+* Иначе она просто не видит их и не может с ними взаимодействовать */
 public class ListLab implements Initializable {
     @FXML
     private TextField textField;
@@ -43,20 +48,48 @@ public class ListLab implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        /* Это будет удалено и переделано
+        * Логика получения количества заданий будет изменена
+        * Скорее всего будет подсчёт количества методов в классе лабораторных
+        * Только после этого ChoiceBox будет заполняться */
         ArrayList<String> arr = new ArrayList<>();
         for (int i = 1; i < 30; i++) {
             arr.add(String.format("Задание №%s", i));
         }
 
         choiceBox.setItems(FXCollections.observableArrayList(arr));
-        choiceBox.setValue("Выберите номер лабораторной");
+        choiceBox.setValue("Выберите номер ЛР");
 
-        laboratoryThirdButton.setOnMouseClicked(event -> numberOfLaboratory = "3");
-        laboratoryThirdDotFirstButton.setOnMouseClicked(event -> numberOfLaboratory = "3.1");
-        laboratoryFourthButton.setOnMouseClicked(event -> numberOfLaboratory = "4");
+        /* Костыльное получение данных о номере лабораторной
+        * При помощи глобальной переменной и трёх обработчиков событий
+        * (!) В планах заменить (!)
+        */
+        laboratoryThirdButton.setOnMouseClicked(event -> {
+            numberOfLaboratory = "3";
+            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+            textArea.setText(text);
+        });
+        laboratoryThirdDotFirstButton.setOnMouseClicked(event -> {
+            numberOfLaboratory = "3.1";
+            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+            textArea.setText(text);
+        });
+        laboratoryFourthButton.setOnMouseClicked(event -> {
+            numberOfLaboratory = "4";
+            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+            textArea.setText(text);
+        });
+
+        choiceBox.setOnAction(event -> {
+            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+            textArea.setText(text);
+        });
 
         clearButton.setOnMouseClicked(event -> textField.clear());
 
+
+        /* Кнопка "НАЗАД" */
         backButton.setOnMouseClicked(MouseEvent -> {
             try {
                 SceneController.switchToMenu(MouseEvent);
@@ -65,14 +98,26 @@ public class ListLab implements Initializable {
             }
         });
 
+        /* Очень большая функция, обрабатывающая кнопку "ОТПРАВИТЬ"
+        * По сути именно эта кнопка является основной в этом окне
+        * Именно она будет обрабатывать и запускать все лабораторные */
         sendButton.setOnMouseClicked(event -> {
+            /* Получение номера лабораторной и задания */
             var numberOfTask = choiceBox.getValue();
             var textToInput = textField.getText();
             if (numberOfTask != null && numberOfLaboratory != null && textToInput != null) {
                 numberOfTask = numberOfTask.replaceAll("[^0-9]", "");
                 textField.clear();
                 System.out.println(numberOfTask + " " + numberOfLaboratory + " " + textToInput);
+                /* Здесь должна быть сама реализация запуска лабораторной
+                * В планах:
+                * Полученные данные обрабатываются отдельным классом ChooseLaboratory,
+                * который в свою очередь запускает соответствующее задание и возвращает результат.
+                * После всех взаимодействий этот результат записывается в переменную и выводится
+                * В отдельном TextArea */
             }
+
+            /* Вызов окна ошибки при неверно введённых или невведённых данных*/
             else {
                 textField.clear();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

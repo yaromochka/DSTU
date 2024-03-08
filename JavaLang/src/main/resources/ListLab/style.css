@@ -12,10 +12,6 @@
     -fx-text-fill: white;
 }
 
-.button:active {
-    -fx-background-color: black;
-    -fx-text-fill: white;
-}
 
 .text {
     -fx-text-fill: purple

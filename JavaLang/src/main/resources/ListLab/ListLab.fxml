@@ -20,7 +20,10 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7f1fff" height="331.0" layoutX="169.0" layoutY="48.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="388.0" />
       <TextField fx:id="textField" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="265.0" prefHeight="39.0" prefWidth="341.0" />
-      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="109.0" prefHeight="121.0" prefWidth="341.0" />
+      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" editable="false" layoutX="193.0" layoutY="109.0" prefHeight="121.0" prefWidth="341.0" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></TextArea>
       <Button fx:id="clearButton" layoutX="379.0" layoutY="317.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="170.0" styleClass=".button" stylesheets="@style.css" text="ОЧИСТИТЬ" textAlignment="CENTER" textFill="#2c0630" wrapText="true">
          <font>
             <Font size="20.0" />
