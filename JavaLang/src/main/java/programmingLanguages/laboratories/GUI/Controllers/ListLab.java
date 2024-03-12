@@ -46,6 +46,9 @@ public class ListLab implements Initializable {
     @FXML
     private Button backButton;
 
+    @FXML
+    private TextArea textAreaAnswer;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -108,7 +111,8 @@ public class ListLab implements Initializable {
             if (numberOfTask != null && numberOfLaboratory != null && textToInput != null) {
                 numberOfTask = numberOfTask.replaceAll("[^0-9]", "");
                 textField.clear();
-                System.out.println(numberOfTask + " " + numberOfLaboratory + " " + textToInput);
+                textAreaAnswer.clear();
+                textAreaAnswer.setText(ChooseLaboratory.getLaboratoryAnswer(numberOfLaboratory, numberOfTask, textToInput));
                 /* Здесь должна быть сама реализация запуска лабораторной
                 * В планах:
                 * Полученные данные обрабатываются отдельным классом ChooseLaboratory,

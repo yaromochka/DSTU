@@ -1,8 +1,8 @@
 .button {
-    -fx-border-radius: 50;
-    -fx-border-color: black;
-    -fx-background-radius: 50;
-    -fx-background-color: #689AD3;
+    -fx-border-radius: 20;
+    -fx-border-color: #6b666e;
+    -fx-background-radius: 20;
+    -fx-background-color: #b2acb5;
     -fx-cursor: hand;
 }
 
@@ -12,6 +12,6 @@
     -fx-text-fill: white;
 }
 
-.text {
-    -fx-text-fill: purple
+.text-area {
+    -fx-text-fill: black;
 }
