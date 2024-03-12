@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-// 29 заданий
+// 18 заданий
 public class HelpClassThird {
     public static String pointOfStart(int numberOfTask, String arg) {
         switch (numberOfTask) {

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import programmingLanguages.laboratories.GUI.Buttons.ButtonMove;
 import programmingLanguages.laboratories.GUI.LaboratoryControllers.ChooseLaboratory;
 
 import java.io.IOException;
@@ -56,13 +57,7 @@ public class ListLab implements Initializable {
         * Логика получения количества заданий будет изменена
         * Скорее всего будет подсчёт количества методов в классе лабораторных
         * Только после этого ChoiceBox будет заполняться */
-        ArrayList<String> arr = new ArrayList<>();
-        for (int i = 1; i < 30; i++) {
-            arr.add(String.format("Задание №%s", i));
-        }
-
-        choiceBox.setItems(FXCollections.observableArrayList(arr));
-        choiceBox.setValue("Выберите номер ЛР");
+        // choiceBox.setValue("Выберите номер ЛР");
 
         /* Костыльное получение данных о номере лабораторной
         * При помощи глобальной переменной и трёх обработчиков событий
@@ -70,24 +65,35 @@ public class ListLab implements Initializable {
         */
         laboratoryThirdButton.setOnMouseClicked(event -> {
             numberOfLaboratory = "3";
-            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
-            textArea.setText(text);
+            choiceBoxFill(19);
+            if (choiceBox != null) {
+                var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+                textArea.setText(text);
+            }
         });
         laboratoryThirdDotFirstButton.setOnMouseClicked(event -> {
             numberOfLaboratory = "3.1";
-            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
-            textArea.setText(text);
+            choiceBoxFill(14);
+            if (choiceBox != null) {
+                var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+                textArea.setText(text);
+            }
         });
         laboratoryFourthButton.setOnMouseClicked(event -> {
             numberOfLaboratory = "4";
-            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
-            textArea.setText(text);
+            choiceBoxFill(40);
+            if (choiceBox != null) {
+                var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+                textArea.setText(text);
+            }
         });
 
-        choiceBox.setOnAction(event -> {
-            var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
-            textArea.setText(text);
-        });
+        if (choiceBox != null) {
+            choiceBox.setOnAction(event -> {
+                var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
+                textArea.setText(text);
+            });
+        }
 
         clearButton.setOnMouseClicked(event -> textField.clear());
 
@@ -132,5 +138,16 @@ public class ListLab implements Initializable {
                 alert.showAndWait();
             }
         });
+    }
+
+    @FXML
+    public void choiceBoxFill(int countOfTask) {
+        ArrayList<String> arr = new ArrayList<>();
+        for (int i = 1; i < countOfTask; i++) {
+            arr.add(String.format("Задание №%s", i));
+        }
+
+        choiceBox.setItems(FXCollections.observableArrayList(arr));
+        choiceBox.setValue("Выберите номер ЛР");
     }
 }
