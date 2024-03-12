@@ -2,9 +2,11 @@ package programmingLanguages.laboratories.thirdLaboratory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 // 29 заданий
 public class HelpClassThird {
@@ -52,15 +54,22 @@ public class HelpClassThird {
             case (14) -> {
                 return fourteenthQuestion(arg);
             }
-            case (15) -> fifteenthQuestion();
-            case (16) -> sixteenthQuestion();
-            case (17) -> seventeenthQuestion();
-            case (18) -> eighteenthQuestion();
+            case (15) -> {
+                return fifteenthQuestion(arg);
+            }
+            case (16) -> {
+                return sixteenthQuestion(arg);
+            }
+            case (17) -> {
+                return seventeenthQuestion(arg);
+            }
+            case (18) -> {
+                return eighteenthQuestion(arg);
+            }
             default -> {
                 return "Неверно введён номер задания";
             }
         }
-        return null;
     }
 
     /* 1.	Ввести n строк с консоли, найти самую короткую и самую длинную строки.
@@ -327,19 +336,67 @@ public class HelpClassThird {
         }
     }
 
-    private static void fifteenthQuestion() {
+    /* 15. Дана строка “Versions: Java  5, Java 6, Java
+    7, Java 8, Java 12.” Найти все подстроки "Java X" и распечатать их. */
+    private static String fifteenthQuestion(String line) {
 
+        // Versions: Java  5, Java 6, Java 7, Java 8, Java 12.
+
+        var pattern = Pattern.compile("Java \\d+");
+
+        var matcher = pattern.matcher(line);
+
+        var sb = new StringBuilder();
+
+        while (matcher.find()) {
+            sb.append(line.substring(matcher.start(), matcher.end()) + "\n");
+        }
+
+        return sb.toString();
     }
 
-    private static void sixteenthQuestion() {
+    /* 16.	Найти слово, в котором число различных символов минимально.
+    Слово может содержать буквы и цифры. Если таких слов несколько,
+    найти первое из них. Например, в строке "fffff ab f 1234 jkjk"
+    найденное слово должно быть "fffff". */
+    private static String sixteenthQuestion(String line) {
 
+        // Кажется, что уже было такое задание
+        // fffff ab f 1234 jkjk
+
+        var answer = Arrays.stream(line.split("\\s+")).min(Comparator.comparing(o -> o.chars().distinct().count()));
+        return String.format("Найденное слово: %s", answer);
     }
 
-    private static void seventeenthQuestion() {
+    /* 17. Предложение состоит из нескольких слов,
+     разделенных пробелами. Например: "One two three раз два три one1 two2 123".
+     Найти количество слов, содержащих только символы латинского алфавита. */
+    private static String seventeenthQuestion(String line) {
 
+        // One two three раз два три one1 two2 123 -> 3
+
+        var answer = Arrays.stream(line.split("\\s+"))
+                .filter(word -> word.matches("[A-Za-z]+"))
+                .count();
+
+        return String.format("Количество слов: %s", answer);
     }
 
-    private static void eighteenthQuestion() {
+    /* 1.	Предложение состоит из нескольких слов, например:
+    "Если есть хвосты по дз, начните с 1 не сданного задания. 123 324 111 4554".
+     Среди слов, состоящих только из цифр, найти слово палиндром. */
+    private static String eighteenthQuestion(String line) {
 
+        // Если есть хвосты по дз, начните с 1 не сданного задания. 123 324 111 4554
+
+        var answer = Arrays.stream(line.split("\\s+"))
+                .filter(word -> word.matches("[0-9]+"))
+                .filter(word -> {
+                    var reversedLine = new StringBuilder(word).reverse().toString();
+                    return word.equals(reversedLine);
+                })
+                .collect(Collectors.joining("\n"));
+
+        return String.format("Найденные слова-палиндромы: %s\n", answer);
     }
 }
