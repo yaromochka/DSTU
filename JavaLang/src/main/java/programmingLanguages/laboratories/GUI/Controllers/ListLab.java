@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import programmingLanguages.laboratories.GUI.Buttons.ButtonMove;
 import programmingLanguages.laboratories.GUI.LaboratoryControllers.ChooseLaboratory;
 
 import java.io.IOException;
@@ -59,6 +58,7 @@ public class ListLab implements Initializable {
         * Только после этого ChoiceBox будет заполняться */
         // choiceBox.setValue("Выберите номер ЛР");
 
+
         /* Костыльное получение данных о номере лабораторной
         * При помощи глобальной переменной и трёх обработчиков событий
         * (!) В планах заменить (!)
@@ -66,13 +66,20 @@ public class ListLab implements Initializable {
         laboratoryThirdButton.setOnMouseClicked(event -> {
             numberOfLaboratory = "3";
             choiceBoxFill(19);
+            laboratoryThirdButton.setStyle("-fx-background-color: black; -fx-text-fill: white");
+            laboratoryThirdDotFirstButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
+            laboratoryFourthButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
             if (choiceBox != null) {
                 var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
                 textArea.setText(text);
             }
         });
+
         laboratoryThirdDotFirstButton.setOnMouseClicked(event -> {
             numberOfLaboratory = "3.1";
+            laboratoryThirdDotFirstButton.setStyle("-fx-background-color: black; -fx-text-fill: white");
+            laboratoryThirdButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
+            laboratoryFourthButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
             choiceBoxFill(14);
             if (choiceBox != null) {
                 var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
@@ -81,6 +88,9 @@ public class ListLab implements Initializable {
         });
         laboratoryFourthButton.setOnMouseClicked(event -> {
             numberOfLaboratory = "4";
+            laboratoryFourthButton.setStyle("-fx-background-color: black; -fx-text-fill: white");
+            laboratoryThirdButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
+            laboratoryThirdDotFirstButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
             choiceBoxFill(40);
             if (choiceBox != null) {
                 var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));

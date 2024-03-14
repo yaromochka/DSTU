@@ -16,6 +16,7 @@ public class Main extends Application {
         Parent windowFXML = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Menu/MainMenu.fxml")));
         var scene = new Scene(windowFXML);
 
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

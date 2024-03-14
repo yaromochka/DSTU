@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Light.Distant?>
@@ -22,9 +23,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.ListLab">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#423554" height="331.0" layoutX="169.0" layoutY="48.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="388.0" />
-      <TextField fx:id="textField" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="223.0" prefHeight="38.0" prefWidth="341.0" stylesheets="@style.css" />
-      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" editable="false" layoutX="193.0" layoutY="93.0" prefHeight="121.0" prefWidth="341.0" stylesheets="@style.css" wrapText="true">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#cdc8d3" focusTraversable="true" height="331.0" layoutX="169.0" layoutY="48.0" smooth="false" stroke="#08070782" strokeType="INSIDE" width="388.0">
+         <effect>
+            <GaussianBlur />
+         </effect></Rectangle>
+      <TextField fx:id="textField" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="223.0" prefHeight="38.0" prefWidth="341.0" promptText="Введите данные" stylesheets="@style.css" />
+      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" depthTest="DISABLE" editable="false" layoutX="193.0" layoutY="93.0" prefHeight="121.0" prefWidth="341.0" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -149,7 +153,7 @@
          <effect>
             <ColorAdjust />
          </effect></ChoiceBox>
-      <Button fx:id="backButton" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@style.css" text="Назад" />
+      <Button fx:id="backButton" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" opacity="0.87" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@style.css" text="Назад" />
       <TextArea fx:id="textAreaAnswer" blendMode="SOFT_LIGHT" editable="false" layoutX="193.0" layoutY="268.0" prefHeight="53.0" prefWidth="341.0" stylesheets="@style.css" wrapText="true">
          <font>
             <Font size="18.0" />
