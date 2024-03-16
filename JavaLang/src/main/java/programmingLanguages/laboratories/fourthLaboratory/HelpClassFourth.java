@@ -4,7 +4,7 @@ public class HelpClassFourth {
     public static String pointOfStart(int numberOfTask, String arg) {
         switch (numberOfTask) {
             case (1) -> {
-                return firstQuestion((String) arg);
+                return firstQuestion(arg);
             }
             case (2) -> secondQuestion();
             case (3) -> thirdQuestion();
