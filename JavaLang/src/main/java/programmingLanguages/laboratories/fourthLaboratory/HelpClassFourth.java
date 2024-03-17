@@ -4,9 +4,11 @@ public class HelpClassFourth {
     public static String pointOfStart(int numberOfTask, String arg) {
         switch (numberOfTask) {
             case (1) -> {
-                return firstQuestion(arg);
+                return firstQuestion();
             }
-            case (2) -> secondQuestion();
+            case (2) -> {
+                return secondQuestion();
+            }
             case (3) -> thirdQuestion();
             case (4) -> fourthQuestion();
             case (5) -> fifthQuestion();
@@ -40,15 +42,26 @@ public class HelpClassFourth {
         }
         return null;
     }
+    static SingleLinkedList LinkedList = new SingleLinkedList();
 
-    /* 1.	Ввести n строк с консоли, найти самую короткую и самую длинную строки.
-    Вывести найденные строки и их длину. */
-    private static String firstQuestion(String line) {
-        return "Hello World!";
+    /* 1. Инициализация списка */
+    private static String firstQuestion() {
+        SingleLinkedList LinkedList = new SingleLinkedList();
+        return "Односвязный список успешно инициализирован";
     }
 
-    private static void secondQuestion() {
+    private static String secondQuestion() {
+        SingleLinkedList LinkedList = new SingleLinkedList();
+        LinkedList.add(10);
+        LinkedList.add(20);
+        LinkedList.add(22);
+        LinkedList.add(10);
+        LinkedList.add(15);
+        LinkedList.add(13);
+        LinkedList.add(10);
+        LinkedList.reversed();
 
+        return LinkedList.toString();
     }
 
     private static void thirdQuestion() {
