@@ -26,7 +26,7 @@ public class SingleLinkedList {
     }
 
     // Добавление элемента data в конец списка
-    public void add(int data) {
+    public void addLast(int data) {
         Node newNode = new Node(data);
         Node currentNode = this.head;
 
@@ -97,7 +97,7 @@ public class SingleLinkedList {
     }
 
     // Удаление первого элемента
-    public void delFirst() {
+    public void removeFirst() {
         Node currentNode = this.head;
 
         this.head = currentNode.next;
@@ -107,7 +107,7 @@ public class SingleLinkedList {
     }
 
     // Удаление последнего элемента
-    public void delLast() {
+    public void removeLast() {
         Node currentNode = this.head;
         Node previousNode = null;
 
@@ -172,7 +172,7 @@ public class SingleLinkedList {
     }
 
     // Удаление ОДНОГО элемента списка с данным значением
-    public void removeFirst(int data) {
+    public void removeAt(int data) {
         Node currentNode = this.head;
         Node previousNode = null;
         while (currentNode.next != null) {
@@ -199,7 +199,6 @@ public class SingleLinkedList {
             currentNode = currentNode.next;
         }
 
-        this.size = 0;
     }
 
     // Определение, является ли список симметричным.
@@ -266,7 +265,7 @@ public class SingleLinkedList {
         for (var i = 0; i < this.size; i++) {
             if (distinctSet.contains(currentNode.data)) {
                 previousNode.next = currentNode.next;
-
+                this.size--;
             }
 
             distinctSet.add(currentNode.data);
@@ -295,5 +294,10 @@ public class SingleLinkedList {
     // Сортировка элементов списка двумя способами (изменение указателей, изменение значений элементов)
     public void pointerSort() {}
 
-    public void dataSort() {}
+    public void dataSort() {
+        Node currentNode = this.head;
+        Node previousNode = null;
+
+
+    }
 }

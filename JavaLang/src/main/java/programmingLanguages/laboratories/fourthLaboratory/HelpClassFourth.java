@@ -9,7 +9,9 @@ public class HelpClassFourth {
             case (2) -> {
                 return secondQuestion();
             }
-            case (3) -> thirdQuestion();
+            case (3) -> {
+                return thirdQuestion();
+            }
             case (4) -> fourthQuestion();
             case (5) -> fifthQuestion();
             case (6) -> sixthQuestion();
@@ -52,20 +54,30 @@ public class HelpClassFourth {
 
     private static String secondQuestion() {
         SingleLinkedList LinkedList = new SingleLinkedList();
-        LinkedList.add(10);
-        LinkedList.add(20);
-        LinkedList.add(22);
-        LinkedList.add(10);
-        LinkedList.add(15);
-        LinkedList.add(13);
-        LinkedList.add(10);
+        LinkedList.addFirst(10);
+        LinkedList.addFirst(20);
+        LinkedList.addFirst(22);
+        LinkedList.addFirst(10);
+        LinkedList.addFirst(15);
+        LinkedList.addFirst(13);
+        LinkedList.addFirst(10);
         LinkedList.reversed();
 
         return LinkedList.toString();
     }
 
-    private static void thirdQuestion() {
+    private static String thirdQuestion() {
+        DoubleLinkedList LinkedList = new DoubleLinkedList();
+        LinkedList.addLast(10);
+        LinkedList.addLast(20);
+        LinkedList.addLast(22);
+//        LinkedList.add(10);
+//        LinkedList.add(15);
+//        LinkedList.add(13);
+//        LinkedList.add(10);
+//        LinkedList.reversed();
 
+        return LinkedList.toString();
     }
 
     private static void fourthQuestion() {
