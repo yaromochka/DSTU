@@ -1,36 +1,74 @@
 package programmingLanguages.laboratories.fourthLaboratory;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public class SingleLinkedList {
-    private Node head;
-    private int size;
+import java.util.*;
+import java.util.function.Consumer;
+
+public class SingleLinkedList<T extends Comparable<T>> implements Iterable<T>  {
+    protected Node<T> head;
+    protected int size;
 
     // Конструктор класса
     public SingleLinkedList() {
         this.head = null;
+        this.size = 0;
+    }
+
+    @Override
+    public @NotNull Iterator<T> iterator() {
+        return new Iterator<>() {
+            private Node<T> node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public T next() {
+                T value = node.data;
+                node = node.next;
+                return value;
+            }
+        };
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return Iterable.super.spliterator();
     }
 
     // Класс каждой вершины
-    public class Node {
-        public int data;
-        public Node next;
+    public static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+        public T data;
+        public Node<T> next;
 
-        public Node(int data) {
+        public Node(T data) {
             this.data = data;
-            next = null;
+            this.next = null;
+        }
+
+
+        @Override
+        public int compareTo(Node<T> o) {
+            return this.data.compareTo(o.data);
         }
     }
 
     // Добавление элемента data в конец списка
-    public void addLast(int data) {
-        Node newNode = new Node(data);
-        Node currentNode = this.head;
+    @SuppressWarnings("unused")
+    public void addLast(T data) {
+        Node<T> newNode = new Node<>(data);
+        Node<T> currentNode = this.head;
 
-        if (head == null) head = newNode;
+        if (head == null) this.head = newNode;
         else {
             while (currentNode.next != null) currentNode = currentNode.next;
             currentNode.next = newNode;
@@ -39,13 +77,14 @@ public class SingleLinkedList {
     }
 
     // Удаление ВСЕХ элементов со значением data
-    public void remove(int data) {
-        Node currentNode = this.head;
-        Node previousNode = null;
+    @SuppressWarnings("unused")
+    public void remove(T data) {
+        Node<T> currentNode = this.head;
+        Node<T> previousNode = null;
 
         while (currentNode.next != null) {
 
-            if (currentNode.data == data) {
+            if (currentNode.data.equals(data)) {
                 if (currentNode == head) this.head = currentNode.next;
                 else previousNode.next = currentNode.next;
             }
@@ -57,48 +96,51 @@ public class SingleLinkedList {
     }
 
     // Определение количества элементов
+    @SuppressWarnings("unused")
     public int size() {
         return this.size;
     }
 
     // Добавление элемента на первое место (вместо головы)
-    public void addFirst(int data) {
-        Node newNode = new Node(data);
+    @SuppressWarnings("unused")
+    public void addFirst(T data) {
+        Node<T> newNode = new Node<>(data);
 
-        if (head == null) this.head = newNode;
-        else {
-            newNode.next = this.head;
-            this.head = newNode;
-        }
+        newNode.next = this.head;
+        this.head = newNode;
 
         this.size++;
     }
 
     // Удаление всех элементов (списку больше не на что ссылаться)
+    @SuppressWarnings("unused")
     public void clear() {
         this.head = null;
         this.size = 0;
     }
 
     // Перевод списка в строку с помощью StringBuilder
+    @SuppressWarnings("unused")
     public String toString() {
-        var curr = head;
-        StringBuilder str = new StringBuilder();
-        while (curr != null) {
-            str.append(curr.data).append(" ");
-            curr = curr.next;
+        Node<T> currentNode = this.head;
+        var str = new StringBuilder();
+        while (currentNode != null) {
+            str.append(currentNode.data).append(" ");
+            currentNode = currentNode.next;
         }
         return str.toString();
     }
 
     // Проверка списка на пустоту
+    @SuppressWarnings("unused")
     public boolean isEmpty() {
         return this.size == 0;
     }
 
     // Удаление первого элемента
+    @SuppressWarnings("unused")
     public void removeFirst() {
-        Node currentNode = this.head;
+        Node<T> currentNode = this.head;
 
         this.head = currentNode.next;
 
@@ -107,9 +149,10 @@ public class SingleLinkedList {
     }
 
     // Удаление последнего элемента
+    @SuppressWarnings("unused")
     public void removeLast() {
-        Node currentNode = this.head;
-        Node previousNode = null;
+        Node<T> currentNode = this.head;
+        Node<T> previousNode = null;
 
         // 15 12 118 19
         if (this.head != null) {
@@ -126,13 +169,14 @@ public class SingleLinkedList {
     }
 
     // Поиск данного значения
-    public int indexOf(int data) {
-        Node currentNode = this.head;
+    @SuppressWarnings("unused")
+    public int indexOf(T data) {
+        Node<T> currentNode = this.head;
 
         var counter = 0;
 
         while (currentNode.next != null) {
-            if (currentNode.data == data) return counter;
+            if (currentNode.data.equals(data)) return counter;
             else counter++;
 
             currentNode = currentNode.next;
@@ -142,42 +186,45 @@ public class SingleLinkedList {
     }
 
     // Поиск наименьшего значения в списке
-    public int min() {
+    @SuppressWarnings("unused")
+    public T min() {
+        Node<T> currentNode = this.head;
+        Node<T> minNode = this.head;
+
         if (this.size != 0) {
-            Node currentNode = this.head;
-            Node minNode = this.head;
 
             while (currentNode.next != null) {
-                if (currentNode.data < minNode.data) minNode.data = currentNode.data;
+                if (currentNode.compareTo(minNode) < 0) minNode.data = currentNode.data;
                 currentNode = currentNode.next;
             }
-            return minNode.data;
         }
-        return -1;
+        return minNode.data;
     }
 
     // Поиск наибольшего значения в списке
-    public int max() {
+    @SuppressWarnings("unused")
+    public T max() {
+        Node<T> currentNode = this.head;
+        Node<T> maxNode = this.head;
+
         if (this.size != 0) {
-            Node currentNode = this.head;
-            Node maxNode = this.head;
 
             while (currentNode.next != null) {
-                if (currentNode.data > maxNode.data) maxNode.data = currentNode.data;
+                if (currentNode.compareTo(maxNode) < 0) maxNode.data = currentNode.data;
                 currentNode = currentNode.next;
             }
-            return maxNode.data;
         }
-        return -1;
+        return maxNode.data;
     }
 
     // Удаление ОДНОГО элемента списка с данным значением
-    public void removeAt(int data) {
-        Node currentNode = this.head;
-        Node previousNode = null;
+    @SuppressWarnings("unused")
+    public void removeAt(T data) {
+        Node<T> currentNode = this.head;
+        Node<T> previousNode = null;
         while (currentNode.next != null) {
 
-            if (currentNode.data == data) {
+            if (currentNode.data.equals(data)) {
                 if (currentNode == head) this.head = currentNode.next;
                 else previousNode.next = currentNode.next;
                 break;
@@ -190,11 +237,12 @@ public class SingleLinkedList {
     }
 
     // Изменение всех элементов списка с данным значением на новое.
-    public void replaceAll(int oldData, int newData) {
-        Node currentNode = this.head;
+    @SuppressWarnings("unused")
+    public void replaceAll(T oldData, T newData) {
+        Node<T> currentNode = this.head;
 
         while (currentNode.next != null) {
-            if (currentNode.data == oldData) currentNode.data = newData;
+            if (currentNode.data.equals(oldData)) currentNode.data = newData;
 
             currentNode = currentNode.next;
         }
@@ -202,12 +250,13 @@ public class SingleLinkedList {
     }
 
     // Определение, является ли список симметричным.
+    @SuppressWarnings("unused")
     public boolean isSymmetric() {
 
         if (this.head == null) return true; // Пустой список является симметричным
 
-        Node currentNode = this.head;
-        List<Integer> elements = new ArrayList<>();
+        Node<T> currentNode = this.head;
+        var elements = new ArrayList<>();
         // Пройти по всему списку и добавить элементы в массив
         while (currentNode != null) {
             elements.add(currentNode.data);
@@ -215,9 +264,9 @@ public class SingleLinkedList {
         }
 
         // Сравнить элементы списка с элементами массива, начиная с конца
-        currentNode = head;
+        currentNode = this.head;
         for (int i = elements.size() - 1; i >= 0; i--) {
-            if (!(currentNode.data == elements.get(i))) {
+            if (!(currentNode.data.equals(elements.get(i)))) {
                 return false; // Несимметричный элемент
             }
             currentNode = currentNode.next;
@@ -228,12 +277,13 @@ public class SingleLinkedList {
 
     // Определение, можно ли удалить из списка каких-нибудь два
     // элемента так, чтобы новый список оказался упорядоченным.
+    @SuppressWarnings("unused")
     public boolean deleteTwoElementToOrdinary() {
-        Node currentNode = this.head;
+        Node<T> currentNode = this.head;
         var counter = 0;
 
         while (currentNode.next != null) {
-            if (currentNode.data >= currentNode.next.data) {
+            if (currentNode.data.compareTo(currentNode.next.data) > 0) {
                 counter++;
             }
             currentNode = currentNode.next;
@@ -243,9 +293,10 @@ public class SingleLinkedList {
     }
 
     // Определение, сколько различных значений содержится в списке.
+    @SuppressWarnings("unused")
     public int distinctCount() {
-        Node currentNode = this.head;
-        var distinctSet = new HashSet<Integer>();
+        Node<T> currentNode = this.head;
+        var distinctSet = new HashSet<>();
 
         while (currentNode.next != null) {
             distinctSet.add(currentNode.data);
@@ -257,10 +308,11 @@ public class SingleLinkedList {
     }
 
     // Удаление из списка элементов, значения которых уже встречались в предыдущих элементах.
+    @SuppressWarnings("unused")
     public void removeDistinct() {
-        Node currentNode = this.head;
-        Node previousNode = null;
-        var distinctSet = new HashSet<Integer>();
+        Node<T> currentNode = this.head;
+        Node<T> previousNode = null;
+        var distinctSet = new HashSet<>();
 
         for (var i = 0; i < this.size; i++) {
             if (distinctSet.contains(currentNode.data)) {
@@ -276,12 +328,13 @@ public class SingleLinkedList {
     }
 
     // Изменение порядка элементов на обратный.
+    @SuppressWarnings("unused")
     public void reversed() {
-        Node currentNode = this.head;
-        Node previousNode = null;
+        Node<T> currentNode = this.head;
+        Node<T> previousNode = null;
 
         while (currentNode != null) {
-            Node temporaryNode = currentNode.next;
+            Node<T> temporaryNode = currentNode.next;
             currentNode.next = previousNode;
 
             previousNode = currentNode;
@@ -292,11 +345,13 @@ public class SingleLinkedList {
     }
 
     // Сортировка элементов списка двумя способами (изменение указателей, изменение значений элементов)
+    @SuppressWarnings("unused")
     public void pointerSort() {}
 
+    @SuppressWarnings("unused")
     public void dataSort() {
-        Node currentNode = this.head;
-        Node previousNode = null;
+        Node<T> currentNode = this.head;
+        Node<T> previousNode = null;
 
 
     }

@@ -1,13 +1,12 @@
 package programmingLanguages.laboratories.fourthLaboratory;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class DoubleLinkedList extends SingleLinkedList {
+public class DoubleLinkedList<T extends Comparable<T>> extends SingleLinkedList<T> implements Iterable<T> {
 
-    private Node head;
-    private Node tail;
-    private int size;
+    protected Node<T> head;
+    protected Node<T> tail;
+    protected int size;
+
 
     // Конструктор класса двусвязного списка
     public DoubleLinkedList() {
@@ -16,42 +15,56 @@ public class DoubleLinkedList extends SingleLinkedList {
     }
 
     // Класс каждой вершины
-    public class Node {
-        public int data;
-        public DoubleLinkedList.Node next;
-        public DoubleLinkedList.Node previous;
+    public static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+        public T data;
+        public Node<T> next;
+        public Node<T> previous;
 
-        public Node(int data) {
+        public Node(T data) {
             this.data = data;
             next = null;
             previous = null;
+        }
+
+        @Override
+        public int compareTo(Node<T> o) {
+            return this.data.compareTo(o.data);
         }
     }
 
     @Override
     // Добавление элемента в начало списка
-    public void addFirst(int data) {
-        Node newNode = new Node(data);
+    public void addFirst(T data) {
+        Node<T> newNode = new Node<>(data);
 
         if (isEmpty()) this.tail = newNode;
         else head.previous = newNode;
 
-        newNode.next = head;
-        head = newNode;
+        newNode.next = this.head;
+        this.head = newNode;
 
         this.size++;
     }
 
+    public void print() {
+        Node<T> currentNode = this.head;
+
+        for (var i = 0; i < this.size; i++) {
+            System.out.println(currentNode.data);
+            currentNode = currentNode.next;
+        }
+    }
+
     @Override
     // Добавление элемента в конец списка
-    public void addLast(int data) {
-        Node newNode = new Node(data);
+    public void addLast(T data) {
+        Node<T> newNode = new Node<>(data);
 
         if (isEmpty()) this.head = newNode;
-        else tail.next = newNode;
+        else this.tail.next = newNode;
 
-        newNode.previous = tail;
-        tail = newNode;
+        newNode.previous = this.tail;
+        this.tail = newNode;
 
         this.size++;
     }
@@ -62,6 +75,7 @@ public class DoubleLinkedList extends SingleLinkedList {
         if (this.head == null) this.tail = null;
         else this.head.next.previous = null;
 
+        assert this.head != null;
         this.head = this.head.next;
 
         this.size--;
@@ -73,6 +87,7 @@ public class DoubleLinkedList extends SingleLinkedList {
         if (this.head == null) this.tail = null;
         else this.tail.previous.next = null;
 
+        assert tail != null;
         this.tail = tail.previous;
 
         this.size--;
@@ -87,11 +102,11 @@ public class DoubleLinkedList extends SingleLinkedList {
 
     @Override
     // Удаление элемента списка с данным значением
-    public void removeAt(int data) {
-        Node currentNode = this.head;
+    public void removeAt(T data) {
+        Node<T> currentNode = this.head;
 
         while (currentNode.next != null) {
-            if (currentNode.data == data) {
+            if (currentNode.data.equals(data)) {
                 currentNode.previous = currentNode.next;
                 break;
             }
@@ -104,15 +119,29 @@ public class DoubleLinkedList extends SingleLinkedList {
 
     @Override
     // Удаление ВСЕХ элементов списка с данным значением
-    public void remove(int data) {
-        Node currentNode = this.head;
+    public void remove(T data) {
+        Node<T> currentNode = this.head;
 
         while (currentNode.next != null) {
-            if (currentNode.data == data) {
+            if (currentNode.data.equals(data)) {
                 currentNode.previous = currentNode.next;
                 this.size--;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        Node<T> currentNode = this.head;
+
+        var str = new StringBuilder();
+        for (var i = 0; i < this.size; i++) {
+            str.append(currentNode.data).append(" ");
+
+            currentNode = currentNode.next;
+        }
+
+        return str.toString();
     }
 
 }

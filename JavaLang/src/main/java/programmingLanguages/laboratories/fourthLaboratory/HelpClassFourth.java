@@ -44,16 +44,15 @@ public class HelpClassFourth {
         }
         return null;
     }
-    static SingleLinkedList LinkedList = new SingleLinkedList();
 
     /* 1. Инициализация списка */
     private static String firstQuestion() {
-        SingleLinkedList LinkedList = new SingleLinkedList();
+        var LinkedList = new SingleLinkedList<>();
         return "Односвязный список успешно инициализирован";
     }
 
     private static String secondQuestion() {
-        SingleLinkedList LinkedList = new SingleLinkedList();
+        var LinkedList = new SingleLinkedList<Integer>();
         LinkedList.addFirst(10);
         LinkedList.addFirst(20);
         LinkedList.addFirst(22);
@@ -67,15 +66,15 @@ public class HelpClassFourth {
     }
 
     private static String thirdQuestion() {
-        DoubleLinkedList LinkedList = new DoubleLinkedList();
-        LinkedList.addLast(10);
-        LinkedList.addLast(20);
-        LinkedList.addLast(22);
-//        LinkedList.add(10);
-//        LinkedList.add(15);
-//        LinkedList.add(13);
-//        LinkedList.add(10);
-//        LinkedList.reversed();
+        var LinkedList = new DoubleLinkedList<Integer>();
+        LinkedList.addFirst(10);
+        LinkedList.addFirst(20);
+        LinkedList.addFirst(22);
+        LinkedList.addFirst(10);
+        LinkedList.addFirst(15);
+        LinkedList.addFirst(13);
+        LinkedList.addFirst(10);
+        LinkedList.reversed();
 
         return LinkedList.toString();
     }
