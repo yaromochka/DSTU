@@ -74,7 +74,7 @@ public class HelpClassFourth {
         LinkedList.addFirst(15);
         LinkedList.addFirst(13);
         LinkedList.addFirst(10);
-        LinkedList.reversed();
+        LinkedList.dataSort();
 
         return LinkedList.toString();
     }

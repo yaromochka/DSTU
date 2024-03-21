@@ -336,5 +336,35 @@ public class SingleLinkedList<T extends Comparable<T>>  {
     }
 
     @SuppressWarnings("unused")
-    public void dataSort() {}
+    public void dataSort() {
+        boolean swapped;
+        Node<T> currentNode;
+
+        if (head == null) {
+            return;
+        }
+
+        do {
+            swapped = false;
+            currentNode = this.head;
+
+            while (currentNode.next != null) {
+
+                if (currentNode.data.compareTo(currentNode.next.data) > 0) {
+                    swap(currentNode, currentNode.next);
+                    swapped = true;
+                }
+
+                currentNode = currentNode.next;
+
+            }
+
+        } while (swapped);
+    }
+
+    private void swap(Node<T> ptr1, Node<T> ptr2) {
+        T temporary = ptr2.data;
+        ptr2.data = ptr1.data;
+        ptr1.data = temporary;
+    }
 }
