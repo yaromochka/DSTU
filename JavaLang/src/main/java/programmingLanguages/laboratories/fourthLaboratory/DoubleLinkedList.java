@@ -1,11 +1,8 @@
 package programmingLanguages.laboratories.fourthLaboratory;
 
 
-public class DoubleLinkedList<T extends Comparable<T>> extends SingleLinkedList<T> implements Iterable<T> {
-
-    protected Node<T> head;
-    protected Node<T> tail;
-    protected int size;
+public class DoubleLinkedList<T extends Comparable<T>> extends SingleLinkedList<T> {
+      protected Node<T> tail;
 
 
     // Конструктор класса двусвязного списка
@@ -15,27 +12,11 @@ public class DoubleLinkedList<T extends Comparable<T>> extends SingleLinkedList<
     }
 
     // Класс каждой вершины
-    public static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
-        public T data;
-        public Node<T> next;
-        public Node<T> previous;
-
-        public Node(T data) {
-            this.data = data;
-            next = null;
-            previous = null;
-        }
-
-        @Override
-        public int compareTo(Node<T> o) {
-            return this.data.compareTo(o.data);
-        }
-    }
 
     @Override
     // Добавление элемента в начало списка
     public void addFirst(T data) {
-        Node<T> newNode = new Node<>(data);
+        Node<T> newNode = new Node<>(null, data, null);
 
         if (isEmpty()) this.tail = newNode;
         else head.previous = newNode;
@@ -46,19 +27,11 @@ public class DoubleLinkedList<T extends Comparable<T>> extends SingleLinkedList<
         this.size++;
     }
 
-    public void print() {
-        Node<T> currentNode = this.head;
-
-        for (var i = 0; i < this.size; i++) {
-            System.out.println(currentNode.data);
-            currentNode = currentNode.next;
-        }
-    }
 
     @Override
     // Добавление элемента в конец списка
     public void addLast(T data) {
-        Node<T> newNode = new Node<>(data);
+        Node<T> newNode = new Node<>(null, data, null);
 
         if (isEmpty()) this.head = newNode;
         else this.tail.next = newNode;
@@ -129,19 +102,4 @@ public class DoubleLinkedList<T extends Comparable<T>> extends SingleLinkedList<
             }
         }
     }
-
-    @Override
-    public String toString() {
-        Node<T> currentNode = this.head;
-
-        var str = new StringBuilder();
-        for (var i = 0; i < this.size; i++) {
-            str.append(currentNode.data).append(" ");
-
-            currentNode = currentNode.next;
-        }
-
-        return str.toString();
-    }
-
 }

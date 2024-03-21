@@ -4,9 +4,8 @@ package programmingLanguages.laboratories.fourthLaboratory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.function.Consumer;
 
-public class SingleLinkedList<T extends Comparable<T>> implements Iterable<T>  {
+public class SingleLinkedList<T extends Comparable<T>>  {
     protected Node<T> head;
     protected int size;
 
@@ -16,56 +15,10 @@ public class SingleLinkedList<T extends Comparable<T>> implements Iterable<T>  {
         this.size = 0;
     }
 
-    @Override
-    public @NotNull Iterator<T> iterator() {
-        return new Iterator<>() {
-            private Node<T> node = head;
-
-            @Override
-            public boolean hasNext() {
-                return node != null;
-            }
-
-            @Override
-            public T next() {
-                T value = node.data;
-                node = node.next;
-                return value;
-            }
-        };
-    }
-
-    @Override
-    public void forEach(Consumer<? super T> action) {
-        Iterable.super.forEach(action);
-    }
-
-    @Override
-    public Spliterator<T> spliterator() {
-        return Iterable.super.spliterator();
-    }
-
-    // Класс каждой вершины
-    public static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
-        public T data;
-        public Node<T> next;
-
-        public Node(T data) {
-            this.data = data;
-            this.next = null;
-        }
-
-
-        @Override
-        public int compareTo(Node<T> o) {
-            return this.data.compareTo(o.data);
-        }
-    }
-
     // Добавление элемента data в конец списка
     @SuppressWarnings("unused")
     public void addLast(T data) {
-        Node<T> newNode = new Node<>(data);
+        Node<T> newNode = new Node<>(data, null);
         Node<T> currentNode = this.head;
 
         if (head == null) this.head = newNode;
@@ -104,7 +57,7 @@ public class SingleLinkedList<T extends Comparable<T>> implements Iterable<T>  {
     // Добавление элемента на первое место (вместо головы)
     @SuppressWarnings("unused")
     public void addFirst(T data) {
-        Node<T> newNode = new Node<>(data);
+        Node<T> newNode = new Node<>(data, null);
 
         newNode.next = this.head;
         this.head = newNode;
@@ -121,13 +74,17 @@ public class SingleLinkedList<T extends Comparable<T>> implements Iterable<T>  {
 
     // Перевод списка в строку с помощью StringBuilder
     @SuppressWarnings("unused")
+    @Override
     public String toString() {
         Node<T> currentNode = this.head;
+
         var str = new StringBuilder();
-        while (currentNode != null) {
+        for (var i = 0; i < this.size; i++) {
             str.append(currentNode.data).append(" ");
+
             currentNode = currentNode.next;
         }
+
         return str.toString();
     }
 
@@ -346,13 +303,38 @@ public class SingleLinkedList<T extends Comparable<T>> implements Iterable<T>  {
 
     // Сортировка элементов списка двумя способами (изменение указателей, изменение значений элементов)
     @SuppressWarnings("unused")
-    public void pointerSort() {}
+    public void pointerSort() {
+        Node<T> dummyNode = new Node<>(null, null);
+        Node<T> currentNode = this.head;
+
+        while (currentNode != null) {
+            Node<T> insertCurrentPos = dummyNode.next;
+            Node<T> insertPrePos = null;
+
+            while (insertCurrentPos != null) {
+                if (insertCurrentPos.data.compareTo(currentNode.data) > 0) {
+                    break;
+                }
+
+                insertPrePos = insertCurrentPos;
+                insertCurrentPos = insertCurrentPos.next;
+            }
+
+            if (insertPrePos == null) {
+                insertPrePos = dummyNode;
+            }
+
+            Node<T> tempNode = currentNode.next;
+
+            currentNode.next = insertPrePos.next;
+            insertPrePos.next = currentNode;
+
+            currentNode = tempNode;
+        }
+
+        this.head = dummyNode.next;
+    }
 
     @SuppressWarnings("unused")
-    public void dataSort() {
-        Node<T> currentNode = this.head;
-        Node<T> previousNode = null;
-
-
-    }
+    public void dataSort() {}
 }
