@@ -105,7 +105,7 @@ public class ListLab implements Initializable {
             });
         }
 
-        clearButton.setOnMouseClicked(event -> textField.clear());
+        clearButton.setOnMouseClicked(event -> textAreaAnswer.clear());
 
 
         /* Кнопка "НАЗАД" */
