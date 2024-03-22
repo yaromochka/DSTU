@@ -33,36 +33,96 @@ public class HelpClassFourth {
             case (10) -> {
                 return tenthQuestion(arg);
             }
-            case (11) -> eleventhQuestion();
-            case (12) -> twelfthQuestion();
-            case (13) -> thirteenthQuestion();
-            case (14) -> fourteenthQuestion();
-            case (15) -> fifteenthQuestion();
-            case (16) -> sixteenthQuestion();
-            case (17) -> seventeenthQuestion();
-            case (18) -> eighteenthQuestion();
-            case (19) -> nineteenthQuestion();
-            case (20) -> twentiethQuestion();
-            case (21) -> twentyFirstQuestion();
-            case (22) -> twentySecondQuestion();
-            case (23) -> twentyThirdQuestion();
-            case (24) -> twentyFourthQuestion();
-            case (25) -> twentyFifthQuestion();
-            case (26) -> twentySixthQuestion();
-            case (27) -> twentySeventhQuestion();
-            case (28) -> twentyEighthQuestion();
-            case (29) -> twentyNinthQuestion();
-            case (30) -> thirtyQuestion();
-            case (31) -> thirtyFirstQuestion();
-            case (32) -> thirtySecondQuestion();
-            case (33) -> thirtyThirdQuestion();
-            case (34) -> thirtyFourthQuestion();
-            case (35) -> thirtyFifthQuestion();
-            case (36) -> thirtySixthQuestion();
-            case (37) -> thirtySeventhQuestion();
-            case (38) -> thirtyEighthQuestion();
-            case (39) -> thirtyNinthQuestion();
-            case (40) -> fortiethQuestion();
+            case (11) -> {
+                return eleventhQuestion();
+            }
+            case (12) -> {
+                return twelfthQuestion(arg);
+            }
+            case (13) -> {
+                return thirteenthQuestion(arg);
+            }
+            case (14) -> {
+                return fourteenthQuestion(arg);
+            }
+            case (15) -> {
+                return fifteenthQuestion();
+            }
+            case (16) -> {
+                return sixteenthQuestion();
+            }
+            case (17) -> {
+                return seventeenthQuestion();
+            }
+            case (18) -> {
+                return eighteenthQuestion();
+            }
+            case (19) -> {
+                return nineteenthQuestion();
+            }
+            case (20) -> {
+                return twentiethQuestion();
+            }
+            case (21) -> {
+                return twentyFirstQuestion();
+            }
+            case (22) -> {
+                return twentySecondQuestion();
+            }
+            case (23) -> {
+                return twentyThirdQuestion();
+            }
+            case (24) -> {
+                return twentyFourthQuestion();
+            }
+            case (25) -> {
+                return twentyFifthQuestion();
+            }
+            case (26) -> {
+                return twentySixthQuestion();
+            }
+            case (27) -> {
+                return twentySeventhQuestion();
+            }
+            case (28) -> {
+                return twentyEighthQuestion();
+            }
+            case (29) -> {
+                return twentyNinthQuestion();
+            }
+            case (30) -> {
+                return thirtyQuestion(arg);
+            }
+            case (31) -> {
+                return thirtyFirstQuestion();
+            }
+            case (32) -> {
+                return thirtySecondQuestion(arg);
+            }
+            case (33) -> {
+                return thirtyThirdQuestion(arg);
+            }
+            case (34) -> {
+                return thirtyFourthQuestion(arg);
+            }
+            case (35) -> {
+                return thirtyFifthQuestion();
+            }
+            case (36) -> {
+                return thirtySixthQuestion();
+            }
+            case (37) -> {
+                return thirtySeventhQuestion();
+            }
+            case (38) -> {
+                return thirtyEighthQuestion();
+            }
+            case (39) -> {
+                return thirtyNinthQuestion();
+            }
+            case (40) -> {
+                return fortiethQuestion();
+            }
             case (41) -> fortyFirstQuestion();
             case (42) -> fortySecondQuestion();
             case (43) -> fortyThirdQuestion();
@@ -122,7 +182,7 @@ public class HelpClassFourth {
     /* 5. Удаление всех элементов списка */
     private static String fifthQuestion() {
         singleList.clear();
-        return "Элементы списка успешно удалены";
+        return String.format("Элементы списка успешно удалены\nСписок - %s", singleList.toString());
     }
 
     /* 6. Определение количества элементов списка */
@@ -153,115 +213,208 @@ public class HelpClassFourth {
         return index == -1 ? "Нет такого значения в списке" : String.format("Индекс элемента в списке - %s", index);
     }
 
-    private static void eleventhQuestion() {
-
+    /* 11. Поиск наибольшего и наименьшего значений в списке */
+    private static String eleventhQuestion() {
+        return String.format("Минимальное значение - %s\nМаксимальное значение - %s", singleList.min(), singleList.max());
     }
 
-    private static void twelfthQuestion() {
-
+    /* 12. Удаление элемента списка с данным значением */
+    private static String twelfthQuestion(String arg) {
+        singleList.removeAt(Integer.parseInt(arg));
+        return String.format("Элемент успешно удалён\nСписок - %s", singleList.toString());
     }
 
-    private static void thirteenthQuestion() {
-
+    /* 13. Удаление всех элементов списка с данным значением */
+    private static String thirteenthQuestion(String arg) {
+        singleList.remove(Integer.parseInt(arg));
+        return String.format("Элементы успешно удалены\nСписок - %s", singleList.toString());
     }
 
-    private static void fourteenthQuestion() {
-
+    /* 14. Изменение всех элементов списка с данным значением на новое.*/
+    private static String fourteenthQuestion(String arg) {
+        int firstNumber, secondNumber;
+        try {
+            firstNumber = Integer.parseInt(arg.split("\\s")[0]);
+            secondNumber = Integer.parseInt(arg.split("\\s")[1]);
+        } catch(Exception e) {
+            return "Неверно введены числа";
+        }
+        singleList.replaceAll(firstNumber, secondNumber);
+        return String.format("Новый список - %s", singleList.toString());
     }
 
-    private static void fifteenthQuestion() {
-
+    /* 15. Определение, является ли список симметричным. */
+    private static String fifteenthQuestion() {
+        return singleList.isSymmetric() ? "Список симметричен" : "Список несимметричен";
     }
 
-    private static void sixteenthQuestion() {
-
+    /* 16. Определение, можно ли удалить из списка каких-нибудь
+    два элемента так, чтобы новый список оказался упорядоченным. */
+    private static String sixteenthQuestion() {
+        return singleList.deleteTwoElementToOrdinary() ? "Список будет упорядоченным, если удалить два элементе"
+                : "Список не будет упорядоченным";
     }
 
-    private static void seventeenthQuestion() {
-
+    /* 17. Определение, сколько различных значений содержится в списке. */
+    private static String seventeenthQuestion() {
+        return String.format("Список содержит %d различных элементов", singleList.distinctCount());
     }
 
-    private static void eighteenthQuestion() {
-
+    /* 18. Удаление из списка элементов, значения которых
+     уже встречались в предыдущих элементах. */
+    private static String eighteenthQuestion() {
+        singleList.removeDistinct();
+        return String.format("Новый список - %s", singleList.toString());
     }
 
-    private static void nineteenthQuestion() {
-
+    /* 19.	Изменение порядка элементов на обратный. */
+    private static String nineteenthQuestion() {
+        singleList.reversed();
+        return String.format("Порядок элементов изменён\nСписок - %s", singleList.toString());
     }
 
-    private static void twentiethQuestion() {
-
+    /* 20. Сортировка элементов списка двумя способами (изменение указателей, изменение значений элементов) */
+    private static String twentiethQuestion() {
+        singleList.pointerSort();
+        return String.format("Отсортированный массив - %s", singleList.toString());
     }
 
-    private static void twentyFirstQuestion() {
-
+    /* 21. Инициализация списка */
+    private static String twentyFirstQuestion() {
+        var LinkedList = new DoubleLinkedList<>();
+        return "Двусвязный список успешно инициализирован";
     }
 
-    private static void twentySecondQuestion() {
+    /* 22. Добавление элемента в начало списка */
+    private static String twentySecondQuestion() {
+        doubleList.addFirst(10);
+        doubleList.addFirst(20);
+        doubleList.addFirst(22);
+        doubleList.addFirst(10);
+        doubleList.addFirst(15);
+        doubleList.addFirst(13);
+        doubleList.addFirst(10);
 
+        return String.format("Список - %s", doubleList.toString());
     }
 
-    private static void twentyThirdQuestion() {
+    /* 23. Добавление элемента в конец списка */
+    private static String twentyThirdQuestion() {
+        doubleList.addLast(10);
+        doubleList.addLast(20);
+        doubleList.addLast(22);
+        doubleList.addLast(10);
+        doubleList.addLast(15);
+        doubleList.addLast(13);
+        doubleList.addLast(10);
 
+        return String.format("Список - %s", doubleList.toString());
     }
 
-    private static void twentyFourthQuestion() {
-
+    /* 24. Показ всех элементов списка */
+    private static String twentyFourthQuestion() {
+        return String.format("Список - %s", doubleList.toString());
     }
 
-    private static void twentyFifthQuestion() {
-
+    /* 25. Удаление всех элементов списка */
+    private static String twentyFifthQuestion() {
+        doubleList.clear();
+        return String.format("Список успешно очищен\nСписок - %s", doubleList.toString());
     }
 
-    private static void twentySixthQuestion() {
-
+    /* 26. Определение количества элементов списка */
+    private static String twentySixthQuestion() {
+        return String.format("Количество элементов в списке - %s", doubleList.size());
     }
 
-    private static void twentySeventhQuestion() {
-
+    /* 27. Проверка списка на пустоту */
+    private static String twentySeventhQuestion() {
+        return doubleList.isEmpty() ? "Список является пустым" : "Список не является пустым";
     }
 
-    private static void twentyEighthQuestion() {
-
+    /* 28. Удаление первого элемента */
+    private static String twentyEighthQuestion() {
+        doubleList.removeFirst();
+        return String.format("Первый элемент успешно удалён\nСписок - %s", doubleList.toString());
     }
 
-    private static void twentyNinthQuestion() {
-
+    /* 29. Удаление последнего элемента */
+    private static String twentyNinthQuestion() {
+        doubleList.removeLast();
+        return String.format("Последний элемент успешно удалён\nСписок - %s", doubleList.toString());
     }
 
-    private static void thirtyQuestion() {
-
+    /* 30. Поиск данного значения в списке */
+    private static String thirtyQuestion(String arg) {
+        var index = doubleList.indexOf(Integer.parseInt(arg));
+        return index == -1 ? "Нет такого значения в списке" : String.format("Индекс элемента в списке - %s", index);
     }
 
-    private static void thirtyFirstQuestion() {
-
+    /* 31. Поиск наибольшего и наименьшего значений в списке */
+    private static String thirtyFirstQuestion() {
+        return String.format("Минимальный элемент списка - %s\n" +
+                "Максимальный элемент списка - %s", doubleList.min(), doubleList.max());
     }
-    private static void thirtySecondQuestion() {
 
+    /* 32. Удаление элемента списка с данным значением */
+    private static String thirtySecondQuestion(String arg) {
+        doubleList.removeAt(Integer.parseInt(arg));
+        return String.format("Элемент успешно удалён\nСписок - %s", doubleList.toString());
     }
-    private static void thirtyThirdQuestion() {
 
+    /* 33. Удаление всех элементов списка с данным значением */
+    private static String thirtyThirdQuestion(String arg) {
+        doubleList.remove(Integer.parseInt(arg));
+        return String.format("Элементы успешно удалены\nСписок - %s", doubleList.toString());
     }
-    private static void thirtyFourthQuestion() {
 
+    /* 34. Изменение всех элементов списка с данным значением на новое. */
+    private static String thirtyFourthQuestion(String arg) {
+        int firstNumber, secondNumber;
+        try {
+            firstNumber = Integer.parseInt(arg.split("\\s")[0]);
+            secondNumber = Integer.parseInt(arg.split("\\s")[1]);
+        } catch(Exception e) {
+            return "Неверно введены числа";
+        }
+        doubleList.replaceAll(firstNumber, secondNumber);
+        return String.format("Новый список - %s", doubleList.toString());
     }
-    private static void thirtyFifthQuestion() {
 
+    /* 35. Определение, является ли список симметричным. */
+    private static String thirtyFifthQuestion() {
+        return singleList.isSymmetric() ? "Список симметричен" : "Список несимметричен";
     }
-    private static void thirtySixthQuestion() {
 
+    /* 36. Определение, можно ли удалить из списка каких-нибудь два
+    элемента так, чтобы новый список оказался упорядоченным. */
+    private static String thirtySixthQuestion() {
+        return doubleList.deleteTwoElementToOrdinary() ? "Список будет упорядоченным, если удалить два элементе"
+                : "Список не будет упорядоченным";
     }
-    private static void thirtySeventhQuestion() {
 
+    /* 37. Определение, сколько различных значений содержится в списке. */
+    private static String thirtySeventhQuestion() {
+        return String.format("Список содержит %d различных элементов", doubleList.distinctCount());
     }
-    private static void thirtyEighthQuestion() {
 
+    /* 38. Удаление из списка элементов,
+     значения которых уже встречались в предыдущих элементах. */
+    private static String thirtyEighthQuestion() {
+        doubleList.removeDistinct();
+        return String.format("Список - %s", doubleList.toString());
     }
-    private static void thirtyNinthQuestion() {
 
+    /* 39. Изменение порядка элементов на обратный. */
+    private static String thirtyNinthQuestion() {
+        doubleList.reversed();
+        return String.format("Список - %s", doubleList.toString());
     }
-    private static void fortiethQuestion() {
 
+    /* 40.	Сортировка элементов списка двумя способами (изменение указателей, изменение значений элементов) */
+    private static String fortiethQuestion() {
+        doubleList.pointerSort();
+        return String.format("Отсортированный список - %s", doubleList.toString());
     }
     private static void fortyFirstQuestion() {
 
