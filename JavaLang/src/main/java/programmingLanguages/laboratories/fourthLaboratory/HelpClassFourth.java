@@ -1,5 +1,10 @@
 package programmingLanguages.laboratories.fourthLaboratory;
 
+import programmingLanguages.laboratories.fourthLaboratory.Classes.Book;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class HelpClassFourth {
     public static String pointOfStart(int numberOfTask, String arg) {
         switch (numberOfTask) {
@@ -123,12 +128,24 @@ public class HelpClassFourth {
             case (40) -> {
                 return fortiethQuestion();
             }
-            case (41) -> fortyFirstQuestion();
-            case (42) -> fortySecondQuestion();
-            case (43) -> fortyThirdQuestion();
-            case (44) -> fortyFourthQuestion();
-            case (45) -> fortyFifthQuestion();
-            case (46) -> fortySixthQuestion();
+            case (41) -> {
+                return fortyFirstQuestion(arg);
+            }
+            case (42) -> {
+                return fortySecondQuestion();
+            }
+            case (43) -> {
+                return fortyThirdQuestion();
+            }
+            case (44) -> {
+                return fortyFourthQuestion();
+            }
+            case (45) -> {
+                return fortyFifthQuestion();
+            }
+            case (46) -> {
+                return fortySixthQuestion();
+            }
             case (47) -> fortySeventhQuestion();
             case (48) -> fortyEighthQuestion();
             case (49) -> fortyNinthQuestion();
@@ -416,24 +433,94 @@ public class HelpClassFourth {
         doubleList.pointerSort();
         return String.format("Отсортированный список - %s", doubleList.toString());
     }
-    private static void fortyFirstQuestion() {
 
-    }
-    private static void fortySecondQuestion() {
+    /* 41. Дан упорядоченный список книг. Добавить новую книгу, сохранив упорядоченность списка. */
+    private static String fortyFirstQuestion(String arg) {
+        var tree = new TreeSet<>(Arrays.asList(
+                new Book("Му-му", "Иван Тургенев", 1852),
+                new Book("Гарри Поттер", "Джоан Роулинг", 1997)
+        ));
 
+        var it = Arrays.stream(arg.split(",\\s+")).iterator();
+        try {
+            tree.add(new Book(it.next(), it.next(), Integer.parseInt(it.next())));
+            return "Наш список книг после добавления: " + tree;
+        } catch (NoSuchElementException e) {
+            return "Ввели неправильные аргументы";
+        }
     }
-    private static void fortyThirdQuestion() {
 
-    }
-    private static void fortyFourthQuestion() {
+    /* 42. Даны два упорядоченных по возрастанию списка.
+    Объедините их в новый упорядоченный по возрастанию список. */
+    private static String fortySecondQuestion() {
 
-    }
-    private static void fortyFifthQuestion() {
+        // Генерация двух упорядоченных массивов, отсортированных по возрастанию
+        var firstList = new SingleLinkedList<Integer>();
+        var secondList = new SingleLinkedList<Integer>();
 
-    }
-    private static void fortySixthQuestion() {
+        new Random().ints(10, 5, 1000).forEach(firstList::addFirst);
+        new Random().ints(10, 5, 1000).forEach(secondList::addFirst);
 
+        firstList.pointerSort();
+        secondList.pointerSort();
+
+        for (int i = 0; i < secondList.size(); i++) {
+            firstList.addFirst(secondList.find(i));
+        }
+        firstList.dataSort();
+
+        return String.format("Элементы нового списка - %s", firstList);
     }
+
+    /* 43. Дан список целых чисел. Упорядочьте по возрастанию только:
+     а) положительные числа;
+     б) элементы с четными порядковыми номерами в списке. */
+    private static String fortyThirdQuestion() {
+        return "0";
+    }
+
+    /* 44. Даны два списка. Определите, совпадают ли множества их элементов. */
+    private static String fortyFourthQuestion() {
+
+        var firstList = new HashSet<Integer>();
+        var secondList = new HashSet<Integer>();
+
+        new Random().ints(10, 5, 1000).forEach(firstList::add);
+        new Random().ints(10, 5, 1000).forEach(secondList::add);
+
+        return firstList.equals(secondList) ? "Множества элементов совпадают" : "Множества элементов не совпадают";
+    }
+
+    /* 45. Дан список. После каждого элемента добавьте предшествующую ему часть списка. */
+    private static String fortyFifthQuestion() {
+        var pastString = new StringBuilder();
+        var list = new ArrayList<Integer>();
+
+        new Random().ints(3, 5, 1000).forEach(list::add);
+
+        return list.stream().map(x -> {
+            var result = pastString + String.valueOf(x);
+            pastString.append(x).append(" ");
+            return result;
+        }).collect(Collectors.joining(" "));
+    }
+
+    /* 46. Пусть элементы списка хранят символы предложения.
+    Замените каждое вхождение слова "itmathrepetitor" на "silence". */
+    private static String fortySixthQuestion() {
+        ArrayList<Character> sentenceList = new ArrayList<>(Arrays.asList(
+                'h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd', ' ',
+                'i', 't', 'm', 'a', 't', 'h', 'r', 'e', 'p', 'e', 't', 'i', 't', 'o', 'r', ' '
+        ));
+
+        var sentence = String.join("", sentenceList.stream().map(Object::toString).toArray(String[]::new));
+
+        return sentence.replaceAll("itmathrepetitor", "silence");
+    }
+
+    /* 47. Дан текстовый файл. Создайте двусвязный список,
+    каждый элемент которого содержит количество символов
+    в соответствующей строке текста. */
     private static void fortySeventhQuestion() {
 
     }

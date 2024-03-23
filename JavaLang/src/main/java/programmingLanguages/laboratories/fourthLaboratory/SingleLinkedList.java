@@ -52,6 +52,14 @@ public class SingleLinkedList<T extends Comparable<T>>  {
         return this.size;
     }
 
+    public T find(int number) {
+        Node<T> currentNode = this.head;
+        for (int i = 0; i < number - 1; i++) {
+            currentNode = currentNode.next;
+        }
+        return currentNode.next.data;
+    }
+
     // Добавление элемента на первое место (вместо головы)
     @SuppressWarnings("unused")
     public void addFirst(T data) {

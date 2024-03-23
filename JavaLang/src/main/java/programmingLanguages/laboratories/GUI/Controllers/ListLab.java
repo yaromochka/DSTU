@@ -91,7 +91,7 @@ public class ListLab implements Initializable {
             laboratoryFourthButton.setStyle("-fx-background-color: black; -fx-text-fill: white");
             laboratoryThirdButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
             laboratoryThirdDotFirstButton.setStyle("-fx-background-color: #b2acb5; -fx-text-fill: black");
-            choiceBoxFill(40);
+            choiceBoxFill(50);
             if (choiceBox != null) {
                 var text = ChooseLaboratory.getLaboratoryInfo(numberOfLaboratory, choiceBox.getValue().replaceAll("[^0-9]", ""));
                 textArea.setText(text);
