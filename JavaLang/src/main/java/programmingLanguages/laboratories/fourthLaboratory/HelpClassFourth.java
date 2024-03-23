@@ -1,7 +1,10 @@
 package programmingLanguages.laboratories.fourthLaboratory;
 
 import programmingLanguages.laboratories.fourthLaboratory.Classes.Book;
+import programmingLanguages.laboratories.fourthLaboratory.Classes.Group;
+import programmingLanguages.laboratories.fourthLaboratory.Classes.Student;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -146,14 +149,19 @@ public class HelpClassFourth {
             case (46) -> {
                 return fortySixthQuestion();
             }
-            case (47) -> fortySeventhQuestion();
-            case (48) -> fortyEighthQuestion();
-            case (49) -> fortyNinthQuestion();
+            case (47) -> {
+                return fortySeventhQuestion();
+            }
+            case (48) -> {
+                return fortyEighthQuestion();
+            }
+            case (49) -> {
+                return fortyNinthQuestion();
+            }
             default -> {
                 return "Неверно введён номер задания";
             }
         }
-        return null;
     }
 
     static SingleLinkedList<Integer> singleList = new SingleLinkedList<>();
@@ -161,6 +169,7 @@ public class HelpClassFourth {
 
     /* 1. Инициализация списка */
     private static String firstQuestion() {
+        @SuppressWarnings("unused")
         var LinkedList = new SingleLinkedList<>();
         return "Односвязный список успешно инициализирован";
     }
@@ -298,6 +307,7 @@ public class HelpClassFourth {
 
     /* 21. Инициализация списка */
     private static String twentyFirstQuestion() {
+        @SuppressWarnings("unused")
         var LinkedList = new DoubleLinkedList<>();
         return "Двусвязный список успешно инициализирован";
     }
@@ -521,13 +531,71 @@ public class HelpClassFourth {
     /* 47. Дан текстовый файл. Создайте двусвязный список,
     каждый элемент которого содержит количество символов
     в соответствующей строке текста. */
-    private static void fortySeventhQuestion() {
+    private static String fortySeventhQuestion() {
 
+        var linkedList = new LinkedList<String>();
+        var i = 1;
+
+        try (var scanner = new Scanner(new File("JavaLang/src/main/resources/Files/RandomTextFile.txt"))) {
+
+            while (scanner.hasNext()) {
+
+                linkedList.add(
+                        String.format(
+                                "Количество символов на строке %d - %d",
+                                i,
+                                scanner.nextLine().length()
+                        )
+                );
+
+                i += 1;
+            }
+            return String.join("\n", linkedList);
+
+        } catch (Exception e) {
+            return "Не найден файл";
+        }
     }
-    private static void fortyEighthQuestion() {
 
+    /* 48. Создайте двусвязный список групп факультета.
+    Каждая группа представляет собой односвязный список студентов. */
+    private static String fortyEighthQuestion() {
+        var faculty = new LinkedList<String>();
+        faculty.add("ВКБ22: " + new Group(Arrays.asList(new Student(), new Student(), new Student(), new Student(), new Student())));
+        faculty.add("ВПР22: " + new Group(Arrays.asList(new Student(), new Student(), new Student(), new Student())));
+        faculty.add("ВМО21: " + new Group(Arrays.asList(new Student(), new Student(), new Student())));
+        return String.join("\n\n", faculty);
     }
-    private static void fortyNinthQuestion() {
 
+    /* 49. Дан список студентов. Элемент списка содержит фамилию,
+    имя, отчество, год рождения, курс, номер группы, оценки по пяти
+    предметам. Упорядочите студентов по курсу, причем студенты одного
+    курса располагались в алфавитном порядке. Найдите средний балл
+    каждой группы по каждому предмету. Определите самого старшего студента
+    и самого младшего студента. Для каждой группы найдите лучшего с
+    точки зрения успеваемости студента. */
+    private static String fortyNinthQuestion() {
+        var group = new Group();
+
+        for (int i = 0; i < 10; i++) {
+            group.add(new Student());
+        }
+
+        group.sort();
+
+        return String.format("""
+                        Список студентов: %s
+
+                        Средний балл по каждому предмету: %s
+
+                        Самый старший студент: %s
+
+                        Самый младший студент: %s
+
+                        Самый лучшие студенты из групп: %s
+
+                        """,
+                group.toString().substring(7), group.getAverage(),
+                group.getOldestStudent(), group.getYoungestStudent(), group.getBest());
     }
 }
