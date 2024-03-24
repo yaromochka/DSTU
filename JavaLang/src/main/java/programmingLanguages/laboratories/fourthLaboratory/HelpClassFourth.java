@@ -536,19 +536,19 @@ public class HelpClassFourth {
         var linkedList = new LinkedList<String>();
         var i = 1;
 
-        try (var scanner = new Scanner(new File("JavaLang/src/main/resources/Files/RandomTextFile.txt"))) {
+        try (var scanner = new Scanner(new File("/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/java/programmingLanguages/laboratories/fourthLaboratory/RandomTextFile.txt"))) {
 
             while (scanner.hasNext()) {
 
                 linkedList.add(
                         String.format(
-                                "Количество символов на строке %d - %d",
+                                "Количество символов в строке %d - %d",
                                 i,
                                 scanner.nextLine().length()
                         )
                 );
 
-                i += 1;
+                i++;
             }
             return String.join("\n", linkedList);
 
@@ -561,6 +561,7 @@ public class HelpClassFourth {
     Каждая группа представляет собой односвязный список студентов. */
     private static String fortyEighthQuestion() {
         var faculty = new LinkedList<String>();
+        String[] names = {"ВКБ22: ", "ВПР22: ", "ВМО21: "};
         faculty.add("ВКБ22: " + new Group(Arrays.asList(new Student(), new Student(), new Student(), new Student(), new Student())));
         faculty.add("ВПР22: " + new Group(Arrays.asList(new Student(), new Student(), new Student(), new Student())));
         faculty.add("ВМО21: " + new Group(Arrays.asList(new Student(), new Student(), new Student())));
@@ -577,7 +578,7 @@ public class HelpClassFourth {
     private static String fortyNinthQuestion() {
         var group = new Group();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             group.add(new Student());
         }
 

@@ -55,7 +55,7 @@ public class Student implements Comparable<Student> {
         String[] lessons = {"Математика", "Русский", "Физика", "Информатика", "Литература"};
 
         for (var lesson : lessons) {
-            result.put(lesson, Double.parseDouble(String.format("%.2f", new Random().nextDouble(2.0, 5.0))));
+            result.put(lesson, new Random().nextDouble(2.0, 5.0));
         }
 
         return result;
