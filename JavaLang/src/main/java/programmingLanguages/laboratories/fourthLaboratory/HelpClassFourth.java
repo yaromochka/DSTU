@@ -15,10 +15,10 @@ public class HelpClassFourth {
                 return firstQuestion();
             }
             case (2) -> {
-                return secondQuestion();
+                return secondQuestion(arg);
             }
             case (3) -> {
-                return thirdQuestion();
+                return thirdQuestion(arg);
             }
             case (4) -> {
                 return fourthQuestion();
@@ -75,10 +75,10 @@ public class HelpClassFourth {
                 return twentyFirstQuestion();
             }
             case (22) -> {
-                return twentySecondQuestion();
+                return twentySecondQuestion(arg);
             }
             case (23) -> {
-                return twentyThirdQuestion();
+                return twentyThirdQuestion(arg);
             }
             case (24) -> {
                 return twentyFourthQuestion();
@@ -175,29 +175,25 @@ public class HelpClassFourth {
     }
 
     /* 2. Добавление элемента в начало списка */
-    private static String secondQuestion() {
-        singleList.addFirst(10);
-        singleList.addFirst(20);
-        singleList.addFirst(22);
-        singleList.addFirst(10);
-        singleList.addFirst(15);
-        singleList.addFirst(13);
-        singleList.addFirst(10);
+    private static String secondQuestion(String arg) {
+        if (arg.matches("[-+]?\\d+")) {
+            var number = arg.split("\\s");
 
-        return String.format("Список - %s", singleList.toString());
+            for (var num : number) singleList.addFirst(Integer.parseInt(num));
+
+            return String.format("Список - %s", singleList.toString());
+        } else return "Неверно введены данные";
     }
 
     /* 3. Добавление элемента в конец списка */
-    private static String thirdQuestion() {
-        singleList.addLast(10);
-        singleList.addLast(20);
-        singleList.addLast(22);
-        singleList.addLast(10);
-        singleList.addLast(15);
-        singleList.addLast(13);
-        singleList.addLast(10);
+    private static String thirdQuestion(String arg) {
+        if (arg.matches("[-+]?\\d+")) {
+            var number = arg.split("\\s");
 
-        return String.format("Список - %s", singleList.toString());
+            for (var num : number) singleList.addLast(Integer.parseInt(num));
+
+            return String.format("Список - %s", singleList.toString());
+        } else return "Неверно введены данные";
     }
 
     /* 4. Показ всех элементов списка */
@@ -313,29 +309,25 @@ public class HelpClassFourth {
     }
 
     /* 22. Добавление элемента в начало списка */
-    private static String twentySecondQuestion() {
-        doubleList.addFirst(10);
-        doubleList.addFirst(20);
-        doubleList.addFirst(22);
-        doubleList.addFirst(10);
-        doubleList.addFirst(15);
-        doubleList.addFirst(13);
-        doubleList.addFirst(10);
+    private static String twentySecondQuestion(String arg) {
+        if (arg.matches("[-+]?\\d+")) {
+            var number = arg.split("\\s");
 
-        return String.format("Список - %s", doubleList.toString());
+            for (var num : number) doubleList.addFirst(Integer.parseInt(num));
+
+            return String.format("Список - %s", doubleList.toString());
+        } else return "Неверно введены данные";
     }
 
     /* 23. Добавление элемента в конец списка */
-    private static String twentyThirdQuestion() {
-        doubleList.addLast(10);
-        doubleList.addLast(20);
-        doubleList.addLast(22);
-        doubleList.addLast(10);
-        doubleList.addLast(15);
-        doubleList.addLast(13);
-        doubleList.addLast(10);
+    private static String twentyThirdQuestion(String arg) {
+        if (arg.matches("[-+]?\\d+")) {
+            var number = arg.split("\\s");
 
-        return String.format("Список - %s", doubleList.toString());
+            for (var num : number) doubleList.addLast(Integer.parseInt(num));
+
+            return String.format("Список - %s", doubleList.toString());
+        } else return "Неверно введены данные";
     }
 
     /* 24. Показ всех элементов списка */
