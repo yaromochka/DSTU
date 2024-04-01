@@ -1,10 +1,11 @@
 import re
-from collections import defaultdict
-from typing import AnyStr
+from PythonLang.FormalLang.grammatic_reader import grammatic_reader
+from typing import AnyStr, Pattern
+
 
 
 # Проверка правосторонней грамматики
-def is_linear_right(args: defaultdict[str, list]) -> bool:
+def is_linear_right(args: dict[str, list]) -> bool:
     """
     Пример:
     S -> aS
@@ -13,12 +14,12 @@ def is_linear_right(args: defaultdict[str, list]) -> bool:
     A -> bZ
     Z -> $
     """
-    pattern = re.compile(r"^[A-Z] -> (?:[^A-Z]*[A-Z]|\w+)")
-    return _checker(args, pattern)
+    pattern = re.compile(r"^[A-Z] -> (?:[^A-Z]{0,}[A-Z]|\W+)")
+    return _checker(grammar=args, pattern=pattern)
 
 
 # Проверка левосторонней грамматики
-def is_linear_left(args: defaultdict[str, list]) -> bool:
+def is_linear_left(args: dict[str, list]) -> bool:
     """
     Пример:
     S -> Ab
@@ -27,12 +28,12 @@ def is_linear_left(args: defaultdict[str, list]) -> bool:
     Z -> Za
     Z -> $
     """
-    pattern = re.compile(r"^[A-Z] -> (?:[A-Z]*[^A-Z]|\w+)$")
-    return _checker(args, pattern)
+    pattern = re.compile(r"^[A-Z] -> (?:[A-Z]{1,}[^A-Z]|\W+)$")
+    return _checker(grammar=args, pattern=pattern)
 
 
 # Проверка контекстно-зависимой грамматики
-def is_context_dependent(args: defaultdict[str, list]) -> bool:
+def is_context_dependent(args: dict[str, list]) -> bool:
     """
     Пример:
     S -> aAS
@@ -46,7 +47,7 @@ def is_context_dependent(args: defaultdict[str, list]) -> bool:
 
 
 # Проверка контекстно-независимой грамматики
-def is_context_independent(args: defaultdict[str, list]) -> bool:
+def is_context_independent(args: dict[str, list]) -> bool:
     """
     Пример:
     S -> aSa
@@ -54,12 +55,12 @@ def is_context_independent(args: defaultdict[str, list]) -> bool:
     S -> aa
     I -> bb
     """
-    pattern = re.compile(r'^[A-Z] -> (.)*.*\1*$')
-    return _checker(args, pattern)
+    pattern = re.compile(r'^[A-Z] -> (.){0,}.{0,}\1{0,}$')
+    return _checker(grammar=args, pattern=pattern)
 
 
 # Функция для проверки введёных грамматик через соответсвующие паттерны
-def _checker(grammar: dict[str, list[str]], pattern: re.Pattern[AnyStr]) -> bool:
+def _checker(grammar: dict[str, list[str]], pattern: Pattern[AnyStr]) -> bool:
     """
     В данную функцию передают саму грамматику, которую пользователь ввел с консоли и паттерн для проверки.
     """
@@ -70,13 +71,7 @@ def _checker(grammar: dict[str, list[str]], pattern: re.Pattern[AnyStr]) -> bool
 
 
 def main():
-    print("Для окончания ввода введите end\nВведите грамматику вида S -> aSb: ")
-
-    dictionary = defaultdict(list)
-
-    while (args := input()) != "end":
-        key, value = map(lambda x: x.strip().rstrip("|E"), args.split("->"))
-        dictionary[key].append(value)
+    dictionary = grammatic_reader()
 
     if is_linear_left(dictionary):
         return "Тип 3: регулярная левосторонняя грамматика"
