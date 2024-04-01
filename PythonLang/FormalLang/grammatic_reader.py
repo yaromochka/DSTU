@@ -12,3 +12,10 @@ def grammatic_reader():
         dictionary[key].append(value)
 
     return dictionary
+
+# def main():
+#     print(grammatic_reader())
+#
+#
+# if __name__ == "__main__":
+#     main()

@@ -70,8 +70,9 @@ def _checker(grammar: dict[str, list[str]], pattern: Pattern[AnyStr]) -> bool:
     return True
 
 
-def main():
-    dictionary = grammatic_reader()
+def main(dictionary=None) -> str:
+    if dictionary is None:
+        dictionary = grammatic_reader()
 
     if is_linear_left(dictionary):
         return "Тип 3: регулярная левосторонняя грамматика"
