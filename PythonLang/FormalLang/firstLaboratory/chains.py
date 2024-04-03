@@ -1,19 +1,18 @@
 """
 Здесь реализовано 1 задание, где просят с помощью программного решения создать замену строк, создав свою грамматику.
+L(G) = {(ac)^n, n>=0, a in {b, d}, c in {+, -}}
 """
 from typing import Final
 
 RULES: Final = {
-        "S": {"1": "0A0", "2": "0B0"},
-        "A": {"1": "1B1", "2": "11"},
-        "B": {"1": "0S0", "2": "00"}
+        "S": {"1": "Ab+", "2": "Bd+"},
+        "A": {"1": "ABd-", "2": "d-"},
+        "B": {"1": "d+", "2": "b-"}
     }
 
 
+# Функция, которая порождает цепочку, учитывая грамматики
 def chain_generator(string: str) -> None:
-    """
-    Функция, которая порождает цепочку, учитывая грамматики
-    """
     # Проходимся поэлементно, проверяя, что символы для замены есть в словаре
     for char in string:
         if char in RULES:
@@ -21,7 +20,7 @@ def chain_generator(string: str) -> None:
             print(" --> ", string)
 
     # Рекурсивный вызов, если еще есть символы для замены
-    if any(char in string for char in RULES):
+    if any(char in string for char in RULES.keys()):
         chain_generator(string)
 
 
