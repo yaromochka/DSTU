@@ -98,7 +98,7 @@ A → Ba | a, где a ∈ $V^{T}$ ; A, B ∈ $V^{N}$.
 Соотношение типов грамматик и языков представлено на рисунке 1.1.
 <div align="center">
 
-![Классификация Хомского](photos/grammatic_types.png)
+![Классификация Хомского](photos/for_first_lection/grammatic_types.png)
 
 </div>
 <div align="center"><i>Рисунок 1.1 – Соотношение типов формальных языков и грамматик</i></div>
