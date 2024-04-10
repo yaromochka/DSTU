@@ -12,7 +12,7 @@ def first(mas):
 
 
 def second():
-    with open(r'C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\student.csv') as f:
+    with open(r'/Users/yaromochka/IdeaProjects/DSTU/PythonLang/ProgrammingLanguages/files/student.csv', encoding='mac_roman') as f:
         file, temp, ans = list(reader(f)), {}, {}
         for i in file[1::]:
             i = (''.join(i)).split(';')
@@ -24,7 +24,7 @@ def second():
 
 def third(mas):
     group = mas
-    with open(r"C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\student.csv") as f:
+    with open(r"/Users/yaromochka/IdeaProjects/DSTU/PythonLang/ProgrammingLanguages/files/student.csv", encoding='mac_roman') as f:
         file, temp = list(reader(f)), {}
         for i in file[1::]:
             i = (''.join(i)).split(';')
@@ -55,7 +55,7 @@ def third(mas):
             return reversed(['Отсортированные значения', *[f'{k[0]}:{" ".join([str(i) for i in k[1]])}' for k in temp.items()]])
         
 def save():
-    with open(r"C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\student.csv") as f:
+    with open(r"/Users/yaromochka/IdeaProjects/DSTU/PythonLang/ProgrammingLanguages/files/student.csv") as f:
         file, temp = list(reader(f)), {}
         for i in file[1::]:
             i = (''.join(i)).split(';')
@@ -63,7 +63,7 @@ def save():
         for row in temp.values():
             if row[2] == group:
                 row[1] = int(row[1]) - 1
-        with open(r"C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\new_student.csv", "w") as g:
+        with open(r"/Users/yaromochka/IdeaProjects/DSTU/PythonLang/ProgrammingLanguages/files/new_student.csv", "w") as g:
             wr = writer(g)
             for row in temp.items():
                 wr.writerow(row)

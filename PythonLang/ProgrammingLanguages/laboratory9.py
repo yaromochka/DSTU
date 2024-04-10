@@ -2,7 +2,7 @@ from csv import reader
 
 
 def dictor():
-    with open(r"C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\student.csv") as f:
+    with open(r"/Users/yaromochka/IdeaProjects/DSTU/PythonLang/ProgrammingLanguages/files/student.csv", encoding='utf-16') as f:
         file, temp = list(reader(f)), {}
         for i in file[1::]:
             i = (''.join(i)).split(';')
