@@ -1,8 +1,6 @@
 package programmingLanguages.laboratories.GUI.Controllers;
 
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +19,13 @@ public class Menu {
         laboratoryButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
                 SceneController.switchToLaboratories(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        projectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                SceneController.switchToProject(mouseEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

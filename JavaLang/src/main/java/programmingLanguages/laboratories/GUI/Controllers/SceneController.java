@@ -1,10 +1,7 @@
 package programmingLanguages.laboratories.GUI.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import programmingLanguages.laboratories.GUI.Buttons.ButtonMove;
 
 import java.io.IOException;
@@ -19,5 +16,10 @@ public class SceneController {
     @FXML
     public static void switchToMenu(MouseEvent mouseEvent) throws IOException {
         ButtonMove.moveTo(mouseEvent, "/Menu/MainMenu.fxml");
+    }
+
+    @FXML
+    public static void switchToProject(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/Project/Project.fxml");
     }
 }
