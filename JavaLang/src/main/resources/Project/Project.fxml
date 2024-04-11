@@ -39,8 +39,8 @@
       </VBox>
       <TableView fx:id="tableMenu" layoutX="208.0" layoutY="21.0" prefHeight="359.0" prefWidth="367.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);">
         <columns>
-          <TableColumn prefWidth="262.0" text="НАЗВАНИЕ" />
-          <TableColumn prefWidth="104.0" text="ЦЕНА" />
+          <TableColumn fx:id="nameColumn" prefWidth="193.0" text="НАЗВАНИЕ" />
+          <TableColumn fx:id="priceColumn" prefWidth="97.0" text="ЦЕНА" />
         </columns>
       </TableView>
       <Button fx:id="backButton" layoutX="49.0" layoutY="28.0" mnemonicParsing="false" opacity="0.87" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../ListLab/style.css" text="Назад" />
