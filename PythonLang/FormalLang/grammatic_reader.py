@@ -8,8 +8,9 @@ def grammatic_reader():
     dictionary = defaultdict(list)
 
     while (args := input()) != "end":
-        key, value = map(lambda x: x.strip().rstrip("|E"), args.split("->"))
-        dictionary[key].append(value)
+        key, values = map(lambda x: x.strip(), args.split("->"))
+        for value in values.split('|'):
+            dictionary[key].append(value.strip())
 
     return dictionary
 

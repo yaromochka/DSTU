@@ -2,6 +2,12 @@ import re
 from PythonLang.FormalLang.grammatic_reader import grammatic_reader
 from typing import AnyStr, Pattern
 
+"""
+E -> E+T | T
+T -> T*F | F
+F -> (F) | a
+end
+"""
 
 
 # Проверка правосторонней грамматики
@@ -15,7 +21,7 @@ def is_linear_right(args: dict[str, list]) -> bool:
     Z -> $
     """
     pattern = re.compile(r"^[A-Z] -> (?:[^A-Z]{0,}[A-Z]|\W+)")
-    return _checker(grammar=args, pattern=pattern)
+    return _checker(args, pattern)
 
 
 # Проверка левосторонней грамматики
@@ -29,7 +35,7 @@ def is_linear_left(args: dict[str, list]) -> bool:
     Z -> $
     """
     pattern = re.compile(r"^[A-Z] -> (?:[A-Z]{1,}[^A-Z]|\W+)$")
-    return _checker(grammar=args, pattern=pattern)
+    return _checker(args, pattern)
 
 
 # Проверка контекстно-зависимой грамматики
@@ -56,10 +62,10 @@ def is_context_independent(args: dict[str, list]) -> bool:
     I -> bb
     """
     pattern = re.compile(r'^[A-Z] -> (.){0,}.{0,}\1{0,}$')
-    return _checker(grammar=args, pattern=pattern)
+    return _checker(args, pattern)
 
 
-# Функция для проверки введёных грамматик через соответсвующие паттерны
+# Функция для проверки введёных грамматик через соответствующие паттерны
 def _checker(grammar: dict[str, list[str]], pattern: Pattern[AnyStr]) -> bool:
     """
     В данную функцию передают саму грамматику, которую пользователь ввел с консоли и паттерн для проверки.
@@ -73,6 +79,7 @@ def _checker(grammar: dict[str, list[str]], pattern: Pattern[AnyStr]) -> bool:
 def main(dictionary=None) -> str:
     if dictionary is None:
         dictionary = grammatic_reader()
+
 
     if is_linear_left(dictionary):
         return "Тип 3: регулярная левосторонняя грамматика"
