@@ -20,8 +20,7 @@ def is_linear_right(args: dict[str, list]) -> bool:
     A -> bZ
     Z -> $
     """
-    pattern = re.compile(r"^[A-Z] -> (?:[^A-Z]{0,}[A-Z]|\W+)")
-    return _checker(args, pattern)
+    return _checker(args, re.compile(r"^[A-Z] -> [^A-Z]*[A-Z]?$"))
 
 
 # Проверка левосторонней грамматики
@@ -34,8 +33,19 @@ def is_linear_left(args: dict[str, list]) -> bool:
     Z -> Za
     Z -> $
     """
-    pattern = re.compile(r"^[A-Z] -> (?:[A-Z]{1,}[^A-Z]|\W+)$")
-    return _checker(args, pattern)
+    return _checker(args, re.compile(r"^[A-Z] -> [A-Z]?[^A-Z]*$"))
+
+
+# Проверка контекстно-независимой грамматики
+def is_context_independent(args: dict[str, list]) -> bool:
+    """
+    Пример:
+    S -> aSa
+    S -> bSb
+    S -> aa
+    I -> bb
+    """
+    return _checker(args, re.compile(r'^[A-Z] -> .*$'))
 
 
 # Проверка контекстно-зависимой грамматики
@@ -49,20 +59,11 @@ def is_context_dependent(args: dict[str, list]) -> bool:
     bBA -> bcdA
     bS -> ba
     """
-    return all(len(key) <= len(value) for key, values in args.items() for value in values)
+    return _checker(args, re.compile(r'^.*[A-Z]+.* -> .*.+.*$'))
 
-
-# Проверка контекстно-независимой грамматики
-def is_context_independent(args: dict[str, list]) -> bool:
-    """
-    Пример:
-    S -> aSa
-    S -> bSb
-    S -> aa
-    I -> bb
-    """
-    pattern = re.compile(r'^[A-Z] -> (.){0,}.{0,}\1{0,}$')
-    return _checker(args, pattern)
+def is_zero_type(args: dict[str, list]) -> bool:
+    # xяb -> xHD
+    return _checker(args, re.compile(r'^.+ -> .*$'))
 
 
 # Функция для проверки введёных грамматик через соответствующие паттерны
@@ -80,7 +81,6 @@ def main(dictionary=None) -> str:
     if dictionary is None:
         dictionary = grammatic_reader()
 
-
     if is_linear_left(dictionary):
         return "Тип 3: регулярная левосторонняя грамматика"
 
@@ -93,8 +93,8 @@ def main(dictionary=None) -> str:
     if is_context_dependent(dictionary):
         return "Тип 1: контекстно-зависимая грамматика"
 
-    # xAbCD -> xHD
-    return "Грамматика типа 0"
+    if is_zero_type(dictionary):
+        return "Грамматика типа 0"
 
 
 if __name__ == "__main__":

@@ -19,4 +19,4 @@ class GrammaticTest(TestCase):
         self.assertEqual(main({'S': ['aAS'], 'AS': ['AAS'], 'AAA': ['ABA'], 'A': ['b'], 'bBA': ['bcdA'], 'bS': ['ba']}), "Тип 1: контекстно-зависимая грамматика")
 
     def test_zero_type(self):
-        self.assertEqual(main({'xAbCD': ['xHD']}), "Грамматика типа 0")
+        self.assertEqual(main({'xb': ['xHD']}), "Грамматика типа 0")
