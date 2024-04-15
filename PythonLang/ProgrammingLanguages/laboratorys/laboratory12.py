@@ -1,8 +1,9 @@
 import sqlite3
 
 
+# Создание таблиц в БД (если они не существуют)
 def create_db():
-    connection = sqlite3.connect('new_db12.db')
+    connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
 
     cursor.execute(''' CREATE TABLE IF NOT EXISTS child
@@ -30,8 +31,15 @@ def create_db():
     connection.close()
 
 
-def first():
-    connection = sqlite3.connect('new_db12.db')
+"""
+1. Пусть дана база данных (приведена ниже). Используйте нужные
+структуры данных для ее хранения. Заполните БД. Выведите список детей
+в возрасте до 10 лет.
+"""
+
+
+def first() -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
     cursor.execute(""" 
         SELECT child.full_name, child.age FROM child
@@ -40,10 +48,16 @@ def first():
     data = cursor.fetchall()
     connection.close()
     return reversed(['Список детей до 10ти лет', *[', '.join([str(j) for j in i]) for i in data]])
-    
 
-def second():
-    connection = sqlite3.connect('new_db12.db')
+
+"""
+2. Для БД из задания 1 выведите информацию о детях, чьи родители имеют
+разные фамилии. 
+"""
+
+
+def second() -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
     cursor.execute(""" 
         SELECT * FROM child
@@ -56,8 +70,13 @@ def second():
     return reversed(['Информация о детях, чьи родители имеют разные фамилии', *[', '.join([str(j) for j in i]) for i in answer]])
 
 
-def third():
-    connection = sqlite3.connect('new_db12.db')
+"""
+3. Для БД из задания 1 выведите список врачей в возрасте от 20 до 60 лет.
+"""
+
+
+def third() -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
     cursor.execute(""" 
         SELECT doctors.full_name, doctors.age FROM doctors
@@ -68,13 +87,12 @@ def third():
     return reversed(['Список врачей в возрасте от 20 до 60 лет', *[', '.join([str(j) for j in i]) for i in data]])
 
 
-def main(n, *, mas):
+def main(n: int) -> bool | reversed[str]:
     create_db()
     if n == '1': return first()
     if n == '2': return second()
     if n == '3': return third()
     else: return False
-
 
 
 if __name__ == '__main__':

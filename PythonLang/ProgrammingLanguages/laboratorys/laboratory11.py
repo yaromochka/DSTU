@@ -1,10 +1,11 @@
-import sqlite3 
+import sqlite3
 import re
 import csv
 
 
-def create_db():
-    connection = sqlite3.connect('new_db.db')
+# Создание трёх таблиц в БД (если они ранее не были созданы)
+def create_db() -> None:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
 
     cursor.execute(''' CREATE TABLE IF NOT EXISTS discipline
@@ -25,15 +26,20 @@ def create_db():
                    start_time TIME,
                    end_time TIME);
                    ''')
-    
+
     connection.commit()
     connection.close()
 
 
-def first():
-    connection = sqlite3.connect('new_db.db')
+"""
+1. Представьте таблицы (согласно вашему варианту) в виде структур языка Python.
+"""
+
+
+def first() -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
-    
+
     cursor.execute(""" 
     SELECT * FROM discipline
     """)
@@ -52,11 +58,20 @@ def first():
 
     lessons = cursor.fetchall()
     connection.close()
-    return reversed([f'Таблица lessons: ', *[' '.join([str(j) for j in i]) for i in lessons], f'Таблица days: ', *[' '.join([str(j) for j in i]) for i in days], f'Таблица disciplines: ', *[' '.join([str(j) for j in i]) for i in disciplines]])
+    return reversed([f'Таблица lessons: ', *[' '.join([str(j) for j in i]) for i in lessons], f'Таблица days: ',
+                     *[' '.join([str(j) for j in i]) for i in days], f'Таблица disciplines: ',
+                     *[' '.join([str(j) for j in i]) for i in disciplines]])
 
 
-def add_item(s):
-    connection = sqlite3.connect('new_db.db')
+"""
+2. Реализуйте в консоли интерфейс по добавлению, удалению, изменению
+данных. Имейте ввиду, что связанные операции (удаление, добавление, изменение) для связанных таблиц, должны изменять данных во всех
+связанных структурах. 
+"""
+
+
+def add_item(s: str) -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
     SELECT * FROM day
@@ -77,8 +92,8 @@ def add_item(s):
     return ['Запись успешно добавлена']
 
 
-def modify_item(s):
-    connection = sqlite3.connect('new_db.db')
+def modify_item(s: str) -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
     SELECT * FROM day
@@ -99,8 +114,8 @@ def modify_item(s):
     return ['Запись успешно изменена']
 
 
-def del_item(s):
-    connection = sqlite3.connect('new_db.db')
+def del_item(s: str) -> list[str]:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
     SELECT * FROM day
@@ -119,22 +134,28 @@ def del_item(s):
     connection.close()
     return ['Запись успешно удалена']
 
-def second(mas):
+
+def second(mas: str) -> bool | reversed[str] | list[str]:
     commands = {
-            r'Добавить \w+ в \w+? \d+ парой': add_item,
-            r'Изменить значение \w+? \d+ пара на \w+': modify_item,
-            r'Удалить значения в \w+? \d+ парой': del_item
-                }
-    
+        r'Добавить \w+ в \w+? \d+ парой': add_item,
+        r'Изменить значение \w+? \d+ пара на \w+': modify_item,
+        r'Удалить значения в \w+? \d+ парой': del_item
+    }
 
     for string, function in commands.items():
         if re.fullmatch(string, mas): return function(mas)
     return False
 
 
+"""
+3. Выведите следующую информацию в консоль построчно:
+Вариант 8. Для каждой дисциплины: «Название дисциплины», в какой
+день недели ведется, на какой паре.
+"""
 
-def third():
-    connection = sqlite3.connect('new_db.db')
+
+def third() -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
         SELECT discipline.name, day.name, lesson.num 
@@ -148,8 +169,15 @@ def third():
     return reversed(['Название дисциплины, день недели, номер пары', *[' '.join([str(j) for j in i]) for i in data]])
 
 
-def fourth():
-    connection = sqlite3.connect('new_db.db')
+"""
+4. Посчитайте и выведите результат:
+Вариант 8. Для каждого дня недели: сколько всего пар предусмотрено
+в этот день.
+"""
+
+
+def fourth() -> reversed[str]:
+    connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
         SELECT day.name as "День недели", COUNT(discipline.id_number) as "Количество пар"
@@ -162,9 +190,15 @@ def fourth():
     return reversed(['День недели, количество пар', *[' '.join([str(j) for j in i]) for i in data]])
 
 
-def fifth(mas):
+"""
+5. Реализуйте функционал по сохранению данных в файлы формата .csv и
+считыванию информации из файлов
+"""
+
+
+def fifth(mas: str) -> list[str]:
     if re.fullmatch(r"(Записать|Вписать)\s?(данные|информацию)?", mas):
-        connection = sqlite3.connect('new_db.db')
+        connection = sqlite3.connect('../files/new_db.db')
         cursor = connection.cursor()
         cursor.execute(""" 
             SELECT discipline.name, day.name, lesson.num, lesson.start_time, lesson.end_time
@@ -174,16 +208,15 @@ def fifth(mas):
             ORDER BY day.id ASC, lesson.num ASC
         """)
         data = cursor.fetchall()
-        with open('db_to_csv.csv', 'w') as f:
+        with open('../files/db_to_csv.csv', 'w') as f:
             wr = csv.writer(f)
             for row in data: wr.writerow(row)
         connection.close()
         return ['Данные успешно записаны']
 
-
     if re.fullmatch(r"(Считать|Прочитать)\s?(данные|информацию)?", mas):
-        connection = sqlite3.connect('new_db.db')
-        cursor = connection.cursor()  
+        connection = sqlite3.connect('../files/new_db.db')
+        cursor = connection.cursor()
         cursor.execute(""" CREATE TABLE IF NOT EXISTS new_table 
                    (id INTEGER PRIMARY KEY,
                     discipline_name TEXT NOT NULL,
@@ -191,8 +224,8 @@ def fifth(mas):
                     lesson_num TEXT NOT NULL,
                     lesson_start_time TIME,
                     lesson_end_time TIME);
-                       """)      
-        with open('db_to_csv.csv', 'r') as f:
+                       """)
+        with open('../files/db_to_csv.csv', 'r') as f:
             rd = csv.reader(f)
             for row in rd:
                 rd = list(rd)
@@ -211,15 +244,16 @@ def fifth(mas):
         return ['Данные успешно считаны']
 
 
-def main(n, *, mas):
+def main(n: int, *, mas: str) -> bool | reversed[str] | list[str]:
     create_db()
     if n == '1': return first()
     if n == '2': return second(mas)
     if n == '3': return third()
     if n == '4': return fourth()
-    if n == '5': return fifth(mas)
-    else: return False
-
+    if n == '5':
+        return fifth(mas)
+    else:
+        return False
 
 
 if __name__ == '__main__':

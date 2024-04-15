@@ -1,7 +1,9 @@
 import customtkinter as CTk
 import CTkListbox
 import configparser
-import laboratory1, laboratory2, laboratory3, laboratory4, laboratory5, laboratory7, laboratory8, laboratory9, laboratory10, laboratory11, laboratory12, laboratory13, laboratory14
+from PythonLang.ProgrammingLanguages.laboratorys import laboratory1, laboratory7, laboratory11, laboratory13, \
+    laboratory9, laboratory14, laboratory8, laboratory4, laboratory2, laboratory3, laboratory12, laboratory10, \
+    laboratory5
 
 
 class App(CTk.CTk):
@@ -133,7 +135,7 @@ class App(CTk.CTk):
         if self.task_desc is not None:
             self.task_desc.delete("0.0", "end")
         self.task_pars = configparser.ConfigParser()
-        self.task_pars.read(r'tasks.ini', encoding="utf-8")
+        self.task_pars.read(r'../files/tasks.ini', encoding="utf-8")
         self.task_desc.insert('0.0', self.task_pars.get('Tasks',  f'{self.lab_num + self.task_num}', fallback='Ещё не сделано =((').replace('"', ''))
         self.task_desc.configure(state='disabled')
 
