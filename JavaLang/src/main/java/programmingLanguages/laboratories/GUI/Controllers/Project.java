@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import programmingLanguages.laboratories.GUI.DatabaseHelp.DataBaseSQLite;
+import programmingLanguages.laboratories.GUI.DatabaseHelp.Dish;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,7 +52,16 @@ public class Project implements Initializable {
             }
         });
 
-        // заполняем таблицу данными
+        /* Кнопка "ОТСТАТОК" */
+        residueButton.setOnMouseClicked(MouseEvent -> {
+            try {
+                SceneController.switchToResidueMenu(MouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // Заполняем таблицу данными
         try {
             fillTable();
         } catch (SQLException e) {
@@ -62,7 +72,7 @@ public class Project implements Initializable {
     @FXML
     public void fillTable() throws SQLException {
         var program = new DataBaseSQLite();
-        program.open();
+        program.open("jdbc:sqlite:/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/resources/Project/ListOfDishes.db");
         var resultText = program.get();
 
         while (resultText.next()) {

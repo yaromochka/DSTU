@@ -22,4 +22,9 @@ public class SceneController {
     public static void switchToProject(MouseEvent mouseEvent) throws IOException {
         ButtonMove.moveTo(mouseEvent, "/Project/Project.fxml");
     }
+
+    @FXML
+    public static void switchToResidueMenu(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/ResidueMenu/ResidueMenu.fxml");
+    }
 }

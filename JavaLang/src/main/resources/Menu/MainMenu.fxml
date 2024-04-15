@@ -12,7 +12,6 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.Menu">
    <children>
@@ -46,14 +45,9 @@
       </Rectangle>
       <ImageView fitHeight="296.0" fitWidth="283.0" layoutX="49.0" layoutY="37.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@pulp_fiction.gif" />
+            <Image url="@52.png" />
          </image>
       </ImageView>
-      <Text layoutX="383.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="МЕНЮ" underline="true">
-         <font>
-            <Font size="37.0" />
-         </font>
-      </Text>
       <Button fx:id="projectButton" layoutX="360.0" layoutY="217.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="185.0" styleClass=".button" stylesheets="@style.css" text="ПРОЕКТ" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
