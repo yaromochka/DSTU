@@ -19,7 +19,7 @@ def dictor() -> dict[Any, Any]:
 """
 
 
-def first(mas: str) -> reversed[str]:
+def first(mas: str) -> list[str]:
     temp = dictor()
     mas = mas.split(', ')
     if mas[0] in list(temp.keys()):
@@ -36,7 +36,7 @@ def first(mas: str) -> reversed[str]:
 """
 
 
-def second(mas: str) -> reversed[str] | list[str]:
+def second(mas: str) -> list[str]:
     temp = dictor()
     mas = mas.split(', ')
     if mas[0] in list(temp.keys()):
@@ -52,7 +52,7 @@ def second(mas: str) -> reversed[str] | list[str]:
 """
 
 
-def third(mas: str) -> bool | reversed[str]:
+def third(mas: str) -> bool | list[str]:
     temp = dictor()
     if all([i in '0123456789' for i in mas]) and mas in list(temp.keys()):
         del temp[str(mas)]
@@ -67,14 +67,14 @@ def third(mas: str) -> bool | reversed[str]:
 """
 
 
-def fourthy(mas: str) -> bool | reversed[str]:
+def fourthy(mas: str) -> bool | list[str]:
     temp = dictor()
     if all([i in '0123456789' for i in mas]) and mas in list(temp.keys()):
         return reversed([f'Информация о студенте №{mas}', f'{mas}: {temp[mas]}'])
     else: return False
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str] | list[str]:
+def main(n: int, *, mas: str) -> bool | list[str]:
     if n == '1' and first(mas) is not False: return first(mas)
     if n == '2' and second(mas) is not False: return second(mas)
     if n == '3' and third(mas) is not False: return third(mas)

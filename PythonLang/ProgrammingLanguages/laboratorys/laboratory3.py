@@ -22,7 +22,7 @@ my_string = «Ф;И;О;Возраст;Категория;_Иванов;Иван;
 """
 
 
-def second() -> reversed[str]:
+def second() -> list[str]:
     info = 'Иванов;Иван;Иванович;23 года;Студент 3 курса;_Петров;Семен;Игоревич;22 года;Студент 2 курса'.split(';_')
     ans = ['ФИО                     О студенте']
     for i in info:
@@ -63,7 +63,7 @@ def fourthy(mas: str) -> tuple[str, str]:
     return f"Количество символов в строке - {len(mas.replace(' ', ''))}", f"Количество слов в строке - {len([i.rstrip('.,/&^%*$)#!?@)(*&') for i in mas.split()])}"
 
 
-def main(n: int, *, mas: str) -> bool | list[str] | tuple[str, str] | reversed[str]:
+def main(n: int, *, mas: str) -> bool | list[str] | tuple[str, str]:
     if n == '1' and first(mas) is not False: return [f'Слова, в которых последние две буквы "ОВ" {first(mas)}']
     if n == '2' and second() is not False: return second()
     if n == '3' and third() is not False: return [f'Студент с фамилией на "А" или "Б" - {third()}']

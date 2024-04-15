@@ -199,7 +199,7 @@ class Abonent:
 """ ФУНКЦИИ ДЛЯ ПЕРВОГО ЗАДАНИЯ """
 
 
-def average(studs: str) -> sorted[str]:
+def average(studs: str) -> list[str]:
     return sorted(studs, key=lambda x: sum(x[2]) / len(x[2]), reverse=True)
 
 
@@ -240,7 +240,7 @@ def first(mas: str) -> bool:
 """ ФУНКЦИИ ДЛЯ ВТОРОГО ЗАДАНИЯ """
 
 
-def num_train(trns: list) -> reversed[str]:
+def num_train(trns: list) -> list[str]:
     answer = []
     temp = list(sorted(trns, key=lambda x: x[1]))
     for i in temp:
@@ -251,7 +251,7 @@ def num_train(trns: list) -> reversed[str]:
     return reversed([f'Информация о всех поездах', *answer])
 
 
-def num_info(trns: list, mas: str) -> reversed[str]:
+def num_info(trns: list, mas: str) -> list[str]:
     number = mas.split(' ')[4]
     for i in trns:
         if i[1] == int(number):
@@ -259,7 +259,7 @@ def num_info(trns: list, mas: str) -> reversed[str]:
     return [f'Поезда с номером {number} нет в списке']
 
 
-def sort_arrive(trns: list) -> reversed[str]:
+def sort_arrive(trns: list) -> list[str]:
     answer = []
     temp = list(sorted(trns, key=lambda x: (x[0], x[2])))
     for i in temp:
@@ -273,7 +273,7 @@ def sort_arrive(trns: list) -> reversed[str]:
 """ ВТОРОЕ ЗАДАНИЕ """
 
 
-def second(mas: str) -> reversed[str]:
+def second(mas: str) -> list[str]:
     trains = []
     for _ in range(5):
         temp = Train()
@@ -424,7 +424,7 @@ def sixth(mas: str) -> list[str]:
         if re.fullmatch(string, mas): return value(abonents, mas)
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str | Any] | reversed[str] | list[str]:
+def main(n: int, *, mas: str) -> bool | list[str | Any] | list[str]:
     if n == '1': return first(mas)
     if n == '2': return second(mas)
     if n == '3': return third(mas)

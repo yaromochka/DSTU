@@ -31,7 +31,7 @@ def first(mas: str) -> bool | list[str]:
 """
 
 
-def second() -> reversed[str]:
+def second() -> list[str]:
     with open(r'C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\student.csv') as f:
         file = [(''.join(i)).split(';') for i in reader(f)]
         ans = [file[0]]
@@ -49,7 +49,7 @@ def second() -> reversed[str]:
 """
 
 
-def third(mas: str) -> reversed[str] | list[str]:
+def third(mas: str) -> list[str]:
     group = mas
     with open(r"C:\Users\Romochka\PycharmProjects\pythonProject\Learning\2.1_labs_LP\files\student.csv") as f:
         file = [(''.join(i)).split(';') for i in reader(f)]
@@ -104,9 +104,9 @@ def exit():
     toplevel_window.destroy()
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str] | list[str] | None:
+def main(n: int, *, mas: str) -> bool| list[str] | None:
     global group
-    group: str = mas
+    group = mas
     if n == '1' and first(mas) is not False: return first(mas)
     if n == '2' and second() is not False: return second()
     if n == '3' or n == '4':

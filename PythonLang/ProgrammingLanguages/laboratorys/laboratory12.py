@@ -38,7 +38,7 @@ def create_db():
 """
 
 
-def first() -> reversed[str]:
+def first() -> list[str]:
     connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -56,7 +56,7 @@ def first() -> reversed[str]:
 """
 
 
-def second() -> reversed[str]:
+def second() -> list[str]:
     connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -75,7 +75,7 @@ def second() -> reversed[str]:
 """
 
 
-def third() -> reversed[str]:
+def third() -> list[str]:
     connection = sqlite3.connect('../files/new_db12.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -87,7 +87,7 @@ def third() -> reversed[str]:
     return reversed(['Список врачей в возрасте от 20 до 60 лет', *[', '.join([str(j) for j in i]) for i in data]])
 
 
-def main(n: int) -> bool | reversed[str]:
+def main(n: int) -> bool | list[str]:
     create_db()
     if n == '1': return first()
     if n == '2': return second()

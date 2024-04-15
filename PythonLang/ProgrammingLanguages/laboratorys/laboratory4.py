@@ -7,7 +7,7 @@ from typing import List, Tuple
 """
 
 
-def first(mas: str) -> list[str] | reversed[str]:
+def first(mas: str) -> list[str]:
     if mas.isdigit():
         matrix = [[randint(-100000, 100000) for _ in range(int(mas))] for _ in range(int(mas))]
         return reversed(('Изначальная матрица: ', *[' '.join(str(j) for j in i) for i in matrix],
@@ -41,7 +41,7 @@ def second() -> tuple[str, str, str]:
 """
 
 
-def third() -> reversed[str]:
+def third() -> list[str]:
     my_len = [['БО-331101', ['Акулова Алёна', 'Бабушкина Ксения', 'Алёнова Акула']],
               ['БОВ-421102', ['Алкулова Кулёна', 'Ксеньева Бабушка', 'Не Придумал']],
               ['БО-331103', ['Ковалев Данил', 'Ковалев Данила', 'Ковалев Даня']],
@@ -65,7 +65,7 @@ def third() -> reversed[str]:
 """
 
 
-def fourthy() -> reversed[str]:
+def fourthy() -> list[str]:
     my_len = [['БО-331101', ['Акулова Алёна', 'Бабушкина Ксения', 'Алёнова Акула']],
               ['БОВ-421102', ['Алкулова Кулёна', 'Ксеньева Бабушка', 'Не Придумал']],
               ['БО-331103', ['Ковалев Данил', 'Ковалев Данила', 'Ковалев Даня']],
@@ -80,7 +80,7 @@ def fourthy() -> reversed[str]:
     return reversed(('Студенты, чей порядковый номер - чётное число:', *ans))
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str] | tuple[str, str, str] | list[str]:
+def main(n: int, *, mas: str) -> bool | tuple[str, str, str] | list[str]:
     if n == '1' and first(mas) is not False: return first(mas)
     if n == '2' and second() is not False: return second()
     if n == '3' and third() is not False: return third()

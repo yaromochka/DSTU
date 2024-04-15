@@ -20,7 +20,7 @@ import numpy as np
 """
 
 
-def first() -> reversed[str]:
+def first() -> list[str]:
     return reversed([f'Первые четыре строки: ', *[''.join(str(matrix[i])) for i in range(4)], f'Строка с элементами, возведёнными в квадрат: ', *[''.join(str(np.power(i, 2))) for i in matrix[0:4, :]]])
 
 
@@ -29,7 +29,7 @@ def first() -> reversed[str]:
 4. Напишите функцию сложения по столбцам четных элементов.
 """
 
-def second() -> reversed[str]:
+def second() -> list[str]:
     return reversed([f'Вектор сумм по столбцам: ', ' '.join([str(np.sum(i)) for i in matrix.T])])
 
 
@@ -39,7 +39,7 @@ def second() -> reversed[str]:
 """
 
 
-def third() -> reversed[str]:
+def third() -> list[str]:
     return reversed([f'Вектор сумм по строкам: ', ' '.join([str(np.sum(i)) for i in matrix])])
 
 
@@ -49,7 +49,7 @@ def third() -> reversed[str]:
 """
 
 
-def fourthy() -> reversed[str]:
+def fourthy() -> list[str]:
     return reversed([f'Заменённая матрица на нули: ', *[''.join(str(i)) for i in np.zeros_like(matrix)]])
 
 
@@ -59,7 +59,7 @@ def fourthy() -> reversed[str]:
 """
 
 
-def fifth() -> reversed[str]:
+def fifth() -> list[str]:
     return reversed([f'Матрица с четырьмя удалёнными строками: ', *[''.join(str(i)) for i in matrix[-4::]]])
 
 
@@ -69,7 +69,7 @@ def fifth() -> reversed[str]:
 """
 
 
-def sixth() -> reversed[str]:
+def sixth() -> list[str]:
     matrix[:, [0, -1]] = matrix[:, [-1, 0]]
     return reversed(['Матрица с поменянными столбцами: ', *[''.join(str(i)) for i in matrix]])
 
@@ -82,7 +82,7 @@ def sixth() -> reversed[str]:
 """
 
 
-def seventh(mas: str) -> bool | reversed[str]:
+def seventh(mas: str) -> bool | list[str]:
     mas = mas.split(', ')
     if len(mas) and all([i.isdigit() for i in mas]):
         mas = int(''.join(mas))
@@ -105,7 +105,7 @@ def seventh(mas: str) -> bool | reversed[str]:
 """
 
 
-def eighth(mas: str) -> bool | reversed[str]:
+def eighth(mas: str) -> bool | list[str]:
     mas = mas.split(', ')
     if len(mas) == 3 and all([i.isdigit() for i in mas]):
         a, b, c = map(int, mas)
@@ -118,7 +118,7 @@ def eighth(mas: str) -> bool | reversed[str]:
         return False
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str]:
+def main(n: int, *, mas: str) -> bool | list[str]:
     global matrix
     matrix = np.array([
         [1, 2, 3, 4, 5, 6, 7, 8],

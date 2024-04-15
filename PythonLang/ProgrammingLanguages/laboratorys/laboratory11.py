@@ -36,7 +36,7 @@ def create_db() -> None:
 """
 
 
-def first() -> reversed[str]:
+def first() -> list[str]:
     connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
 
@@ -70,7 +70,7 @@ def first() -> reversed[str]:
 """
 
 
-def add_item(s: str) -> reversed[str]:
+def add_item(s: str) -> list[str]:
     connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -92,7 +92,7 @@ def add_item(s: str) -> reversed[str]:
     return ['Запись успешно добавлена']
 
 
-def modify_item(s: str) -> reversed[str]:
+def modify_item(s: str) -> list[str]:
     connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -135,7 +135,7 @@ def del_item(s: str) -> list[str]:
     return ['Запись успешно удалена']
 
 
-def second(mas: str) -> bool | reversed[str] | list[str]:
+def second(mas: str) -> bool | list[str]:
     commands = {
         r'Добавить \w+ в \w+? \d+ парой': add_item,
         r'Изменить значение \w+? \d+ пара на \w+': modify_item,
@@ -154,7 +154,7 @@ def second(mas: str) -> bool | reversed[str] | list[str]:
 """
 
 
-def third() -> reversed[str]:
+def third() -> list[str]:
     connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -176,7 +176,7 @@ def third() -> reversed[str]:
 """
 
 
-def fourth() -> reversed[str]:
+def fourth() -> list[str]:
     connection = sqlite3.connect('../files/new_db.db')
     cursor = connection.cursor()
     cursor.execute(""" 
@@ -244,7 +244,7 @@ def fifth(mas: str) -> list[str]:
         return ['Данные успешно считаны']
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str] | list[str]:
+def main(n: int, *, mas: str) -> bool | list[str]:
     create_db()
     if n == '1': return first()
     if n == '2': return second(mas)

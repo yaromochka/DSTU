@@ -6,7 +6,7 @@ import customtkinter as CTk
 """
 
 
-def first(mas: str) -> reversed[str]:
+def first(mas: str) -> list[str]:
     diction = dict()
     mas = mas.split(', ')
     for i in range(0, len(mas), 2):
@@ -30,7 +30,7 @@ def first(mas: str) -> reversed[str]:
 """
 
 
-def second() -> reversed[str]:
+def second() -> list[str]:
     with open(r'/PythonLang/ProgrammingLanguages/files/student.csv', encoding='mac_roman') as f:
         file, temp, ans = list(reader(f)), {}, {}
         for i in file[1::]:
@@ -49,7 +49,7 @@ def second() -> reversed[str]:
 """
 
 
-def third(mas: str) -> list[str] | tuple[str] | reversed[str]:
+def third(mas: str) -> list[str] | tuple[str]:
     group = mas
     with open(r"/PythonLang/ProgrammingLanguages/files/student.csv", encoding='mac_roman') as f:
         file, temp = list(reader(f)), {}
@@ -111,7 +111,7 @@ def exit():
     toplevel_window.destroy()
 
 
-def main(n: int, *, mas: str) -> bool | reversed[str] | tuple[str] | str | None:
+def main(n: int, *, mas: str) -> bool | list[str] | tuple[str] | str | None:
     global group
     group = mas
     if n == '1' and first(mas) is not False: return first(mas)

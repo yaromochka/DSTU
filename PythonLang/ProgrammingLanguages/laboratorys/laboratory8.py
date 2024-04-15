@@ -21,7 +21,7 @@ def dictor() -> dict[Any, Any]:
 """
 
 
-def first() -> reversed[list[str]]:
+def first() -> list[str]:
     return reversed(['Файл, преобразованный в словарь', *[f'{k[0]}:{" ".join(k[1])}' for k in dictor().items()]])
 
 
@@ -31,7 +31,7 @@ def first() -> reversed[list[str]]:
 """
 
 
-def increase_age(s: str) -> reversed[list[str]]:
+def increase_age(s: str) -> list[str]:
     fam = s.split(' ')[2]
     temp = dictor()
     for i, j in temp.items():
@@ -46,7 +46,7 @@ def increase_age(s: str) -> reversed[list[str]]:
 """
 
 
-def change_name(s: str) -> reversed[list[str]]:
+def change_name(s: str) -> list[str]:
     fname, sname = s.split(' ')[4], s.split(' ')[6]
     temp = dictor()
     for i, j in temp.items():
@@ -60,7 +60,7 @@ def change_name(s: str) -> reversed[list[str]]:
 """
 
 
-def increase_age_num(s: str) -> reversed[list[str]]:
+def increase_age_num(s: str) -> list[str]:
     num, temp = s.split(' ')[5], dictor()
     temp[num] = [temp[num][0], str(int(temp[num][1]) + 1), temp[num][2]]
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items()]])
@@ -72,7 +72,7 @@ def increase_age_num(s: str) -> reversed[list[str]]:
 """
 
 
-def change_group(s: str) -> reversed[list[str]]:
+def change_group(s: str) -> list[str]:
     fam, group = s.split(' ')[3], s.split(' ')[5]
     temp = dictor()
     for i, j in temp.items():
@@ -86,7 +86,7 @@ def change_group(s: str) -> reversed[list[str]]:
 """
 
 
-def delete_student(s: str) -> reversed[list[str]]:
+def delete_student(s: str) -> list[str]:
     num, temp = s.split(' ')[-1], dictor()
     del temp[num]
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items()]])
@@ -97,7 +97,7 @@ def delete_student(s: str) -> reversed[list[str]]:
 """
 
 
-def decrease_age() -> reversed[list[str]]:
+def decrease_age() -> list[str]:
     temp = dictor()
     for i, j in temp.items():
         if int(j[1]) > 22: temp[i] = [j[0], str(int(j[1]) - 1), j[2]]
@@ -109,7 +109,7 @@ def decrease_age() -> reversed[list[str]]:
 """
 
 
-def delete_student_age() -> reversed[list[str]]:
+def delete_student_age() -> list[str]:
     temp = dictor()
     t = temp.copy()
     for i, j in t.items():
@@ -122,7 +122,7 @@ def delete_student_age() -> reversed[list[str]]:
 """
 
 
-def increase_age_ivanov() -> reversed[list[str]]:
+def increase_age_ivanov() -> list[str]:
     fam = 'Иванов'
     temp = dictor()
     for i, j in temp.items():
@@ -135,7 +135,7 @@ def increase_age_ivanov() -> reversed[list[str]]:
 """
 
 
-def change_ivanov() -> reversed[list[str]]:
+def change_ivanov() -> list[str]:
     fam = 'Иванов'
     temp = dictor()
     for i, j in temp.items():
@@ -148,7 +148,7 @@ def change_ivanov() -> reversed[list[str]]:
 """
 
 
-def swap_groups() -> reversed[list[str]]:
+def swap_groups() -> list[str]:
     temp = dictor()
     for i, j in temp.items():
         temp[i] = [j[2], j[1], j[0]]
@@ -161,7 +161,7 @@ def swap_groups() -> reversed[list[str]]:
 """
 
 
-def second(mas: str) -> bool | reversed[list[str]]:
+def second(mas: str) -> bool | list[str]:
     commands = {
         r"[иИ]зменить возраст \w+ на 1": increase_age,
         r"[иИ]зменить ФИО студента с \w+ на \w+": change_name,
@@ -185,7 +185,7 @@ def second(mas: str) -> bool | reversed[list[str]]:
 """
 
 
-def print_group() -> reversed[list[str]]:
+def print_group() -> list[str]:
     group = 'БО-111111'
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if group in k[1][2]]])
@@ -196,7 +196,7 @@ def print_group() -> reversed[list[str]]:
 """
 
 
-def print_numbers() -> reversed[list[str]]:
+def print_numbers() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if 1 <= int(k[0]) <= 2]])
 
@@ -206,7 +206,7 @@ def print_numbers() -> reversed[list[str]]:
 """
 
 
-def print_age() -> reversed[list[str]]:
+def print_age() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if int(k[1][1]) == 22]])
 
@@ -216,7 +216,7 @@ def print_age() -> reversed[list[str]]:
 """
 
 
-def print_surname() -> reversed[list[str]]:
+def print_surname() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if 'Иванов' in k[1][0]]])
 
@@ -227,7 +227,7 @@ def print_surname() -> reversed[list[str]]:
 """
 
 
-def print_surname_a() -> reversed[list[str]]:
+def print_surname_a() -> list[str]:
     temp = dictor()
     return reversed(
         ['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if k[1][0].split(' ')[0][-1] == 'а']])
@@ -239,7 +239,7 @@ def print_surname_a() -> reversed[list[str]]:
 """
 
 
-def print_age_even() -> reversed[list[str]]:
+def print_age_even() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if int(k[1][1]) % 2 == 0]])
 
@@ -249,7 +249,7 @@ def print_age_even() -> reversed[list[str]]:
 """
 
 
-def print_age_five() -> reversed[list[str]]:
+def print_age_five() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if '5' in k[1][1]]])
 
@@ -260,7 +260,7 @@ def print_age_five() -> reversed[list[str]]:
 """
 
 
-def print_len_group() -> reversed[list[str]]:
+def print_len_group() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if len(k[1][2]) > 7]])
 
@@ -271,7 +271,7 @@ def print_len_group() -> reversed[list[str]]:
 """
 
 
-def print_even_num() -> reversed[list[str]]:
+def print_even_num() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if int(k[0]) % 2 == 0]])
 
@@ -282,7 +282,7 @@ def print_even_num() -> reversed[list[str]]:
 """
 
 
-def print_group_one() -> reversed[list[str]]:
+def print_group_one() -> list[str]:
     temp = dictor()
     return reversed(['Словарь:', *[f'{k[0]}:{" ".join(k[1])}' for k in temp.items() if k[1][2][-1] == '1']])
 
@@ -293,7 +293,7 @@ def print_group_one() -> reversed[list[str]]:
 """
 
 
-def third(mas: str) -> bool | reversed[list[str]]:
+def third(mas: str) -> bool | list[str]:
     commands = {
         "Вывести список студентов группы БО-111111": print_group,
         "Вывести список студентов с номерами от 1 до 2": print_numbers,
@@ -313,7 +313,7 @@ def third(mas: str) -> bool | reversed[list[str]]:
     return False
 
 
-def main(n: int, *, mas: str) -> bool | reversed[list[str]]:
+def main(n: int, *, mas: str) -> bool | list[str]:
     if n == '1': return first()
     if n == '2': return second(mas)
     if n == '3':
