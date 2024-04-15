@@ -1,4 +1,4 @@
-package programmingLanguages.laboratories.GUI.Controllers;
+package programmingLanguages.laboratories.GUI.DatabaseHelp;
 
 public class Dish {
     private int id;
@@ -6,6 +6,7 @@ public class Dish {
     private Double price;
 
     public Dish(int id, String name, Double price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }

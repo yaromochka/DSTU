@@ -11,11 +11,11 @@ public class DataBaseSQLite {
     public DataBaseSQLite() {
     }
 
-    public void open() {
+    public void open(String url) {
         try {
             Class.forName("org.sqlite.JDBC");
             this.co = DriverManager.getConnection(
-                    "jdbc:sqlite:/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/resources/Project/ListOfDishes.db");
+                    url);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
