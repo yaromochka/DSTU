@@ -39,19 +39,19 @@ def check_grammar_existence(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_t
     # Наше множество, в которое мы будем добавлять элементы
     set_with_non_terminals = {start_symbol}
 
-    max_length = 0
-
-    for symbol in chain.from_iterable(rule for rules in grammar.values() for rule in rules):
-
-        if symbol in set_with_non_terminals | set_of_non_terminals:
-            set_with_non_terminals.add(symbol)
-
-        if max_length == (length := len(set_with_non_terminals)):
-            break
-        else:
-            max_length = length
+    for non_terminals in set_of_non_terminals:
+        temporary_set = set_with_non_terminals
+        while temporary_set != set_with_non_terminals:
+            print(temporary_set)
+            print(set_with_non_terminals)
+            temporary_set = set_with_non_terminals
+            set_with_non_terminals |= set(non_terminals)
 
     return start_symbol in set_with_non_terminals
+
+
+def useless_delete(non_terminals: Set[AnyStr]) -> bool:
+    pass
 
 
 def main() -> AnyStr:
@@ -60,7 +60,8 @@ def main() -> AnyStr:
 
     if is_context_independent(rules):
         return (f"1)Введена КС - грамматика\n2)"
-                f"{'Язык существует' if check_grammar_existence(rules, non_terminals) else 'Язык не существует'}")
+                f"{'Язык существует' if check_grammar_existence(rules, non_terminals) else 'Язык не существует'}"
+                f"")
     return "1)Введенная грамматика не является КС-грамматикой "
 
 

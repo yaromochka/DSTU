@@ -61,10 +61,6 @@ def is_context_dependent(args: dict[str, list]) -> bool:
     """
     return _checker(args, re.compile(r'^.*[A-Z]+.* -> .*.+.*$'))
 
-def is_zero_type(args: dict[str, list]) -> bool:
-    # xяb -> xHD
-    return _checker(args, re.compile(r'^.+ -> .*$'))
-
 
 # Функция для проверки введёных грамматик через соответствующие паттерны
 def _checker(grammar: dict[str, list[str]], pattern: Pattern[AnyStr]) -> bool:
@@ -93,8 +89,7 @@ def main(dictionary=None) -> str:
     if is_context_dependent(dictionary):
         return "Тип 1: контекстно-зависимая грамматика"
 
-    if is_zero_type(dictionary):
-        return "Грамматика типа 0"
+    return "Грамматика типа 0"
 
 
 if __name__ == "__main__":
