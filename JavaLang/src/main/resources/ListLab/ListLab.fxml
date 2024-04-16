@@ -27,8 +27,8 @@
          <effect>
             <GaussianBlur />
          </effect></Rectangle>
-      <TextField fx:id="textField" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="223.0" prefHeight="38.0" prefWidth="341.0" promptText="Введите данные" stylesheets="@style.css" />
-      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" depthTest="DISABLE" editable="false" layoutX="193.0" layoutY="93.0" prefHeight="121.0" prefWidth="341.0" stylesheets="@style.css" wrapText="true">
+      <TextField fx:id="textField" blendMode="SOFT_LIGHT" layoutX="193.0" layoutY="223.0" prefHeight="38.0" prefWidth="341.0" promptText="Введите данные" stylesheets="@../Styles/style.css" />
+      <TextArea fx:id="textArea" blendMode="SOFT_LIGHT" depthTest="DISABLE" editable="false" layoutX="193.0" layoutY="93.0" prefHeight="121.0" prefWidth="341.0" stylesheets="@../Styles/style.css" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -42,7 +42,7 @@
                </light>
             </Lighting>
          </effect></TextArea>
-      <Button fx:id="clearButton" layoutX="215.0" layoutY="329.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="149.0" styleClass=".button" stylesheets="@style.css" text="ОЧИСТИТЬ" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="clearButton" layoutX="215.0" layoutY="329.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="149.0" styleClass=".button" stylesheets="@../Styles/style.css" text="ОЧИСТИТЬ" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
@@ -70,7 +70,7 @@
          <children>
             <VBox layoutX="19.0" layoutY="21.0" prefHeight="232.0" prefWidth="143.0">
                <children>
-                  <Button fx:id="laboratoryThirdButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="143.0" stylesheets="@style.css" text="ЛР3" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="laboratoryThirdButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="143.0" stylesheets="@../Styles/style.css" text="ЛР3" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -96,7 +96,7 @@
                         <String fx:value=".laboratoryButton" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="laboratoryThirdDotFirstButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="143.0" stylesheets="@style.css" text="ЛР3.1" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="laboratoryThirdDotFirstButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="143.0" stylesheets="@../Styles/style.css" text="ЛР3.1" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -122,7 +122,7 @@
                         <String fx:value=".laboratoryButton" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="laboratoryFourthButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="143.0" stylesheets="@style.css" text="ЛР4" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="laboratoryFourthButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="143.0" stylesheets="@../Styles/style.css" text="ЛР4" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -153,8 +153,8 @@
          <effect>
             <ColorAdjust />
          </effect></ChoiceBox>
-      <Button fx:id="backButton" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" opacity="0.87" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@style.css" text="Назад" />
-      <TextArea fx:id="textAreaAnswer" blendMode="SOFT_LIGHT" editable="false" layoutX="193.0" layoutY="268.0" prefHeight="53.0" prefWidth="341.0" stylesheets="@style.css" wrapText="true">
+      <Button fx:id="backButton" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" opacity="0.87" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
+      <TextArea fx:id="textAreaAnswer" blendMode="SOFT_LIGHT" editable="false" layoutX="193.0" layoutY="268.0" prefHeight="53.0" prefWidth="341.0" stylesheets="@../Styles/style.css" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -169,7 +169,7 @@
             </Lighting>
          </effect>
       </TextArea>
-      <Button fx:id="sendButton" layoutX="407.0" layoutY="329.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="109.0" styleClass=".button" stylesheets="@style.css" text="OK" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="sendButton" layoutX="407.0" layoutY="329.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="109.0" styleClass=".button" stylesheets="@../Styles/style.css" text="OK" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>

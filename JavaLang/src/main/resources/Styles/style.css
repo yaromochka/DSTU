@@ -15,3 +15,8 @@
 .text-area {
     -fx-text-fill: black;
 }
+
+.registerButton {
+    -fx-border-radius: 0;
+    -fx-border-color: #6b666e;
+}

@@ -24,6 +24,11 @@ public class SceneController {
     }
 
     @FXML
+    public static void switchToRegister(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/Register/Register.fxml");
+    }
+
+    @FXML
     public static void switchToResidueMenu(MouseEvent mouseEvent) throws IOException {
         ButtonMove.moveTo(mouseEvent, "/ResidueMenu/ResidueMenu.fxml");
     }

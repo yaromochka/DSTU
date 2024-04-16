@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DataBaseSQLite {
+public class DataBaseDishes {
     public Connection co;
 
-    public DataBaseSQLite() {
+    public DataBaseDishes() {
     }
 
     public void open(String url) {
@@ -30,7 +30,7 @@ public class DataBaseSQLite {
     }
 
     public ResultSet get() throws SQLException {
-        String query = "SELECT * FROM AllDishes";
+        String query = "";
         var statement = co.createStatement();
         return statement.executeQuery(query);
     }
