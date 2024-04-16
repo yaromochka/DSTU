@@ -4,6 +4,7 @@ package programmingLanguages.laboratories.GUI.Controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
 
 import java.io.IOException;
 

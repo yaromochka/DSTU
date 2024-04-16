@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import programmingLanguages.laboratories.GUI.DatabaseHelp.Dish;
+import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
 
 import java.io.IOException;
 import java.net.URL;

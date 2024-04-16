@@ -1,4 +1,4 @@
-package programmingLanguages.laboratories.GUI.Controllers;
+package programmingLanguages.laboratories.GUI.HelpMethods;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;

@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import programmingLanguages.laboratories.GUI.HelpMethods.AlertMessage;
+import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
 import programmingLanguages.laboratories.GUI.LaboratoryControllers.ChooseLaboratory;
 
 import java.io.IOException;
@@ -132,13 +134,7 @@ public class ListLab implements Initializable {
 
             /* Вызов окна ошибки при неверно введённых или невведённых данных*/
             else {
-                textField.clear();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ALARM");
-                alert.setHeaderText("Произошла непредвиденная ошибка");
-                alert.setContentText("Возможно вы не выбрали нужное задание");
-
-                alert.showAndWait();
+                AlertMessage.getAlert();
             }
         });
     }

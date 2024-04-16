@@ -1,20 +1,21 @@
 package programmingLanguages.laboratories.GUI.Controllers;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Base64;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import programmingLanguages.laboratories.GUI.DatabaseHelp.DataBaseUsers;
+import programmingLanguages.laboratories.GUI.HelpMethods.AlertMessage;
+import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+
+import static programmingLanguages.laboratories.GUI.HelpMethods.CipherPassword.encryptPassword;
 
 public class Register implements Initializable {
 
@@ -58,24 +59,13 @@ public class Register implements Initializable {
             if (password.equals(repeatPassword) &&
                     Pattern.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z0-9_]{8,}$", password)) {
 
-                // Создаем объект MessageDigest с использованием алгоритма SHA-256
-                MessageDigest md;
                 try {
-                    md = MessageDigest.getInstance("SHA-256");
-                } catch (NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                }
-
-                // Преобразуем пароль в байтовый массив и вычисляем хэш-значение
-                byte[] hash = md.digest(password.getBytes());
-
-                // Кодируем хэш-значение в Base64 и выводим на экран
-                String encodedHash = Base64.getEncoder().encodeToString(hash);
-                try {
-                    addNewUser(login, encodedHash);
+                    addNewUser(login, encryptPassword(password));
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+            } else {
+                AlertMessage.getAlert();
             }
         });
     }

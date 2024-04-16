@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import programmingLanguages.laboratories.GUI.Controllers.SceneController;
+import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
 
 import java.io.IOException;
 import java.net.URL;

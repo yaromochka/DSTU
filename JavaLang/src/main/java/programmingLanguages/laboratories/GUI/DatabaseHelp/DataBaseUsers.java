@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class DataBaseUsers{
+public class DataBaseUsers {
     public Connection co;
 
     public DataBaseUsers() {}
@@ -29,9 +29,15 @@ public class DataBaseUsers{
     }
 
     public void addUserToTable(String login, String password) throws SQLException {
-        String query = "INSERT INTO Users (login_user, password_user, status_user) VALUES (" + login + ", " + password + ", 1);";
+        String query = String.format("INSERT INTO Users (login_user, password_user, status_user) VALUES ('%s', '%s', 1);", login, password);
         var statement = co.createStatement();
         statement.execute(query);
+    }
+
+    public int tryToLogin(String login, String password) throws SQLException {
+        String query = String.format("SELECT status_user FROM Users WHERE login_user = '%s' AND password_user = '%s'", login, password);
+        var statement = co.createStatement();
+        return (statement.executeQuery(query)).getInt("status_user");
     }
 }
 

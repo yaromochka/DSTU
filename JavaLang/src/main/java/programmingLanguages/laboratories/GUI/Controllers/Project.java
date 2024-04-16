@@ -6,7 +6,14 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import programmingLanguages.laboratories.GUI.DatabaseHelp.DataBaseUsers;
+import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
+import programmingLanguages.laboratories.GUI.HelpMethods.AlertMessage;
+
+import static programmingLanguages.laboratories.GUI.HelpMethods.CipherPassword.encryptPassword;
 
 public class Project implements Initializable {
 
@@ -46,6 +53,17 @@ public class Project implements Initializable {
             var login = getLogin();
             var password = getPassword();
             loginField.clear(); passwordField.clear();
+            try {
+                var user_status = loginInSystem(login, encryptPassword(password));
+                switch (user_status) {
+                    case (0) -> AlertMessage.getAlert();
+                    case (1) -> SceneController.switchToResidueMenu(MouseEvent);
+                    case (2) -> SceneController.switchToMenu(MouseEvent);
+                    case (3) -> SceneController.switchToMenu(MouseEvent);
+                }
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         /* Кнопка "ЗАРЕГИСТРИРОВАТЬСЯ" */
@@ -64,6 +82,14 @@ public class Project implements Initializable {
 
     public String getPassword() {
         return passwordField.getText();
+    }
+
+    public int loginInSystem(String login, String password) throws SQLException {
+        var program = new DataBaseUsers();
+        program.open();
+        var user_status = program.tryToLogin(login, password);
+        program.close();
+        return user_status;
     }
 }
 
