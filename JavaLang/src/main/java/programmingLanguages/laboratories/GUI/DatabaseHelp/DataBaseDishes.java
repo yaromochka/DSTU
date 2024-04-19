@@ -29,8 +29,11 @@ public class DataBaseDishes {
         }
     }
 
-    public ResultSet get() throws SQLException {
-        String query = "";
+    public ResultSet getMenu() throws SQLException {
+        String query = "SELECT name_dish, price_dish\n" +
+                "FROM AllDishes\n" +
+                "ORDER BY random()\n" +
+                "LIMIT 7";
         var statement = co.createStatement();
         return statement.executeQuery(query);
     }

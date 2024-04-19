@@ -57,8 +57,8 @@ public class Project implements Initializable {
                 var user_status = loginInSystem(login, encryptPassword(password));
                 switch (user_status) {
                     case (0) -> AlertMessage.getAlert();
-                    case (1) -> SceneController.switchToResidueMenu(MouseEvent);
-                    case (2) -> SceneController.switchToMenu(MouseEvent);
+                    case (1) -> SceneController.switchToUserPanel(MouseEvent);
+                    case (2) -> SceneController.switchToWaiterPanel(MouseEvent);
                     case (3) -> SceneController.switchToMenu(MouseEvent);
                 }
             } catch (SQLException | IOException e) {

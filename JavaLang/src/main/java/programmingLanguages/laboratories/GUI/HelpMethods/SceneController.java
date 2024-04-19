@@ -32,4 +32,14 @@ public class SceneController {
     public static void switchToResidueMenu(MouseEvent mouseEvent) throws IOException {
         ButtonMove.moveTo(mouseEvent, "/ResidueMenu/ResidueMenu.fxml");
     }
+
+    @FXML
+    public static void switchToUserPanel(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/UserPanel/UserPanel.fxml");
+    }
+
+    @FXML
+    public static void switchToWaiterPanel(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/WaiterPanel/WaiterPanel.fxml");
+    }
 }
