@@ -80,7 +80,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TreeTableView layoutX="149.0" layoutY="12.0" prefHeight="327.0" prefWidth="393.0">
+                        <TreeTableView layoutX="166.0" layoutY="10.0" prefHeight="327.0" prefWidth="393.0">
                            <columns>
                               <TreeTableColumn prefWidth="259.0" text="Заказ" />
                               <TreeTableColumn minWidth="0.0" prefWidth="133.0" text="Готовность" />

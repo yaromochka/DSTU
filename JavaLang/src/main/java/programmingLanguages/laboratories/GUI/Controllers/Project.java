@@ -95,7 +95,7 @@ public class Project implements Initializable {
 
 
 //    @FXML
-//    private Button ordererButton;
+//    private Button orderedButton;
 
 //    @FXML
 //    private Button residueButton;
