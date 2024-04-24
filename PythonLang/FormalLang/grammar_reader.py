@@ -2,7 +2,7 @@ from collections import defaultdict
 
 
 # Функция для ввода грамматик
-def grammatic_reader():
+def grammar_reader():
     print("Для окончания ввода введите end\nВведите грамматику вида S -> aSb: ")
 
     dictionary = defaultdict(list)
