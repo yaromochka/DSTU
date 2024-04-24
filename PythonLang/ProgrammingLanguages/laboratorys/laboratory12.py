@@ -87,7 +87,7 @@ def third() -> list[str]:
     return reversed(['Список врачей в возрасте от 20 до 60 лет', *[', '.join([str(j) for j in i]) for i in data]])
 
 
-def main(n: int) -> bool | list[str]:
+def main(n: int, *, mas: str) -> bool | list[str]:
     create_db()
     if n == '1': return first()
     if n == '2': return second()
