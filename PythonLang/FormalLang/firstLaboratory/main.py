@@ -1,5 +1,5 @@
 import re
-from PythonLang.FormalLang.grammatic_reader import grammatic_reader
+from PythonLang.FormalLang.grammar_reader import grammar_reader
 from typing import AnyStr, Pattern
 
 """
@@ -75,7 +75,7 @@ def _checker(grammar: dict[str, list[str]], pattern: Pattern[AnyStr]) -> bool:
 
 def main(dictionary=None) -> str:
     if dictionary is None:
-        dictionary = grammatic_reader()
+        dictionary = grammar_reader()
 
     if is_linear_left(dictionary):
         return "Тип 3: регулярная левосторонняя грамматика"
