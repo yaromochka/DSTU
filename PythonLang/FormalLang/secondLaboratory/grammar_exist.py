@@ -1,4 +1,14 @@
 """
+Q -> 01A | 01B | A
+A -> 0B1 | B | 1 | e
+B -> BA0 | B1 | C | e
+C -> 0C11
+D -> -D1 | -0 | -1
+end
+---------
+0 1 -
+Существует
+
 Пример ввода:
 E -> E+T | T
 T -> T*F | F
@@ -52,7 +62,8 @@ def check_grammar_exist(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_termi
         set_with_non_terminals = set()
         temporary_non_terminal = non_terminal
         for symbol, rules in reversed(grammar.items()):
-            if any(temporary_non_terminal in rule for rule in rules):
+
+            if any(temporary_non_terminal in rule for rule in rules) or any(non_terminal in rule for rule in rules):
                 set_with_non_terminals.add(symbol)
             else:
                 continue

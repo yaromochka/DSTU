@@ -6,6 +6,16 @@ from grammar_exist import check_grammar_exist
 
 
 """
+Q -> 01A | 01B | A
+A -> 0B1 | B | 1 | e
+B -> BA0 | B1 | C | e
+C -> 0C11 
+D -> -D1 | -0 | -1
+end
+---------
+0 1 -
+
+
 S -> a | A
 A -> AB
 B -> b
@@ -39,12 +49,12 @@ def delete_useless(grammar: dict[str, list[str]], set_of_non_terminals: set[str]
     grammar_without_useless_terminals = defaultdict(list)
     for symbol, rules in grammar.items():
         for rule in rules:
-            if symbol in set_without_useless_terminals and rule.islower():
+            if symbol in set_without_useless_terminals and any(s in set_of_non_terminals for s in rule):
                 grammar_without_useless_terminals[symbol].append(rule)
     return grammar_without_useless_terminals
 
 
-def main() -> AnyStr:
+def main() -> None:
     rules = grammar_reader()
     non_terminals = set(input('Введите множество не терминалов: ').split())
 
