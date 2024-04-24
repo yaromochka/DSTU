@@ -39,7 +39,8 @@ from PythonLang.FormalLang.firstLaboratory.main import is_context_independent
 from PythonLang.FormalLang.grammar_reader import grammar_reader
 
 
-def check_grammar_exist(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_terminals: Set[AnyStr]) -> bool:
+def check_grammar_exist(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_terminals: Set[AnyStr], key="exist")\
+        -> bool | set[str]:
 
     # Стартовый символ всегда в самом начале правил, поэтому так сделал
     start_symbol = next(iter(grammar))
@@ -54,12 +55,15 @@ def check_grammar_exist(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_termi
             if any(temporary_non_terminal in rule for rule in rules):
                 set_with_non_terminals.add(symbol)
             else:
-                break
+                continue
             temporary_non_terminal = symbol
 
         if start_symbol in set_with_non_terminals:
-            flag = True
-            break
+            if key == "exist":
+                flag = True
+                break
+            else:
+                return set_with_non_terminals
     return flag
 
 
