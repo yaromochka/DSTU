@@ -1,5 +1,4 @@
-from collections import defaultdict
-from typing import AnyStr, Generator, Any
+from typing import Generator, Any
 from PythonLang.FormalLang.firstLaboratory.main import is_context_independent
 from PythonLang.FormalLang.grammar_reader import grammar_reader
 
@@ -42,7 +41,7 @@ def delete_unreachable_symbols(grammar: dict[str, list[str]]) -> dict[str, list[
     start_symbol = next(iter(grammar))
 
     # Множество достижимых символов
-    reachable = set()
+    reachable = set(start_symbol)
     # Стек для обхода символов
     stack = [start_symbol]
 

@@ -44,12 +44,11 @@ a
 НЕ СУЩЕСТВУЕТ
 """
 
-from typing import Mapping, Set, List, AnyStr
 from PythonLang.FormalLang.firstLaboratory.main import is_context_independent
 from PythonLang.FormalLang.grammar_reader import grammar_reader
 
 
-def check_grammar_exist(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_terminals: Set[AnyStr], key="exist")\
+def check_grammar_exist(grammar: dict[str, list[str]], set_of_non_terminals: set[str], key="exist")\
         -> bool | set[str]:
 
     # Стартовый символ всегда в самом начале правил, поэтому так сделал
@@ -78,7 +77,7 @@ def check_grammar_exist(grammar: Mapping[AnyStr, List[AnyStr]], set_of_non_termi
     return flag
 
 
-def main() -> AnyStr:
+def main() -> str:
     rules = grammar_reader()
     non_terminals = set(input("Введите множество не терминалов: ").split())
 

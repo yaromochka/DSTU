@@ -1,5 +1,4 @@
 from collections import defaultdict
-from typing import AnyStr, Set
 from PythonLang.FormalLang.grammar_reader import grammar_reader
 from PythonLang.FormalLang.firstLaboratory.main import is_context_independent
 from grammar_exist import check_grammar_exist
