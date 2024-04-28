@@ -45,7 +45,7 @@ def main() -> None:
     rules = grammar_reader()
 
     if is_context_independent(rules):
-        print("Новая грамматика с факторизацией1 правил:")
+        print("Новая грамматика с факторизацией правил:")
         print("\n".join(f"{key} -> {' | '.join(value)}" for key, value in left_factorize(rules).items()))
     else:
         print("Грамматика не является контекстно-свободной")
