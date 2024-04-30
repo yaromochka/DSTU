@@ -1,6 +1,7 @@
 from collections import defaultdict
 from PythonLang.FormalLang.grammar_reader import grammar_reader
 from PythonLang.FormalLang.firstLaboratory.main import is_context_independent
+from unreachable_symbols import delete_unreachable_symbols
 from grammar_exist import check_grammar_exist
 
 
@@ -59,7 +60,7 @@ def main() -> None:
 
     if is_context_independent(rules) and check_grammar_exist(rules, non_terminals):
         print("Новая грамматика без бесполезных символов:")
-        print("\n".join(f"{key} -> {'|'.join(value)}" for key, value in delete_useless(rules, non_terminals).items()))
+        print("\n".join(f"{key} -> {'|'.join(value)}" for key, value in delete_unreachable_symbols(delete_useless(rules, non_terminals)).items()))
     else:
         print("Грамматика не является контекстно-свободной или язык не существует")
 
