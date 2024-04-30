@@ -41,7 +41,7 @@ def delete_unreachable_symbols(grammar: dict[str, list[str]]) -> dict[str, list[
     start_symbol = next(iter(grammar))
 
     # Множество достижимых символов
-    reachable = set(start_symbol)
+    reachable = set()
     # Стек для обхода символов
     stack = [start_symbol]
 

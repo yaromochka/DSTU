@@ -61,7 +61,7 @@ def _configure_new_rules(rules: dict[str, list[str]], pairs: list[tuple[str, str
 
 def main() -> None:
     grammar = grammar_reader()
-    new_grammar = delete_unreachable_symbols(delete_chains(delete_eps_rules(grammar)))
+    new_grammar = delete_unreachable_symbols(delete_chains(grammar))
     print("Новая грамматика без цепных правил:")
     print("\n".join(f"{key} -> {' | '.join(value)}".rstrip("|") for key, value in new_grammar.items()))
 
