@@ -34,13 +34,14 @@ public class WaiterPanel implements Initializable {
 
 
     @FXML
-    private TreeTableColumn<Order, String> orderedColumn = new TreeTableColumn<>("Заказ");
+    private TreeTableColumn<Order, String> orderedColumn = new TreeTableColumn<>("Number");
 
 
     @FXML
-    private TreeTableColumn<Order, String> readyColumn = new TreeTableColumn<>("Готовность");
+    private TreeTableColumn<Order, String> readyColumn = new TreeTableColumn<>("Ready");
 
-
+    TreeItem<Order> root = new TreeItem<>(new Order("Заказы", "..."));
+    int dishCount = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,14 +65,13 @@ public class WaiterPanel implements Initializable {
         }
 
 
-        orderButton.setOnMouseClicked(MouseEvent -> {
+        orderButton.setOnAction(MouseEvent -> {
             ObservableList<String> selectedDishes = listView.getSelectionModel().getSelectedItems();
             var dishes = new ArrayList<String>();
             for (String dish: selectedDishes) {
                 dishes.add(Arrays.asList(dish.split(",")).get(0));
             }
             addToOrderedTable(dishes);
-            System.out.println("Заказ успешно");
         });
     }
 
@@ -93,43 +93,43 @@ public class WaiterPanel implements Initializable {
     }
 
     public void addToOrderedTable(ArrayList<String> dishes) {
-        var order = new TreeItem<Order>();
+
+        var order = new TreeItem<>(new Order(String.format("Order №%d", dishCount), "Processing"));
+
         for (String dish: dishes) {
-            order.getChildren().add(new TreeItem<>(new Order(dish, "В процессе")));
+            order.getChildren().add(new TreeItem<>(new Order(dish, "1")));
         }
+        dishCount++;
 
-        // устанавливаем тип и значение которое должно храниться в колонке
-        orderedColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getValue().getOrder()
-        ));
-        readyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getValue().getReady()
-        ));
-
-
+        orderedColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Order, String> param) -> param.getValue().getValue().getNumberProperty());
+        readyColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Order, String> param) -> param.getValue().getValue().getReadyProperty());
+        root.getChildren().add(order);
         // заполняем таблицу данными
-        orderedTable.setRoot(order);
+        orderedTable.setRoot(root);
+        orderedTable.setShowRoot(false);
     }
 
 
 
     static class Order {
-        String order;
-        String ready = "В процессе";
+        SimpleStringProperty numberProperty;
+        SimpleStringProperty readyProperty;
 
 
         public Order() {}
-        public Order(String order, String ready) {
-            this.order = order;
-            this.ready = ready;
+        public Order(String number, String ready) {
+            this.numberProperty = new SimpleStringProperty(number);
+            this.readyProperty = new SimpleStringProperty(ready);
         }
 
-        public String getOrder() {
-            return this.order;
+        public SimpleStringProperty getNumberProperty() {
+            return numberProperty;
         }
 
-        public String getReady() {
-            return this.ready;
+        public SimpleStringProperty getReadyProperty() {
+            return readyProperty;
         }
     }
 }

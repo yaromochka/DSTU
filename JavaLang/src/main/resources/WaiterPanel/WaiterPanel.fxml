@@ -80,10 +80,10 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TreeTableView layoutX="166.0" layoutY="10.0" prefHeight="327.0" prefWidth="393.0">
+                        <TreeTableView fx:id="orderedTable" cacheShape="false" editable="true" layoutX="166.0" layoutY="10.0" prefHeight="327.0" prefWidth="393.0" style="fx-text-color: black;" tableMenuButtonVisible="true">
                            <columns>
-                              <TreeTableColumn prefWidth="259.0" text="Заказ" />
-                              <TreeTableColumn minWidth="0.0" prefWidth="133.0" text="Готовность" />
+                              <TreeTableColumn fx:id="orderedColumn" prefWidth="259.0" text="Заказ" />
+                              <TreeTableColumn fx:id="readyColumn" minWidth="0.0" prefWidth="133.0" text="Готовность" />
                            </columns>
                         </TreeTableView>
                         <ImageView fitHeight="77.0" fitWidth="113.0" layoutX="23.0" layoutY="224.0" pickOnBounds="true">
