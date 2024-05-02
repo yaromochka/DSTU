@@ -37,29 +37,26 @@ end
 
 def delete_eps_rules(grammar: dict[str, list[str]]) -> dict[str, list[str]]:
 
-    set_with_e_terminals = set()
     new_grammar = defaultdict(list)
 
-    start_symbol = next(iter(grammar))
-
+    new_grammar["J"].append("S")
+    new_grammar["J"].append("e")
     for symbol, rules in grammar.items():
-        for rule in rules:
-            if symbol != start_symbol and rule == "e": set_with_e_terminals.add(symbol)
-
-    for symbol, rules in grammar.items():
-        for rule in rules:
-            if all(s in set_with_e_terminals for s in rule): set_with_e_terminals.add(symbol)
-
-    for symbol, rules in grammar.items():
-        if symbol in set_with_e_terminals:
-            continue
-        for rule in rules:
-            if any(s in set_with_e_terminals for s in rule):
+        if any(["e" in rule for rule in rules]):
+            set_with_non_terminals = set()
+            for rule in rules:
                 for s in rule:
-                    if s in set_with_e_terminals:
-                        new_grammar[symbol].append(rule.replace(s, ""))
-            elif symbol not in rule:
+                    if not(s.isalpha()):
+                        set_with_non_terminals.add(s)
+            for non_terminal in set_with_non_terminals:
+                new_grammar[symbol].append(non_terminal)
+            for rule in rules:
+                if rule != "e":
+                    new_grammar[symbol].append(rule)
+        else:
+            for rule in rules:
                 new_grammar[symbol].append(rule)
+
     return new_grammar
 
 
