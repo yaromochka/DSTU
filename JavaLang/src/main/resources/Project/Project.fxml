@@ -36,7 +36,7 @@
                   <GaussianBlur />
                </effect>
             </Rectangle>
-            <Button fx:id="backButton" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" opacity="0.87" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="НАЗАД" />
+            <Button fx:id="backButton" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" opacity="0.87" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="НАЗАД" />
             <VBox layoutX="313.0" layoutY="121.0" prefHeight="185.0" prefWidth="232.0">
                <children>
                   <TextField fx:id="loginField" prefHeight="42.0" prefWidth="247.0">
@@ -77,17 +77,22 @@
                   <Font name="Comic Sans MS Bold" size="29.0" />
                </font>
             </Text>
-            <ImageView fitHeight="154.0" fitWidth="262.0" layoutX="21.0" layoutY="212.0" pickOnBounds="true">
+            <ImageView fitHeight="116.0" fitWidth="181.0" layoutX="48.0" layoutY="175.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/logo.png" />
                </image>
             </ImageView>
-            <Text layoutX="26.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Нет аккаунта?" underline="true">
+            <Text layoutX="28.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Нет аккаунта?" underline="true">
                <font>
                   <Font name="Comic Sans MS" size="33.0" />
                </font>
             </Text>
-            <Button fx:id="registerButton" layoutX="24.0" layoutY="122.0" mnemonicParsing="false" opacity="0.87" prefHeight="62.0" prefWidth="226.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="РЕГИСТРАЦИЯ">
+            <Button fx:id="registerButton" layoutX="25.0" layoutY="104.0" mnemonicParsing="false" opacity="0.87" prefHeight="62.0" prefWidth="226.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="РЕГИСТРАЦИЯ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="userButton" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="300.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="232.0" style="-fx-background-color: none;" styleClass=".userButton" stylesheets="@../Styles/style.css" text="Продолжить без регистрации" textAlignment="CENTER" underline="true" wrapText="true">
                <font>
                   <Font size="24.0" />
                </font>

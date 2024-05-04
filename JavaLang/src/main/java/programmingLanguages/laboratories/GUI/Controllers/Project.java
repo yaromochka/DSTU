@@ -37,6 +37,10 @@ public class Project implements Initializable {
     @FXML
     private Button registerButton;
 
+
+    @FXML
+    private Button userButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /* Кнопка "НАЗАД" */
@@ -54,14 +58,22 @@ public class Project implements Initializable {
             var password = getPassword();
             loginField.clear(); passwordField.clear();
             try {
-                var user_status = loginInSystem(login, encryptPassword(password));
-                switch (user_status) {
+                var userStatus = loginInSystem(login, encryptPassword(password));
+                switch (userStatus) {
                     case (0) -> AlertMessage.getAlert();
                     case (1) -> SceneController.switchToUserPanel(MouseEvent);
                     case (2) -> SceneController.switchToWaiterPanel(MouseEvent);
-                    case (3) -> SceneController.switchToMenu(MouseEvent);
+                    case (3) -> SceneController.switchToAdminPanel(MouseEvent);
                 }
             } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        userButton.setOnMouseClicked(MouseEvent -> {
+            try {
+                SceneController.switchToUserPanel(MouseEvent);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
