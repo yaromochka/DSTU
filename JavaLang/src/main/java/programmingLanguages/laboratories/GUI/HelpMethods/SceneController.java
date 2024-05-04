@@ -29,8 +29,8 @@ public class SceneController {
     }
 
     @FXML
-    public static void switchToResidueMenu(MouseEvent mouseEvent) throws IOException {
-        ButtonMove.moveTo(mouseEvent, "/ResidueMenu/ResidueMenu.fxml");
+    public static void switchToAdminPanel(MouseEvent mouseEvent) throws IOException {
+        ButtonMove.moveTo(mouseEvent, "/AdminPanel/AdminPanel.fxml");
     }
 
     @FXML
