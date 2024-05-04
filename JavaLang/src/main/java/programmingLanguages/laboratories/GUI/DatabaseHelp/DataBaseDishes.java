@@ -37,4 +37,11 @@ public class DataBaseDishes {
         var statement = co.createStatement();
         return statement.executeQuery(query);
     }
+
+
+    public ResultSet getResidue() throws SQLException {
+        String query = "SELECT id_residue, name_residue, count_residue FROM Residue";
+        var statement = co.createStatement();
+        return statement.executeQuery(query);
+    }
 }
