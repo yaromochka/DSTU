@@ -71,7 +71,11 @@ public class AdminPanel implements Initializable {
 
         /* Кнопка "ЗАКАЗ" */
         productButton.setOnMouseClicked(MouseEvent -> {
-            System.out.println("Hello World!");
+            try {
+                add10ToResidue();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
@@ -99,5 +103,15 @@ public class AdminPanel implements Initializable {
 
         // заполняем таблицу данными
         tableMenu.setItems(dishData);
+    }
+
+
+    @FXML
+    public void add10ToResidue() throws SQLException {
+        var program = new DataBaseDishes();
+        program.open("jdbc:sqlite:/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/resources/Project/ListOfDishes.db");
+        program.addTen();
+        tableMenu.getItems().clear();
+        fillTable();
     }
 }

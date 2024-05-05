@@ -44,4 +44,10 @@ public class DataBaseDishes {
         var statement = co.createStatement();
         return statement.executeQuery(query);
     }
+
+    public void addTen() throws SQLException {
+        String query = "UPDATE Residue SET count_residue = count_residue + 10";
+        var statement = co.createStatement();
+        statement.executeUpdate(query);
+    }
 }
