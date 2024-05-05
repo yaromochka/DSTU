@@ -4,8 +4,26 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 public class DataBaseDishes {
+
+    public Map<String, ArrayList<String>> map = new HashMap<>();
+    {
+        map.put("Филе индейки", new ArrayList<>(List.of("Филе индейки")));
+        map.put("Картошка", new ArrayList<>(List.of("Картошка")));
+        map.put("Доширак с говядиной", new ArrayList<>(List.of("Доширак с говядиной")));
+        map.put("Сало", new ArrayList<>(List.of("Сало")));
+        map.put("Бефстроганов", new ArrayList<>(Arrays.asList("Говядина", "Лук репчатый", "Томатная паста", "Сметана 20%")));
+        map.put("Борщ со свёклой", new ArrayList<>(Arrays.asList("Картошка", "Лук репчатый", "Томатная паста", "Свёкла", "Морковь")));
+        map.put("Чебупели", new ArrayList<>(List.of("Чебупели")));
+        map.put("Пельмени", new ArrayList<>(List.of("Пельмени")));
+        map.put("Шашлык свиной", new ArrayList<>(List.of("Свинина")));
+        map.put("Роллы с курицей", new ArrayList<>(Arrays.asList("Куриное филе", "Рис круглозёрный")));
+        map.put("Биг Мак", new ArrayList<>(List.of("Биг Мак")));
+        map.put("Морс крыжовниковый", new ArrayList<>(List.of("Крыжовник")));
+    }
+
     public Connection co;
 
     public DataBaseDishes() {
@@ -49,5 +67,17 @@ public class DataBaseDishes {
         String query = "UPDATE Residue SET count_residue = count_residue + 10";
         var statement = co.createStatement();
         statement.executeUpdate(query);
+    }
+
+
+    public void deleteFrom(ArrayList<String> dishes) throws SQLException {
+        for (var dish : dishes) {
+            for (var s : map.get(dish)) {
+                System.out.println(s);
+                String query = String.format("UPDATE Residue SET count_residue = count_residue - 1 WHERE name_residue = '%s'", s);
+                var statement = co.createStatement();
+                statement.executeUpdate(query);
+            }
+        }
     }
 }

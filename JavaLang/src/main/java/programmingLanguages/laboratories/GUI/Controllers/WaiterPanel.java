@@ -70,6 +70,11 @@ public class WaiterPanel implements Initializable {
                 dishes.add(Arrays.asList(dish.split(",")).get(0));
             }
             addToOrderedTable(dishes);
+            try {
+                deleteFromResidue(dishes);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
@@ -109,6 +114,11 @@ public class WaiterPanel implements Initializable {
         orderedTable.setShowRoot(false);
     }
 
+    public void deleteFromResidue(ArrayList<String> dishes) throws SQLException {
+        var program = new DataBaseDishes();
+        program.open("jdbc:sqlite:/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/resources/Project/ListOfDishes.db");
+        program.deleteFrom(dishes);
+    }
 
 
     static class Order {
