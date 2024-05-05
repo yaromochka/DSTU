@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import programmingLanguages.laboratories.GUI.DatabaseHelp.DataBaseUsers;
@@ -58,10 +59,10 @@ public class Register implements Initializable {
             loginField.clear(); passwordField.clear(); repeatPasswordField.clear();
             if (password.equals(repeatPassword) &&
                     Pattern.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z0-9_]{8,}$", password)) {
-
                 try {
                     addNewUser(login, encryptPassword(password));
-                } catch (SQLException e) {
+                    SceneController.switchToProject(MouseEvent);
+                } catch (SQLException | IOException e) {
                     throw new RuntimeException(e);
                 }
             } else {
