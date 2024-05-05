@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import programmingLanguages.laboratories.GUI.DatabaseHelp.DataBaseUsers;
+import programmingLanguages.laboratories.GUI.DatabaseHelp.DataBaseDishes;
 import programmingLanguages.laboratories.GUI.HelpMethods.SceneController;
 import programmingLanguages.laboratories.GUI.HelpMethods.AlertMessage;
 

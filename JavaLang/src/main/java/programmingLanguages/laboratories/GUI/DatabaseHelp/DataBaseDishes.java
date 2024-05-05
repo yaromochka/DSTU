@@ -48,10 +48,7 @@ public class DataBaseDishes {
     }
 
     public ResultSet getMenu() throws SQLException {
-        String query = "SELECT name_dish, price_dish\n" +
-                "FROM AllDishes\n" +
-                "ORDER BY random()\n" +
-                "LIMIT 7";
+        String query = "SELECT name_dish, price_dish FROM TodayMenu";
         var statement = co.createStatement();
         return statement.executeQuery(query);
     }
@@ -66,6 +63,16 @@ public class DataBaseDishes {
     public void addTen() throws SQLException {
         String query = "UPDATE Residue SET count_residue = count_residue + 10";
         var statement = co.createStatement();
+        statement.executeUpdate(query);
+    }
+
+
+    public void createTemporaryTable() throws SQLException {
+        String query = "DELETE FROM TodayMenu";
+        var statement = co.createStatement();
+        statement.executeUpdate(query);
+
+        query = "INSERT INTO TodayMenu(name_dish, price_dish) SELECT name_dish, price_dish FROM AllDishes ORDER BY random() LIMIT 7";
         statement.executeUpdate(query);
     }
 

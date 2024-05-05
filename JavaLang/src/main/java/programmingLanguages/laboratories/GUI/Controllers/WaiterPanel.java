@@ -116,7 +116,7 @@ public class WaiterPanel implements Initializable {
 
     public void deleteFromResidue(ArrayList<String> dishes) throws SQLException {
         var program = new DataBaseDishes();
-        program.open("jdbc:sqlite:/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/resources/Project/ListOfDishes.db");
+        program.open("src/main/resources/Project/ListOfDishes.db");
         program.deleteFrom(dishes);
     }
 

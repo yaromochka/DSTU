@@ -14,7 +14,7 @@ public class DataBaseUsers {
         try {
             Class.forName("org.sqlite.JDBC");
             co = DriverManager.getConnection(
-                    "jdbc:sqlite:/Users/yaromochka/IdeaProjects/DSTU/JavaLang/src/main/resources/DataBases/Users.db");
+                    "jdbc:sqlite:src/main/resources/DataBases/Users.db");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
