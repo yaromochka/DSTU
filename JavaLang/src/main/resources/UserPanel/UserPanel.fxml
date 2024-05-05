@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.UserPanel">
    <children>
@@ -17,9 +21,7 @@
             <GaussianBlur />
          </effect>
       </Rectangle>
-      <AnchorPane layoutY="97.0" prefHeight="280.0" prefWidth="170.0" />
-      <Button fx:id="backButton" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
-      <Button fx:id="sendButton" layoutX="407.0" layoutY="329.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="109.0" styleClass=".button" stylesheets="@../Styles/style.css" text="OK" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="sendButton" layoutX="28.0" layoutY="181.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="169.0" styleClass=".button" stylesheets="@../Styles/style.css" text="ОПЛАТИТЬ" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
@@ -38,6 +40,18 @@
             </DropShadow>
          </effect>
       </Button>
+      <ListView fx:id="listView" layoutX="209.0" layoutY="78.0" prefHeight="276.0" prefWidth="367.0" />
+      <ImageView fitHeight="77.0" fitWidth="113.0" layoutX="50.0" layoutY="266.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Images/logo.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="353.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="МЕНЮ" underline="true">
+         <font>
+            <Font name="Comic Sans MS Bold" size="31.0" />
+         </font>
+      </Text>
+      <Button fx:id="backButton" layoutX="16.0" layoutY="16.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
    </children>
    <effect>
       <InnerShadow choke="0.65" height="83.28" radius="43.995000000000005" width="94.7">
