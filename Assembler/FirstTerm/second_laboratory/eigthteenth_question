@@ -1,0 +1,43 @@
+; Вариант 18
+; Найти сумму абсолютных величин, меньших 6. Массив байт.
+
+data segment
+    array db -4, 12, -15, 3, 6, 5, -10, 3, -3, -6, 12
+    x db ?
+data ends
+
+code segment
+    assume cs: code, ds: data
+
+start:
+    mov ax, data
+    mov ds, ax
+
+    lea bx, array   ; Берём в bx адрес первого элемента
+    mov cx, 11 ; Длина массива
+    xor dl, dl ; Инициализация dx нулями перед суммированием
+
+beg:
+    mov al, [bx]
+
+    @abs:      ; Берём абсолютное значение ячейки ax (нашёл в интернете)
+    neg al
+    js @abs
+
+    cmp al, 6  ; Сравниваем яечйку al с числом 6
+    jl LessThanSix ; Если число в ячейке меньше 6 - переходим к функции
+
+    jmp next ; Следующий шаг цикла
+
+LessThanSix: ; К этой функции мы переходим при сравнении (добавляет 1 в ячейку dx)
+    inc dl   ; Инкремент увеличивает значение в этой ячсейке на 1
+
+next: ; Функция которая позволяет проходить нам по элементам массива
+    inc bx
+    loop beg
+quit:
+    mov x, dl
+    mov ax, 4c00h   ; end code 0
+    int 21h
+code ends
+end start

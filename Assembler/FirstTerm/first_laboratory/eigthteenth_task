@@ -1,0 +1,39 @@
+; Вариант 18
+; Х= 3 (С - 2A) + (В - С + 1) / 2
+
+data segment
+    a dw 10
+    b dw 20
+    c dw 30
+    x dw ?
+data ends
+code segment
+    assume cs: code, ds: data
+    start:
+        mov ax, data
+        mov ds, ax         ; load addresses
+
+        mov cx, c ; Кладём c в ячейку
+        mov ax, a
+        mov bx, 2
+        mul bx  ; ax = 2*A
+        neg ax
+        add cx, ax ; (C - 2A)
+        mov ax, cx
+        mov bx, 3
+        mul bx ; ax = 3 * (C - 2A)
+
+        mov bx, b
+        mov cx, c
+        neg cx
+        add bx, cx ; B - C
+        add bx, 1 ; (B - C + 1)
+        sar bx, 1 ; (B - C + 1) / 2  Побайтовый сдвиг вправо позволяет поделить число на 2
+
+        add ax, cx ; 3 * (С - 2 * A) + (В - С + 1) / 2
+        mov x, ax
+    quit:
+        mov ax, 4c00h   ; end code 0
+        int 21h       ; exit into dos
+    end start
+code ends
