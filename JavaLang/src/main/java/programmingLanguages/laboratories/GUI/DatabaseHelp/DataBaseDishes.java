@@ -80,7 +80,6 @@ public class DataBaseDishes {
     public void deleteFrom(ArrayList<String> dishes) throws SQLException {
         for (var dish : dishes) {
             for (var s : map.get(dish)) {
-                System.out.println(s);
                 String query = String.format("UPDATE Residue SET count_residue = count_residue - 1 WHERE name_residue = '%s'", s);
                 var statement = co.createStatement();
                 statement.executeUpdate(query);
