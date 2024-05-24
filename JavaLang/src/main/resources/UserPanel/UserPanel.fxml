@@ -21,7 +21,7 @@
             <GaussianBlur />
          </effect>
       </Rectangle>
-      <Button fx:id="sendButton" layoutX="28.0" layoutY="181.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="169.0" styleClass=".button" stylesheets="@../Styles/style.css" text="ОПЛАТИТЬ" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="orderButton" layoutX="28.0" layoutY="181.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="169.0" styleClass=".button" stylesheets="@../Styles/style.css" text="ОПЛАТИТЬ" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
