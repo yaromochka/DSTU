@@ -1,0 +1,41 @@
+; Вариант 16
+; Найти сколько в массиве чисел больше 12h и меньше 0Afh. Массив байт.
+
+data segment
+    array db 17, 0, 12, 21, 12, 40, 50, 7, 4, 97 ; 10 элементов по 8 бит
+    count db 0 ; счётчик
+    x db ?
+data ends
+
+code segment
+    assume cs: code, ds: data;
+
+start:
+     mov ax, data
+     mov ds, ax
+
+     lea bx, array   ; начало массива
+     mov cx, 10      ; длина массива
+
+beg:
+    mov al, [bx]    ; перекладываем число из массива в al
+    cmp al, 12h     ; сравниваем число с 12h (18)
+    jg GreaterThan18   ; переходим к функции сравнения
+    jna next         ; если число меньше, то идём дальше по массиву
+
+GreaterThan18:
+    cmp al, 0Afh ; сравниваем число с 0Afh (175)
+    jl LessThan175
+
+LessThan175:
+    inc count ; прибавляем счётчик на 1
+
+next:
+    inc bx
+    loop beg         ; начало цикла
+
+quit:
+    mov ax, 4c00h
+    int 21h
+code ends
+end start

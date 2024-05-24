@@ -1,0 +1,36 @@
+; Вариант 16
+; X = 3(А - 2В) +50 – С / 2
+
+data segment
+    a dw 10
+    b dw 20
+    c dw 30
+    x dw ?
+data ends
+code segment
+    assume cs: code, ds: data
+    start:
+        mov ax, data
+        mov ds, ax         ; load addresses
+
+        mov ax, b ; Кладём b в ячейку
+        mov bx, 2
+        mul bx  ; ax = 2*B
+        neg ax ; ax = -2*B
+        mov bx, a
+        add ax, bx ; -2*B + A (то же самое что и A - 2*B)
+        mov bx, 3
+        mul bx ; 3*(A - 2*B)
+        add ax, 50 ; 3*(A - 2*B) + 50
+
+        mov cx, c
+        neg cx ; cx = -C
+        sar cx, 1 ; cx = -C / 2 - побитовый сдвиг вправо
+
+        add ax, cx
+        mov x, ax
+    quit:
+        mov ax, 4c00h   ; end code 0
+        int 21h       ; exit into dos
+    end start
+code ends
