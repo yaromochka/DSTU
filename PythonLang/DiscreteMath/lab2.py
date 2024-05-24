@@ -18,7 +18,6 @@ def polynom_print(vect):
 def vect_polinom(vect):
     rvect = vect[:]
     vectors = []
-    print(vect)
     vectors.append(rvect)
     for _ in range(len(rvect) - 1):
         temp = ''
