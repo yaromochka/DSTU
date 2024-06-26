@@ -1,5 +1,3 @@
-import codecs
-
 from config import *
 
 
@@ -33,13 +31,6 @@ def ten_notation(string: str, base: int) -> str | int:
         else:
             ans += int(int(extra[num]) * base ** ind)
     return ans
-
-
-# Ввод текста и ключа
-def get_info() -> tuple[str, str]:
-    text_message = input('Введите текст: \n').rstrip()
-    password = input('Введите пароль: ').rstrip()
-    return text_message, password
 
 
 # Добавление незначащих нулей
@@ -139,8 +130,7 @@ def encrypted(message: str, password: str) -> str:
 
 
 # Создание 56-битного ключа перестановкой P-блока
-def generate_key() -> tuple[str, list[str]]:
-    message, password = get_info()
+def generate_key(password: str) -> tuple[str, list[str]]:
 
     password = added(password.encode("utf-8").hex().upper(), 16)
     password = ''.join([added(in_notation(ten_notation(sym, 16), 2), 4) for sym in password])
@@ -152,11 +142,11 @@ def generate_key() -> tuple[str, list[str]]:
 
     pwrd = get_pass(left_pw, right_pw)
 
-    return message, pwrd
+    return pwrd
 
 
-def des(turn: int) -> list[None] | None:
-    message, list_of_keys = generate_key()
+def des(turn: str, message: str, password: str) -> list[str] | str:
+    list_of_keys = generate_key(password)
 
     if turn == 0:
         message = list(message)
@@ -171,14 +161,16 @@ def des(turn: int) -> list[None] | None:
                 i = added(i, 16)
                 temp.append(encrypted(i, list_of_keys))
             ans.append(' '.join(temp))
-        return [print(i, end=' ') for i in ans]
+        return ' '.join(ans)
 
     if turn == 1:
-        message = message.split(' ')
-        temp = []
-        for msg in message:
-            a = (bytes.fromhex(encrypted(msg, list_of_keys[::-1])).decode('UTF-8')).replace('\x00', '')
-            temp.append(a)
-        return print(''.join(temp))
+        try:
+            message = message.split(' ')
+            temp = []
+            for msg in message:
+                a = (bytes.fromhex(encrypted(msg, list_of_keys[::-1])).decode('UTF-8')).replace('\x00', '')
+                temp.append(a)
+            return ''.join(temp)
+        except: return 'Вероятно неверный пароль'
     else:
-        return print('Вводить надо либо 0, либо 1')
+        return 'Вводить надо либо 0, либо 1'
