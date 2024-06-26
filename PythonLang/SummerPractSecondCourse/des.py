@@ -23,15 +23,6 @@ def in_notation(string: int, base: int) -> str:
         return '0'
 
 
-# Добавление незначащих нулей
-def added(text: str, num: int) -> str:
-    while len(text) % num != 0:
-        text = '0' + text
-    if len(text) == 0:
-        text = '0000'
-    return text
-
-
 # разделение текста на блоки по 64 бита
 def separate(text: str, num: int) -> str:
     temp = []
@@ -63,7 +54,7 @@ def get_pass(left_pw, right_pw) -> list[str]:
 
         # Разделение ключа по 4 бита и перевод в шестнадцатеричную систему
         new_pass = ''.join(separate(new_pass, 4))
-        pwrd.append(''.join([in_notation(int(i, 2), 16) for i in separate(new_pass, 4)]))
+        pwrd.append(''.join(in_notation(int(i, 2), 16) for i in separate(new_pass, 4)))
 
     return pwrd
 
@@ -72,7 +63,7 @@ def XOR(arg1: str, arg2: str) -> str: return str(int(arg1) ^ int(arg2))
 
 
 def encrypted(message: str, password: str) -> str:
-    message = ''.join([added(in_notation(int(sym, 16), 2), 4) for sym in message])
+    message = ''.join(in_notation(int(sym, 16), 2).zfill(4) for sym in message)
 
     # Первая перестановка бит в сообщении
     new_message = ''.join([message[i - 1] for i in FIRST_PERMUTATION])
@@ -86,7 +77,7 @@ def encrypted(message: str, password: str) -> str:
         # Правая часть сообщения проходит вторую перестановку и XOR с ключом
         right_block_perm = ''.join([right_block_0[i - 1] for i in SECOND_PERMUTATION])
 
-        bin_key = ''.join([added(in_notation(int(i, 16), 2), 4) for i in password[rnd]])
+        bin_key = ''.join([in_notation(int(i, 16), 2).zfill(4) for i in password[rnd]])
 
         cipher = ''.join([XOR(a, b) for a, b in zip(bin_key, right_block_perm)])
 
@@ -102,7 +93,7 @@ def encrypted(message: str, password: str) -> str:
             s_cipher.append(CIPHER_S_BLOCKS[ind + 1][first_half][second_half])
 
         # Перевод в двоичную S-блок сообщения
-        s_cipher = ''.join([added(in_notation(i, 2), 4) for i in s_cipher])
+        s_cipher = ''.join([in_notation(i, 2).zfill(4) for i in s_cipher])
 
         # Последняя перестановка в S-блок сообщении и XOR с левой частью
         cipher = ''.join([s_cipher[i - 1] for i in LAST_PERMUTATION])
@@ -121,8 +112,8 @@ def encrypted(message: str, password: str) -> str:
 
 # Создание 56-битного ключа перестановкой P-блока
 def generate_key(password: str) -> tuple[str, list[str]]:
-    password = added(password.encode("utf-8").hex().upper(), 16)
-    password = ''.join([added(in_notation(int(sym, 16), 2), 4) for sym in password])
+    password = password.encode("utf-8").hex().upper().zfill(16)
+    password = ''.join([in_notation(int(sym, 16), 2).zfill(4) for sym in password])
     # Создание 56-битного ключа перестановкой P-блока
     password = ''.join([password[i - 1] for i in KEY_PERMUTATION_FIRST])
 
@@ -147,7 +138,7 @@ def des(turn: int, message: str, password: str) -> list[str] | str:
         for msg in message:
             temp = []
             for i in msg:
-                i = added(i, 16)
+                i = i.zfill(16)
                 temp.append(encrypted(i, list_of_keys))
             ans.append(' '.join(temp))
         return ' '.join(ans)
