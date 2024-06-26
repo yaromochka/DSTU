@@ -1,3 +1,5 @@
+from typing import List, Union
+
 from config import *
 
 
@@ -7,123 +9,178 @@ class DES:
         self.password = password
 
 
+def hex_to_bin(hex_str: str) -> str:
+    """Преобразует шестнадцатеричную строку в двоичную строку."""
+    return ''.join(bin(int(sym, 16))[2:].zfill(4) for sym in hex_str)
+
+
+def permute(block: str, permutation: List[int]) -> str:
+    """Выполняет перестановку битов в блоке согласно заданной перестановке."""
+    return ''.join(block[i - 1] for i in permutation)
+
+
+def xor_strings(a: str, b: str) -> str:
+    """Выполняет побитовый XOR двух строк."""
+    return ''.join(str(int(x) ^ int(y)) for x, y in zip(a, b))
+
+
+def s_block_substitution(blocks: List[str], s_blocks: dict) -> str:
+    """Выполняет замену S-блоков."""
+    substituted = []
+    for i, block in enumerate(blocks):
+        row = int(block[0] + block[-1], 2)
+        col = int(block[1:5], 2)
+        substituted.append(s_blocks[i + 1][row][col])
+    return ''.join(bin(num)[2:].zfill(4) for num in substituted)
+
+
+def encrypt(message: str, password: list[str]) -> str:
+    """Шифрует сообщение с использованием указанного пароля."""
+    message_bin = hex_to_bin(message)
+    new_message = permute(message_bin, FIRST_PERMUTATION)
+
+    left_block = new_message[:32]
+    right_block = new_message[32:]
+
+    for rnd in range(16):
+        right_block_perm = permute(right_block, SECOND_PERMUTATION)
+        bin_key = hex_to_bin(password[rnd])
+
+        cipher = xor_strings(bin_key, right_block_perm)
+        s_blocks = separate(cipher, 6)
+        s_cipher = s_block_substitution(s_blocks, CIPHER_S_BLOCKS)
+
+        cipher = permute(s_cipher, LAST_PERMUTATION)
+        new_left_block = xor_strings(cipher, left_block)
+
+        if rnd != 15:
+            left_block, right_block = right_block, new_left_block
+        else:
+            left_block = new_left_block
+
+    final_cipher = permute(left_block + right_block, IP_PERMUTATION)
+    final_cipher = separate(final_cipher, 4)
+    return ''.join(hex(int(block, 2))[2:] for block in final_cipher)
+
+
 # разделение текста на блоки по 64 бита
 def separate(text: str, chunk_size: int) -> list:
+    """Разделяет строку на части по n символов."""
     return [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
 
 
-def get_pass(left_pw, right_pw) -> list[str]:
-    pwrd = []
-    # Разбиение ключа на 2 части и смещение на n бит влево
-    for rnd in range(16):
-        # Побитовое смещение в зависимости от цикла
-        left_pw = left_pw[KEY_ROUND[rnd]::] + left_pw[0:KEY_ROUND[rnd]]
-        right_pw = right_pw[KEY_ROUND[rnd]::] + right_pw[0:KEY_ROUND[rnd]]
+def get_round_keys(left_key: str, right_key: str) -> List[str]:
+    """
+    Generate 16 round keys for DES encryption from left and right key halves.
 
-        # Перестановка бит в ключе
-        new_pass = left_pw + right_pw
-        new_pass = ''.join(new_pass[i - 1] for i in KEY_PERMUTATION_SECOND)
+    Args:
+        left_key (str): Left half of the initial key (in binary form).
+        right_key (str): Right half of the initial key (in binary form).
 
-        # Разделение ключа по 4 бита и перевод в шестнадцатеричную систему
-        new_pass = ''.join(separate(new_pass, 4))
-        pwrd.append(''.join(hex(int(i, 2))[2::] for i in separate(new_pass, 4)))
+    Returns:
+        List[str]: List of 16 round keys in hexadecimal form.
+    """
+    round_keys = []
 
-    return pwrd
+    for round_shift in KEY_ROUND:
+        left_key = left_key[round_shift:] + left_key[:round_shift]
+        right_key = right_key[round_shift:] + right_key[:round_shift]
 
+        combined_key = left_key + right_key
+        permuted_key = ''.join(combined_key[i - 1] for i in KEY_PERMUTATION_SECOND)
 
-def XOR(arg1: str, arg2: str) -> str: return str(int(arg1) ^ int(arg2))
+        hex_key = ''.join(
+            hex(int(bits, 2))[2:]
+            for bits in separate(permuted_key, 4)
+        )
 
+        round_keys.append(hex_key)
 
-def encrypted(message: str, password: str) -> str:
-    message = ''.join(bin(int(sym, 16))[2::].zfill(4) for sym in message)
-
-    # Первая перестановка бит в сообщении
-    new_message = ''.join([message[i - 1] for i in FIRST_PERMUTATION])
-
-    left_block_0 = new_message[0:32]
-    right_block_0 = new_message[32::]
-
-    # 16 раундов
-    for rnd in range(16):
-
-        # Правая часть сообщения проходит вторую перестановку и XOR с ключом
-        right_block_perm = ''.join(right_block_0[i - 1] for i in SECOND_PERMUTATION)
-
-        bin_key = ''.join(bin(int(i, 16))[2::].zfill(4) for i in password[rnd])
-
-        cipher = ''.join(XOR(a, b) for a, b in zip(bin_key, right_block_perm))
-
-        # Разделение XORed сообщения на блоки по 6 бит
-        s_blocks = separate(cipher, 6)
-
-        s_cipher = []
-        # Проход по S-блоку
-        for ind in range(len(s_blocks)):
-            first_half = int(s_blocks[ind][0] + s_blocks[ind][-1], 2)
-            second_half = int(s_blocks[ind][1:5], 2)
-
-            s_cipher.append(CIPHER_S_BLOCKS[ind + 1][first_half][second_half])
-
-        # Перевод в двоичную S-блок сообщения
-        s_cipher = ''.join(bin(i)[2::].zfill(4) for i in s_cipher)
-
-        # Последняя перестановка в S-блок сообщении и XOR с левой частью
-        cipher = ''.join(s_cipher[i - 1] for i in LAST_PERMUTATION)
-        cipher = ''.join(XOR(a, b) for a, b in zip(cipher, left_block_0))
-        left_block_0 = cipher
-        if (rnd != 15):
-            left_block_0, right_block_0 = right_block_0, left_block_0
-
-    cipher = left_block_0 + right_block_0
-    cipher = ''.join(cipher[i - 1] for i in IP_PERMUTATION)
-
-    cipher = separate(cipher, 4)
-    cipher = ''.join(hex(int(i, 2))[2::] for i in cipher)
-    return cipher
+    return round_keys
 
 
-# Создание 56-битного ключа перестановкой P-блока
-def generate_key(password: str) -> tuple[str, list[str]]:
-    password = password.encode("utf-8").hex().upper().zfill(16)
-    password = ''.join(bin(int(sym, 16))[2::].zfill(4) for sym in password)
-    # Создание 56-битного ключа перестановкой P-блока
-    password = ''.join(password[i - 1] for i in KEY_PERMUTATION_FIRST)
+def generate_key(password: str) -> List[str]:
+    """
+    Генерирует ключи для каждого раунда DES из исходного пароля.
 
-    left_pw = password[:len(password) // 2]
-    right_pw = password[(len(password) // 2)::]
+    Args:
+        password (str): Исходный пароль.
 
-    pwrd = get_pass(left_pw, right_pw)
+    Returns:
+        List[str]: Список ключей для каждого раунда DES.
+    """
+    password_hex = password.encode("utf-8").hex().upper().zfill(16)
+    password_bin = hex_to_bin(password_hex)
+    password_permuted = permute(password_bin, KEY_PERMUTATION_FIRST)
 
-    return pwrd
+    left_pw = password_permuted[:len(password_permuted) // 2]
+    right_pw = password_permuted[len(password_permuted) // 2:]
+
+    return get_round_keys(left_pw, right_pw)
 
 
-def des(turn: int, message: str, password: str) -> list[str] | str:
-    list_of_keys = generate_key(password)
+def encrypt_message(message: List[str], keys: List[str]) -> str:
+    """
+    Шифрует сообщение с использованием ключей.
+
+    Args:
+        message (List[str]): Сообщение для шифрования.
+        keys (List[str]): Ключи для каждого раунда DES.
+
+    Returns:
+        str: Зашифрованное сообщение.
+    """
+    encrypted_chunks = []
+    for chunk in message:
+        chunk = chunk.zfill(16)
+        encrypted_chunks.append(encrypt(chunk, keys))
+    return ' '.join(encrypted_chunks)
+
+
+def decrypt_message(message: List[str], keys: List[str]) -> str:
+    """
+    Расшифровывает сообщение с использованием ключей.
+
+    Args:
+        message (List[str]): Зашифрованное сообщение.
+        keys (List[str]): Ключи для каждого раунда DES.
+
+    Returns:
+        str: Расшифрованное сообщение.
+    """
+    decrypted_chunks = []
+    for chunk in message:
+        try:
+            decrypted_chunk = bytes.fromhex(encrypt(chunk, keys[::-1])).decode('utf-8').replace('\x00', '')
+            decrypted_chunks.append(decrypted_chunk)
+        except ValueError:
+            return 'Неверно'
+    return ''.join(decrypted_chunks)
+
+
+def des(turn: int, message: str, password: str) -> Union[str, List[str]]:
+    """
+    Выполняет шифрование или расшифровку сообщения с использованием DES.
+
+    Args:
+        turn (int): 0 для шифрования, 1 для расшифровки.
+        message (str): Сообщение для обработки.
+        password (str): Пароль для генерации ключей.
+
+    Returns:
+        Union[str, List[str]]: Зашифрованное или расшифрованное сообщение.
+    """
+    keys = generate_key(password)
 
     if turn == 0:
-        message = list(message)
-        for i in range(len(message)):
-            message[i] = separate(message[i].encode("utf-8").hex().upper().replace("FFFE", ''), 16)
+        message_chunks = [separate(chunk.encode("utf-8").hex().upper().replace("FFFE", ''), 16) for chunk in
+                          list(message)]
+        encrypted_message = [encrypt_message(chunk, keys) for chunk in message_chunks]
+        return ' '.join(encrypted_message)
 
-        ans = []
+    elif turn == 1:
+        message_chunks = message.split(' ')
+        return decrypt_message(message_chunks, keys)
 
-        for msg in message:
-            temp = []
-            for i in msg:
-                i = i.zfill(16)
-                temp.append(encrypted(i, list_of_keys))
-            ans.append(' '.join(temp))
-        return ' '.join(ans)
-
-    if turn == 1:
-        try:
-            message = message.split(' ')
-            temp = []
-            for msg in message:
-                a = (bytes.fromhex(encrypted(msg, list_of_keys[::-1])).decode('UTF-8')).replace('\x00', '')
-                temp.append(a)
-            return ''.join(temp)
-        except:
-            return 'Неверно'
     else:
         return 'Вводить надо либо 0, либо 1'
