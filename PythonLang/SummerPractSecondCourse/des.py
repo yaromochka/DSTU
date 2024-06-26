@@ -3,7 +3,6 @@ from config import *
 
 # Перевод в другую (до 16-ти) систему счисления из десятичной
 def in_notation(string: int, base: int) -> str:
-
     extra = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
     ans = ''
 
@@ -131,7 +130,6 @@ def encrypted(message: str, password: str) -> str:
 
 # Создание 56-битного ключа перестановкой P-блока
 def generate_key(password: str) -> tuple[str, list[str]]:
-
     password = added(password.encode("utf-8").hex().upper(), 16)
     password = ''.join([added(in_notation(ten_notation(sym, 16), 2), 4) for sym in password])
     # Создание 56-битного ключа перестановкой P-блока
@@ -145,7 +143,7 @@ def generate_key(password: str) -> tuple[str, list[str]]:
     return pwrd
 
 
-def des(turn: str, message: str, password: str) -> list[str] | str:
+def des(turn: int, message: str, password: str) -> list[str] | str:
     list_of_keys = generate_key(password)
 
     if turn == 0:
@@ -171,6 +169,7 @@ def des(turn: str, message: str, password: str) -> list[str] | str:
                 a = (bytes.fromhex(encrypted(msg, list_of_keys[::-1])).decode('UTF-8')).replace('\x00', '')
                 temp.append(a)
             return ''.join(temp)
-        except: return 'Вероятно неверный пароль'
+        except:
+            return 'Неверно'
     else:
         return 'Вводить надо либо 0, либо 1'
