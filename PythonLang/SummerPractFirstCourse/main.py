@@ -165,7 +165,7 @@ def ten_notation(string: str, base: int) -> str | int:
 
 
 # Ввод текста и ключа
-def get_info() -> tuple(str, str):
+def get_info() -> tuple[str, str]:
     text_message = input('Введите текст: \n').rstrip()
     password = input('Введите пароль: ').rstrip()
     return text_message, password
