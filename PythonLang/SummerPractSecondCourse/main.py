@@ -13,12 +13,12 @@ def split_list(lst: list, chunk_size: int) -> list[str]:
     return [' '.join(lst[i:i + chunk_size]) for i in range(0, len(lst), chunk_size)]
 
 
-def file_checker(function):
+def checker(function):
     @functools.wraps(function)
     def wrapper(file, password):
-        if pathlib.Path(file).exists():
+        if pathlib.Path(file).exists() and len(password) <= 8:
             return function(file, password)
-        click.echo("Invalid file")
+        click.echo("Invalid file or password length")
 
     return wrapper
 
@@ -31,7 +31,7 @@ def mycommands():
 @click.command()
 @click.option('-f', '--file', type=click.Path(exists=False), default="file.txt", help='Path to the file')
 @click.option('-p', '--password', prompt='Enter password to encryption', help='Password for encryption')
-@file_checker
+@checker
 def encryption(file, password):
     with open(file, "r+") as f:
         text = f.read()
@@ -45,7 +45,7 @@ def encryption(file, password):
 @click.command()
 @click.option('-f', '--file', type=click.Path(exists=False), default="file.txt", help='Path to the file')
 @click.option('-p', '--password', prompt='Enter password to encryption', help='Password for encryption')
-@file_checker
+@checker
 def decryption(file, password):
     with open(file, "r+") as f:
         text = f.read()
