@@ -18,25 +18,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.WaiterPanel">
-   <effect>
-      <InnerShadow choke="0.65" height="83.28" radius="43.995000000000005" width="94.7">
-         <color>
-            <Color red="0.8026315569877625" green="0.8026315569877625" blue="0.8026315569877625" />
-         </color>
-         <input>
-            <Glow level="0.28" />
-         </input>
-      </InnerShadow>
-   </effect>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #72b0f7; -fx-border-color: #72b0f7; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.WaiterPanel">
    <children>
-      <TabPane layoutX="9.0" layoutY="15.0" prefHeight="379.0" prefWidth="586.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="9.0" layoutY="14.0" prefHeight="379.0" prefWidth="586.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Принять заказ">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="351.0" prefWidth="594.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#cdc8d3" focusTraversable="true" height="336.0" layoutX="4.0" layoutY="7.0" smooth="false" stroke="#08070782" strokeType="INSIDE" width="574.0">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#72b0f7" focusTraversable="true" height="336.0" layoutX="4.0" layoutY="7.0" smooth="false" stroke="#72b0f782" strokeType="INSIDE" width="574.0">
                            <effect>
                               <GaussianBlur />
                            </effect>
@@ -47,7 +37,7 @@
                            </image>
                         </ImageView>
                         <ListView fx:id="listView" layoutX="196.0" layoutY="57.0" prefHeight="276.0" prefWidth="367.0" />
-                        <Text layoutX="324.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="МЕНЮ" underline="true">
+                        <Text fill="#3b3333" layoutX="324.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="МЕНЮ" underline="true">
                            <font>
                               <Font name="Comic Sans MS Bold" size="31.0" />
                            </font>
@@ -57,21 +47,21 @@
                               <Font size="20.0" />
                            </font>
                            <effect>
-                              <DropShadow height="6.1" radius="1.025" spread="0.23" width="0.0">
+                              <DropShadow height="3.05" radius="0.26249999999999996" spread="0.23" width="0.0">
                                  <color>
-                                    <Color red="0.06578947603702545" green="0.06578947603702545" blue="0.06578947603702545" />
+                                    <Color red="0.1527777761220932" green="0.802314817905426" blue="1.0" />
                                  </color>
                                  <input>
-                                    <InnerShadow choke="0.55" height="27.61" radius="13.1275" width="26.9">
+                                    <InnerShadow choke="0.55" height="27.26" radius="13.04" width="26.9">
                                        <color>
-                                          <Color red="0.2863060534000397" green="0.3069160282611847" blue="0.32894736528396606" />
+                                          <Color red="0.19103313982486725" green="0.5274204015731812" blue="0.8421052694320679" />
                                        </color>
                                     </InnerShadow>
                                  </input>
                               </DropShadow>
                            </effect>
                         </Button>
-                        <Button fx:id="backButton" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" opacity="0.87" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="НАЗАД" />
+                        <Button fx:id="backButton" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" opacity="0.87" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #4299fc;" styleClass=".button" stylesheets="@../Styles/style.css" text="НАЗАД" />
                      </children>
                   </AnchorPane>
             </content>
@@ -97,4 +87,14 @@
         </tabs>
       </TabPane>
    </children>
+   <effect>
+      <InnerShadow choke="0.35" height="94.52250000000001" radius="46.805625000000006" width="94.7">
+         <color>
+            <Color red="0.4470588266849518" green="0.6901960968971252" blue="0.9686274528503418" />
+         </color>
+         <input>
+            <Glow level="0.26" />
+         </input>
+      </InnerShadow>
+   </effect>
 </AnchorPane>

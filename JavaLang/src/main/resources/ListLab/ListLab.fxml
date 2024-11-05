@@ -21,9 +21,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.ListLab">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #73abeb; -fx-border-color: #4299fc; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.ListLab">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#cdc8d3" focusTraversable="true" height="331.0" layoutX="169.0" layoutY="48.0" smooth="false" stroke="#08070782" strokeType="INSIDE" width="388.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#8bbaf0" focusTraversable="true" height="331.0" layoutX="169.0" layoutY="48.0" smooth="false" stroke="#ffffff82" strokeType="INSIDE" width="388.0">
          <effect>
             <GaussianBlur />
          </effect></Rectangle>
@@ -61,7 +61,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Text layoutX="200.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ЛАБОРАТОРНЫЕ РАБОТЫ" underline="true">
+      <Text fill="#3e3131" layoutX="200.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ЛАБОРАТОРНЫЕ РАБОТЫ" underline="true">
          <font>
             <Font size="25.0" />
          </font>
@@ -149,11 +149,11 @@
             </VBox>
          </children>
       </AnchorPane>
-      <ChoiceBox fx:id="choiceBox" cache="true" layoutX="387.0" layoutY="54.0" prefHeight="29.0" prefWidth="149.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-background-radius: 15;">
+      <ChoiceBox fx:id="choiceBox" cache="true" layoutX="387.0" layoutY="54.0" prefHeight="29.0" prefWidth="149.0" style="-fx-background-color: #73abeb; -fx-background-radius: 15;">
          <effect>
             <ColorAdjust />
          </effect></ChoiceBox>
-      <Button fx:id="backButton" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" opacity="0.87" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
+      <Button fx:id="backButton" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" opacity="0.87" prefHeight="47.0" prefWidth="123.0" style="-fx-background-color: #4299fc;" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
       <TextArea fx:id="textAreaAnswer" blendMode="SOFT_LIGHT" cache="true" editable="false" layoutX="193.0" layoutY="268.0" prefHeight="53.0" prefWidth="341.0" stylesheets="@../Styles/style.css" wrapText="true">
          <font>
             <Font size="18.0" />
@@ -190,9 +190,9 @@
       </Button>
    </children>
    <effect>
-      <InnerShadow choke="0.65" height="83.28" radius="43.995000000000005" width="94.7">
+      <InnerShadow choke="0.25" height="88.99" radius="45.4225" width="94.7">
          <color>
-            <Color red="0.8026315569877625" green="0.8026315569877625" blue="0.8026315569877625" />
+            <Color red="1.0" green="1.0" blue="1.0" />
          </color>
          <input>
             <Glow level="0.28" />

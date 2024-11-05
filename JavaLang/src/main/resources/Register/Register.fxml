@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.Register">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #72b0f7; -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.Register">
    <effect>
       <InnerShadow choke="0.65" height="83.28" radius="43.995000000000005" width="94.7">
          <color>
@@ -28,12 +28,12 @@
       </InnerShadow>
    </effect>
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#cdc8d3" focusTraversable="true" height="347.0" layoutX="22.0" layoutY="27.0" smooth="false" stroke="#08070782" strokeType="INSIDE" width="556.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#72b0f7" focusTraversable="true" height="347.0" layoutX="22.0" layoutY="27.0" smooth="false" stroke="#c7c5c582" strokeType="INSIDE" width="556.0">
          <effect>
             <GaussianBlur />
          </effect>
       </Rectangle>
-      <Button fx:id="backButton" layoutX="62.0" layoutY="36.0" mnemonicParsing="false" opacity="0.87" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="НАЗАД" />
+      <Button fx:id="backButton" layoutX="62.0" layoutY="36.0" mnemonicParsing="false" opacity="0.87" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #4299fc;" styleClass=".button" stylesheets="@../Styles/style.css" text="НАЗАД" />
       <VBox layoutX="199.0" layoutY="94.0" prefHeight="185.0" prefWidth="232.0">
          <children>
             <TextField fx:id="loginField" prefHeight="42.0" prefWidth="247.0">

@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.UserPanel">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #8dbff7; -fx-border-color: #7cb3f2; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.UserPanel">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#cdc8d3" focusTraversable="true" height="331.0" layoutX="16.0" layoutY="35.0" smooth="false" stroke="#08070782" strokeType="INSIDE" width="568.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="#9ecbff" focusTraversable="true" height="331.0" layoutX="16.0" layoutY="35.0" smooth="false" stroke="#bddcff82" strokeType="INSIDE" width="568.0">
          <effect>
             <GaussianBlur />
          </effect>
@@ -46,12 +46,12 @@
             <Image url="@../Images/logo.png" />
          </image>
       </ImageView>
-      <Text layoutX="353.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="МЕНЮ" underline="true">
+      <Text fill="#403939" layoutX="353.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="МЕНЮ" underline="true">
          <font>
             <Font name="Comic Sans MS Bold" size="31.0" />
          </font>
       </Text>
-      <Button fx:id="backButton" layoutX="16.0" layoutY="16.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
+      <Button fx:id="backButton" layoutX="16.0" layoutY="16.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: #4299fc;" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
    </children>
    <effect>
       <InnerShadow choke="0.65" height="83.28" radius="43.995000000000005" width="94.7">

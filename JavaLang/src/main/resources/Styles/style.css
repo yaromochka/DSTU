@@ -1,8 +1,8 @@
 .button {
     -fx-border-radius: 20;
-    -fx-border-color: #6b666e;
+    -fx-border-color: #8d9199;
     -fx-background-radius: 20;
-    -fx-background-color: #b2acb5;
+    -fx-background-color: #4299fc;
     -fx-cursor: hand;
 }
 
@@ -18,5 +18,5 @@
 
 .registerButton {
     -fx-border-radius: 0;
-    -fx-border-color: #6b666e;
+    -fx-border-color: #8d9199;
 }
