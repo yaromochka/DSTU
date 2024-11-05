@@ -15,16 +15,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(#e2dae6, #756e7a); -fx-border-color: linear-gradient(#e2dae6, #756e7a); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.AdminPanel">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #72b0f7; -fx-border-color: #7cb3f2; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="programmingLanguages.laboratories.GUI.Controllers.AdminPanel">
    <children>
-      <TableView fx:id="tableMenu" layoutX="153.0" layoutY="60.0" prefHeight="320.0" prefWidth="432.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" tableMenuButtonVisible="true">
+      <TableView fx:id="tableMenu" layoutX="153.0" layoutY="60.0" prefHeight="320.0" prefWidth="432.0" style="-fx-background-color: #9fc7f5;" tableMenuButtonVisible="true">
          <columns>
             <TableColumn fx:id="nameColumn" prefWidth="320.0" text="НАЗВАНИЕ" />
             <TableColumn fx:id="countColumn" prefWidth="117.0" text="КОЛ-ВО" />
          </columns>
       </TableView>
-      <Button fx:id="backButton" layoutX="21.0" layoutY="22.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(#dedae0, #514c54);" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
-      <Text layoutX="307.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ОСТАТОК" underline="true" wrappingWidth="154.0">
+      <Button fx:id="backButton" layoutX="21.0" layoutY="22.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: #4299fc;" styleClass=".button" stylesheets="@../Styles/style.css" text="Назад" />
+      <Text fill="#383333" layoutX="307.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ОСТАТОК" underline="true" wrappingWidth="154.0">
          <font>
             <Font size="32.0" />
          </font>
@@ -41,12 +41,12 @@
                   <Font size="20.0" />
                </font>
                <effect>
-                  <DropShadow height="6.1" radius="1.025" spread="0.23" width="0.0">
+                  <DropShadow height="3.05" radius="0.26249999999999996" spread="0.23" width="0.0">
                      <color>
-                        <Color red="0.06578947603702545" green="0.06578947603702545" blue="0.06578947603702545" />
+                        <Color red="1.0" green="0.9925925731658936" blue="0.9925925731658936" />
                      </color>
                      <input>
-                        <InnerShadow choke="0.55" height="27.61" radius="13.1275" width="26.9">
+                        <InnerShadow choke="0.55" height="27.255" radius="13.03875" width="26.9">
                            <color>
                               <Color red="0.2863060534000397" green="0.3069160282611847" blue="0.32894736528396606" />
                            </color>
@@ -63,12 +63,12 @@
                   <Font size="20.0" />
                </font>
                <effect>
-                  <DropShadow height="6.1" radius="1.025" spread="0.23" width="0.0">
+                  <DropShadow height="3.05" radius="0.26249999999999996" spread="0.23" width="0.0">
                      <color>
-                        <Color red="0.06578947603702545" green="0.06578947603702545" blue="0.06578947603702545" />
+                        <Color red="1.0" green="1.0" blue="1.0" />
                      </color>
                      <input>
-                        <InnerShadow choke="0.55" height="27.61" radius="13.1275" width="26.9">
+                        <InnerShadow choke="0.55" height="27.255" radius="13.03875" width="26.9">
                            <color>
                               <Color red="0.2863060534000397" green="0.3069160282611847" blue="0.32894736528396606" />
                            </color>
@@ -84,7 +84,7 @@
       </VBox>
    </children>
    <effect>
-      <InnerShadow choke="0.65" height="83.28" radius="43.995000000000005" width="94.7">
+      <InnerShadow choke="0.15" height="88.99" radius="45.4225" width="94.7">
          <color>
             <Color red="0.8026315569877625" green="0.8026315569877625" blue="0.8026315569877625" />
          </color>
