@@ -1,0 +1,106 @@
+; 6.	Ввести с клавиатуры строку. Если она длиннее некоторой заданной величины,
+; то обрезать, если короче растянуть, вставив нужное число пробелов
+; между словами. Вывести результаты на экран.
+
+
+.model small
+.stack 100h
+.data
+    prompt db 'Enter a string: $'
+    result db 0Dh, 0Ah, 'Result: $'
+    max_length equ 20  ; Заданная длина строки
+    buffer db 256 dup('$')  ; Буфер для ввода строки
+    output db 256 dup('$')  ; Буфер для вывода строки
+    input_length db 0  ; Длина введенной строки
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+    mov es, ax
+
+    ; Вывод приглашения для ввода строки
+    lea dx, prompt
+    mov ah, 09h
+    int 21h
+
+    ; Ввод строки
+    lea dx, buffer
+    mov ah, 0Ah
+    int 21h
+
+    ; Найти длину введенной строки
+    lea si, buffer + 2
+    mov cx, 0
+find_length:
+    lodsb
+    cmp al, 0Dh  ; CR (Carriage Return)
+    je length_found
+    inc cx
+    jmp find_length
+length_found:
+    mov input_length, cl
+
+    ; Проверка длины строки
+    cmp cx, max_length
+    jg cut_string
+    jl stretch_string
+    jmp print_result
+
+cut_string:
+    ; Обрезать строку до заданной длины
+    lea si, buffer + 2
+    lea di, output
+    mov cx, max_length
+    rep movsb
+    mov al, '$'
+    stosb
+    jmp print_result
+
+stretch_string:
+    ; Растянуть строку, вставив пробелы между первыми двумя словами
+    lea si, buffer + 2
+    lea di, output
+    mov bx, max_length
+    sub bx, cx
+    mov dx, bx  ; Количество пробелов для вставки
+
+    ; Копировать строку с вставкой пробелов
+copy_with_spaces:
+    lodsb
+    cmp al, 0Dh  ; CR (Carriage Return)
+    je end_copy
+    stosb
+    cmp al, ' '
+    jne next_char
+    ; Вставить пробелы только между первыми двумя словами
+    cmp dx, 0
+    je next_char
+    mov cx, dx
+    mov al, ' '
+insert_spaces:
+    stosb
+    loop insert_spaces
+    mov dx, 0  ; Сбросить количество пробелов для вставки
+next_char:
+    jmp copy_with_spaces
+
+end_copy:
+    mov al, '$'
+    stosb
+
+print_result:
+    ; Вывод результата
+    lea dx, result
+    mov ah, 09h
+    int 21h
+
+    lea dx, output
+    mov ah, 09h
+    int 21h
+
+    ; Завершение программы
+    mov ah, 4Ch
+    int 21h
+
+main endp
+end main

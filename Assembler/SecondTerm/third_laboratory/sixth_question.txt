@@ -1,0 +1,109 @@
+; 6.	Разработать подпрограмму, которая переставляет символы заданной строки в обратном порядке.
+; Разработать программу, которая вводит с кла-виатуры строку и переставляет в обратном
+; порядке символы в каждом слове
+
+ORG 100h
+
+.DATA
+promptInput DB 'Введите строку: $'
+promptOutput DB 13, 10, 'Результат: $'  ; Новая строка + сообщение результата
+inputString DB 80, 0, 80 DUP('$')       ; Буфер для ввода строки (80 байт)
+reversedString DB 80 DUP('$')           ; Буфер для перевернутой строки
+
+.CODE
+start:
+    ; Выводим сообщение для ввода строки
+    mov dx, OFFSET promptInput
+    mov ah, 09h
+    int 21h
+
+    ; Вводим строку с клавиатуры
+    mov ah, 0Ah
+    lea dx, inputString
+    int 21h
+
+    ; Выводим результат на новой строке
+    mov dx, OFFSET promptOutput
+    mov ah, 09h
+    int 21h
+
+    ; Переходим к обращению слов
+    lea si, inputString+2       ; Устанавливаем SI на начало строки (пропускаем первый байт длины и фактическую длину)
+    mov di, OFFSET reversedString ; Устанавливаем DI на буфер для перевернутой строки
+    mov cl, [inputString+1]     ; Считываем длину введённой строки
+
+next_word:
+    call skip_spaces             ; Пропускаем пробелы
+
+    mov bx, si                   ; Сохраняем начало слова в BX
+    call find_word_end           ; Ищем конец слова
+
+    cmp si, bx                   ; Если слово найдено
+    je done                      ; Если нет, завершение программы
+
+    call reverse_word            ; Переворачиваем слово
+
+    jmp next_word                ; Переход к следующему слову
+
+done:
+    call print_reversed_string   ; Печатаем перевёрнутую строку
+
+    mov ah, 4Ch                  ; Завершение программы
+    int 21h
+
+; Подпрограмма: Пропуск пробелов
+skip_spaces:
+    mov al, [si]
+    cmp al, ' '                  ; Пробел?
+    je skip_next_char            ; Если пробел, пропускаем символ
+    ret
+skip_next_char:
+    inc si
+    jmp skip_spaces
+
+; Подпрограмма: Поиск конца слова
+find_word_end:
+    find_loop:
+        mov al, [si]
+        cmp al, ' '              ; Если пробел, значит конец слова
+        je found_word_end
+        cmp al, 0Dh              ; Если символ возврата каретки (конец строки), выход
+        je found_word_end
+        cmp al, 0                ; Если ноль, конец строки
+        je found_word_end
+        inc si                   ; Переход к следующему символу
+        jmp find_loop
+found_word_end:
+    ret
+
+; Подпрограмма: Переворот слова
+reverse_word:
+    push si                      ; Сохраняем текущий указатель начала слова
+    dec si                       ; Уменьшаем SI, чтобы указать на последний символ слова
+
+    reverse_loop:
+        mov al, [si]             ; Берем символ с конца слова
+        mov [di], al             ; Копируем в буфер для вывода
+        inc di                   ; Сдвигаем указатель буфера
+        dec si                   ; Сдвигаем указатель слова назад
+        cmp si, bx               ; Пока не дойдем до начала слова
+        jl end_reverse
+        jmp reverse_loop
+
+end_reverse:
+    mov al, ' '                  ; Добавляем пробел после слова
+    mov [di], al
+    inc di
+    pop si                       ; Восстанавливаем указатель SI
+    ret
+
+; Подпрограмма: Печать перевернутой строки
+print_reversed_string:
+    mov al, '$'                  ; Заканчиваем строку символом '$'
+    mov [di], al
+    mov dx, OFFSET reversedString
+    mov ah, 09h
+    int 21h
+    ret
+
+END start

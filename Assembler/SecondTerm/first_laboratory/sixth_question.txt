@@ -1,0 +1,86 @@
+; 6.	Дан массив из 8 байт. Рассматривая его, как массив из
+; 64 бит посчитать длину самой длинной последовательности единиц.
+
+.model small
+.stack 100h
+.data
+    array db 04h, 07h, 14h, 23h, 04h, 38h, 3Fh, 2Ah ; Пример массива из 8 байт
+    ;array 00000100 00000111 00010100 00100011 00000100 00111000 00111111 00101010
+    max_length db 0 ; Максимальная длина последовательности единиц
+    current_length db 0 ; Текущая длина последовательности единиц
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+
+    ; Инициализация переменных
+    mov byte ptr [max_length], 0
+    mov byte ptr [current_length], 0
+
+    ; Указатель на начало массива
+    mov si, offset array
+
+    ; Проход по каждому байту массива
+    mov cx, 8 ; Количество байт в массиве
+
+next_byte:
+    mov al, [si] ; Загрузка текущего байта в AL
+    mov bl, 8 ; Количество бит в байте
+
+next_bit:
+    test al, 1 ; Проверка младшего бита
+    jz end_sequence ; Если бит равен 0, конец последовательности
+    inc byte ptr [current_length] ; Увеличение текущей длины последовательности
+    shr al, 1 ; Сдвиг вправо на 1 бит
+    dec bl ; Уменьшение счетчика бит
+    jnz next_bit ; Если еще есть биты в текущем байте, повторить
+
+    ; Проверка, если текущая длина больше максимальной
+    mov al, [current_length]
+    cmp al, [max_length]
+    jle not_max
+    mov [max_length], al
+
+not_max:
+    inc si ; Переход к следующему байту
+    dec cx ; Уменьшение счетчика байт
+    jnz next_byte ; Если еще есть байты, повторить
+
+    ; Вывод максимальной длины последовательности единиц
+    mov ah, 09h
+    lea dx, max_length
+    int 21h
+
+    ; Завершение программы
+    mov ah, 4Ch
+    int 21h
+
+end_sequence:
+    ; Проверка, если текущая длина больше максимальной
+    mov al, [current_length]
+    cmp al, [max_length]
+    jle reset_current_length
+    mov [max_length], al
+
+reset_current_length:
+    mov byte ptr [current_length], 0 ; Сброс текущей длины последовательности
+    shr al, 1 ; Сдвиг вправо на 1 бит
+    dec bl ; Уменьшение счетчика бит
+    jnz next_bit ; Если еще есть биты в текущем байте, повторить
+
+    ; Переход к следующему байту
+    inc si
+    dec cx
+    jnz next_byte
+
+    ; Вывод максимальной длины последовательности единиц
+    mov ah, 09h
+    lea dx, max_length
+    int 21h
+
+    ; Завершение программы
+    mov ah, 4Ch
+    int 21h
+
+main endp
+end main
