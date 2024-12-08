@@ -32,7 +32,6 @@ def _to_sys_matrix(matrix: np.array, matrix_type="G") -> np.array:
         sys_matrix = np.hstack((identity_matrix, matrix_reduced)).tolist()
     elif matrix_type == "H":
         sys_matrix = np.hstack((matrix_reduced, identity_matrix)).tolist()
-    print(sys_matrix)
     return sys_matrix if sys_matrix is None else np.zeros((rows, cols), dtype=int)
 
 
