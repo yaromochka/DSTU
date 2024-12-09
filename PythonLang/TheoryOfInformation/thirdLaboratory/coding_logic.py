@@ -129,7 +129,7 @@ class BlockCoder:
         self._decode_table = {''.join(list(v.astype(str))): k for k, v in self._code_table.items()}
 
     def __fill_syndromes(self) -> None:
-        self._syndromes['0' * (self._k + 1)] = np.array(list(str(i) for i in '0' * self._n), dtype=int)
+        self._syndromes['0' * (self._k - 1)] = np.array(list(str(i) for i in '0' * self._n), dtype=int)
         for num_errors in range(1, self._count_mistakes + 1):  # От 1 до количества ошибок
             for error_positions in itertools.combinations(range(self._n), num_errors):
                 # Создаем вектор ошибки
@@ -144,11 +144,12 @@ class BlockCoder:
     """
     def __get_H_from_G(self):
         n, k = self._matrix_G.shape[1], self._matrix_G.shape[0]
-        self._matrix_H = np.concatenate([self._matrix_G[:, (n - k - 1):].T, np.identity(k + 1).astype(int)], axis=1)
+        self._matrix_H = np.concatenate([self._matrix_G[:, -(n - k):].T, np.identity((n - k), dtype=int)], axis=1)
+
 
     def __get_G_from_H(self):
         n, k = self._matrix_H.shape[1], self._matrix_H.shape[0]
-        self._matrix_G = np.concatenate([np.identity(n - k).astype(int), self._matrix_H[:, :(n - k)].T], axis=1)
+        self._matrix_G = np.concatenate([np.identity((n - k), dtype=int), self._matrix_H[:, :(n - k)].T], axis=1)
 
     # Добавление нулей спереди,
     # чтобы блоки можно было разбить
