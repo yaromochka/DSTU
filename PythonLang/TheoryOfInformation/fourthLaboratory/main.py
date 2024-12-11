@@ -15,6 +15,7 @@ class CodeModificationApp:
         self.modification_type = tk.StringVar(value="Укорочение кода")
         self.rows = tk.IntVar(value=0)
         self.cols = tk.IntVar(value=0)
+        self.p_value = tk.StringVar(value="")  # Параметр p
         self.entries = []  # Для хранения ячеек ввода матрицы
 
         # Создание интерфейса
@@ -55,9 +56,15 @@ class CodeModificationApp:
                                          values=["Укорочение кода", "Расширение кода", "Перфорация линейных блочных кодов", "Пополнение кода", "Выбрасывание кодовых слов", "Удлинение кода"],
                                          state="readonly")
         modification_menu.grid(row=0, column=1, columnspan=2)
+        modification_menu.bind("<<ComboboxSelected>>", self.update_p_values)
+
+        # Выпадающий список для параметра p
+        tk.Label(modification_frame, text="Параметр p:").grid(row=1, column=0, sticky="w")
+        self.p_menu = ttk.Combobox(modification_frame, textvariable=self.p_value, state="readonly")
+        self.p_menu.grid(row=1, column=1, columnspan=2)
 
         # Кнопка для применения модификации
-        tk.Button(modification_frame, text="Применить модификацию", command=self.apply_modification).grid(row=0, column=3, padx=5)
+        tk.Button(modification_frame, text="Применить модификацию", command=self.apply_modification).grid(row=2, column=3, padx=5)
 
         # Область для вывода результатов
         result_frame = tk.Frame(self.root, padx=10, pady=10)
@@ -69,9 +76,6 @@ class CodeModificationApp:
         self.result_text.pack(fill="both", expand=True)
 
     def adjust_matrix_dimensions(self, event):
-        """
-        Обновляет значения колонок в зависимости от выбранного типа матрицы.
-        """
         if self.matrix_type.get() == "H":
             n = self.rows.get()
             k = self.cols.get()
@@ -79,15 +83,10 @@ class CodeModificationApp:
                 self.cols.set(n - k)
 
     def create_matrix(self):
-        """
-        Создаёт поле для ввода матрицы размером k x n и заполняет его нулями.
-        """
-        # Очистка предыдущей матрицы
         for widget in self.matrix_frame.winfo_children():
             widget.destroy()
         self.entries = []
 
-        # Получаем размер матрицы (k x n)
         n = self.rows.get()
         k = self.cols.get()
 
@@ -95,18 +94,19 @@ class CodeModificationApp:
             messagebox.showerror("Ошибка", "Размеры матрицы должны быть больше 0.")
             return
 
-        # Создаём ячейки для ввода
-        tk.Label(self.matrix_frame, text=f"Матрица {self.matrix_type.get()} ({k} x {n}):").grid(row=0, column=0,
-                                                                                                columnspan=n)
+        tk.Label(self.matrix_frame, text=f"Матрица {self.matrix_type.get()} ({k} x {n}):").grid(row=0, column=0, columnspan=n)
         r = k if self.matrix_type.get() == "G" else n - k
-        for i in range(r):  # k строк
+        for i in range(r):
             row_entries = []
-            for j in range(n):  # n столбцов
+            for j in range(n):
                 entry = tk.Entry(self.matrix_frame, width=3, justify="center")
-                entry.insert(0, "0")  # Заполняем ячейку нулём
+                entry.insert(0, "0")
                 entry.grid(row=i + 1, column=j)
                 row_entries.append(entry)
             self.entries.append(row_entries)
+
+        # Обновляем значения p после создания матрицы
+        self.update_p_values(None)
 
     def apply_modification(self):
         """
@@ -120,16 +120,18 @@ class CodeModificationApp:
             messagebox.showerror("Ошибка", "Введите корректные размеры матрицы.")
             return
 
-        if self.matrix_type.get() == "G": self.matrix.set_matrix_G(self.get_matrix())
-        else: self.matrix.set_matrix_H(self.get_matrix())
+        if self.matrix_type.get() == "G":
+            self.matrix.set_matrix_G(self.get_matrix())
+        else:
+            self.matrix.set_matrix_H(self.get_matrix())
 
-        # Пример модификации (заглушка)
+        p = int(self.p_value.get()) # значение параметра p
         if modification == "Укорочение кода":
-            self.matrix.shortening_code()  # Удаляем последний столбец как пример
+            self.matrix.shortening_code(p)  # Удаляем последний столбец как пример
         elif modification == "Расширение кода":
             self.matrix.extension_code()
         elif modification == "Перфорация линейных блочных кодов":
-            self.matrix.punching_code()
+            self.matrix.punching_code(p)
         elif modification == "Пополнение кода":
             self.matrix.add_code()
         elif modification == "Выбрасывание кодовых слов":
@@ -140,9 +142,15 @@ class CodeModificationApp:
         # Вывод результатов
         self.result_text.delete("1.0", tk.END)
         self.result_text.insert(tk.END, f"Выбранная модификация: {modification}\n")
+        self.result_text.insert(tk.END, f"n: {self.rows.get()} k: {self.cols.get()}\n")
+        if (modification in ["Укорочение кода", "Перфорация линейных блочных кодов"]):
+            self.result_text.insert(tk.END, f"dmin до: {self.matrix.get_dmin()}\n\n")
+            self.result_text.insert(tk.END, f"t до: {(self.matrix.get_dmin() - 1) // 2}\n\n")
         self.result_text.insert(tk.END, f"Результат:\n{self.matrix.get_modified_matrix()}\n\n")
-        self.result_text.insert(tk.END, f"dmin до:\n{self.matrix.get_dmin()}\n\n")
-        self.result_text.insert(tk.END, f"dmin после:\n{self.matrix.get_dmin_modified()}\n\n")
+        self.result_text.insert(tk.END, f"n: {self.matrix.get_mod_matrix().get_n()} k: {self.matrix.get_mod_matrix().get_k()}\n")
+        if (modification in ["Укорочение кода", "Перфорация линейных блочных кодов"]):
+            self.result_text.insert(tk.END, f"dmin после: {self.matrix.get_dmin_modified()}\n\n")
+            self.result_text.insert(tk.END, f"t после: {(self.matrix.get_dmin_modified() - 1) // 2}\n\n")
 
     def get_matrix(self):
         """
@@ -154,6 +162,27 @@ class CodeModificationApp:
             matrix.append(row_data)
 
         return np.array(matrix)
+
+    def update_p_values(self, event):
+        modification = self.modification_type.get()
+        if modification == "Укорочение кода":
+            values = [str(i) for i in range(self.cols.get())]
+        elif modification == "Расширение кода":
+            values = [str(i) for i in range(1)]
+        elif modification == "Перфорация линейных блочных кодов":
+            values = [str(i) for i in range(self.cols.get())]
+        elif modification == "Пополнение кода":
+            values = [str(i) for i in range(1)]
+        elif modification == "Выбрасывание кодовых слов":
+            values = [str(i) for i in range(1, self.rows.get() + 1)]
+        elif modification == "Удлинение кода":
+            values = [str(i) for i in range(1, self.rows.get() + 1)]
+        else:
+            values = ["1", "2", "3"]
+
+        self.p_menu["values"] = values
+        if values:
+            self.p_menu.current(0)
 
 
 # Запуск программы

@@ -97,6 +97,9 @@ class MatrixModifications:
         self._modified_matrix.set_matrix(matrix)
         self._modified_matrix.fill_info()
 
+    def get_mod_matrix(self):
+        return self._modified_matrix
+
     def get_modified_matrix(self):
         return self._modified_matrix.get_matrix()
 
@@ -142,50 +145,56 @@ class MatrixModifications:
 
     # Укорочение кода
     def shortening_code(self, p=0):
-        s = self._matrix_G.get_k() - p - 1
-        new_matrix_G = self._matrix_G.get_matrix()[(s - 1):, (s - 1):]
+        idx = self._matrix_G.get_k() if p == self._matrix_G.get_k() else p % 4
+        new_matrix_G = np.delete(np.delete(self._matrix_G.get_matrix(), idx, axis=0), idx, axis=1)
         self.set_modified_matrix(new_matrix_G)
 
     # Расширение кода
     def extension_code(self):
         matrix_H = self.get_matrix_H()
-        n, k = matrix_H.shape
-        expanded_matrix = np.zeros((n + 1, k + 1), dtype=int)
-        expanded_matrix[0, :] = 1
-        expanded_matrix[1:, 1:] = matrix_H
-        self.set_modified_matrix(expanded_matrix)
+        ones_row = np.ones((1, matrix_H.shape[1]), dtype=int)
+        matrix_with_ones = np.vstack((ones_row, matrix_H))
+        parity_vector = np.sum(matrix_with_ones, axis=1) % 2
+        parity_vector = parity_vector.reshape(-1, 1)
+        final_matrix = np.hstack((parity_vector, matrix_with_ones))
+        self.set_modified_matrix(final_matrix)
 
     # Перфорация линейных блочных кодов
     def punching_code(self, p=0):
         matrix_H = self.get_matrix_H()
         n, k = matrix_H.shape
         start_column = n - k
-        column_to_delete = start_column + p - 1
+        column_to_delete = start_column + p
         matrix_H = np.delete(matrix_H, column_to_delete, axis=1)
         matrix_H = np.delete(matrix_H, p, axis=0)
         self.set_modified_matrix(matrix_H)
 
     # Пополнение кода
     def add_code(self, p=1):
-        for i in range(p):
-            vector = np.random.randint(0, 2, self._matrix_G.get_n())
-            if self.__is_independent(vector):
-                if self.get_modified_matrix() is None: self.set_modified_matrix(np.vstack([vector, self.get_matrix_G()]))
-                else: self.set_modified_matrix(np.vstack([vector, self.get_modified_matrix()]))
+        # for i in range(p):
+        #     vector = np.random.randint(0, 2, self._matrix_G.get_n())
+        #     if self.__is_independent(vector):
+        #         if self.get_modified_matrix() is None: self.set_modified_matrix(np.vstack([vector, self.get_matrix_G()]))
+        #         else: self.set_modified_matrix(np.vstack([vector, self.get_modified_matrix()]))
+        matrix_G = self.get_matrix_G()
+        ones_row = np.ones((1, matrix_G.shape[1]), dtype=int)
+        matrix_with_ones = np.vstack((ones_row, matrix_G))
+        self.set_modified_matrix(matrix_with_ones)
 
-    def __is_independent(self, new_vector: np.array) -> bool:
-        """
-        Проверяет, является ли новый вектор линейно независимым от текущих строк порождающей матрицы.
-        Для этого решаем систему линейных уравнений A * x = new_vector
-        и проверяем, имеет ли решение только тривиальное решение (все x = 0).
-        """
-        if self.get_modified_matrix() is None: matrix = self.get_matrix_G()
-        else: matrix = self.get_modified_matrix()
-        augmented_matrix = np.vstack([matrix, new_vector])
-        # Проводим гауссово исключение и смотрим, увеличился ли ранг
-        rank_before = np.linalg.matrix_rank(matrix)
-        rank_after = np.linalg.matrix_rank(augmented_matrix)
-        return rank_after > rank_before
+
+    # def __is_independent(self, new_vector: np.array) -> bool:
+    #     """
+    #     Проверяет, является ли новый вектор линейно независимым от текущих строк порождающей матрицы.
+    #     Для этого решаем систему линейных уравнений A * x = new_vector
+    #     и проверяем, имеет ли решение только тривиальное решение (все x = 0).
+    #     """
+    #     if self.get_modified_matrix() is None: matrix = self.get_matrix_G()
+    #     else: matrix = self.get_modified_matrix()
+    #     augmented_matrix = np.vstack([matrix, new_vector])
+    #     # Проводим гауссово исключение и смотрим, увеличился ли ранг
+    #     rank_before = np.linalg.matrix_rank(matrix)
+    #     rank_after = np.linalg.matrix_rank(augmented_matrix)
+    #     return rank_after > rank_before
 
     # Выбрасывание кодовых слов.
     # В случае систематической матрицы
