@@ -145,8 +145,7 @@ class MatrixModifications:
 
     # Укорочение кода
     def shortening_code(self, p=0):
-        idx = self._matrix_G.get_k() if p == self._matrix_G.get_k() else p % 4
-        new_matrix_G = np.delete(np.delete(self._matrix_G.get_matrix(), idx, axis=0), idx, axis=1)
+        new_matrix_G = np.delete(np.delete(self._matrix_G.get_matrix(), p, axis=0), p, axis=1)
         self.set_modified_matrix(new_matrix_G)
 
     # Расширение кода

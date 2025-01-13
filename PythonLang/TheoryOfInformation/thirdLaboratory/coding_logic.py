@@ -130,7 +130,7 @@ class BlockCoder:
 
     def __fill_syndromes(self) -> None:
         self._syndromes['0' * (self._n - self._k)] = np.array(list(str(i) for i in '0' * self._n), dtype=int)
-        for num_errors in range(1, self._count_mistakes + 1):  # От 1 до количества ошибок
+        for num_errors in range(1, self._n + 1):  # От 1 до количества ошибок
             for error_positions in itertools.combinations(range(self._n), num_errors):
                 # Создаем вектор ошибки
                 error_vector = np.zeros(self._n, dtype=int)
