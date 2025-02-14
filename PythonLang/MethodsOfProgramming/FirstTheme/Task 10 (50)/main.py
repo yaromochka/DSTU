@@ -7,32 +7,40 @@ def is_first_player_winner(card1: int, card2: int) -> bool:
 
 
 def play_game(
-        first_deque: Iterable[int],
-        second_deque: Iterable[int]
+        first_deck: Iterable[int],
+        second_deck: Iterable[int]
 ) -> Tuple[int, int]:
-    first_deque: deque[int] = deque(first_deque)
-    second_deque: deque[int] = deque(second_deque)
+    first_deck: deque[int] = deque(first_deck)
+    second_deck: deque[int] = deque(second_deck)
+
     rounds: int = 0
-    max_rounds: int = 10 ** 6
-    while first_deque and second_deque:
+    max_rounds: int = 1_000_000
+
+    while first_deck and second_deck:
         rounds += 1
-        first_card = first_deque.popleft()
-        second_card = second_deque.popleft()
+        first_card = first_deck.popleft()
+        second_card = second_deck.popleft()
+
         if is_first_player_winner(first_card, second_card):
-            first_deque.extend([first_card, second_card])
+            first_deck.extend([first_card, second_card])
         else:
-            second_deque.extend([first_card, second_card])
+            second_deck.extend([first_card, second_card])
+
         if rounds >= max_rounds:
             return -1, -1
-    return not first_deque, rounds
+
+    return not bool(first_deck), rounds
 
 
 def main() -> None:
     cases: Dict[int, str] = {-1: "botva", 0: "first", 1: "second"}
+
+    # Запуск игры
     result: Tuple[int, int] = play_game(
         map(int, input().split()),
         map(int, input().split())
     )
+
     print(cases[result[0]], result[1] if result[1] != -1 else "")
 
 
