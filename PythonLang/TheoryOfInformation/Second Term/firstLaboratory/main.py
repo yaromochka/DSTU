@@ -1,11 +1,20 @@
+import math
 import tkinter as tk
 from calculator import calculate
+
+def check_prime(a: int) -> bool:
+    for i in range(2, int(math.sqrt(a) + 1)):
+        if a % i == 0: return False
+    return True
 
 def calc() -> None:
     expr: str = expr_entry.get()
     mod: int = int(mod_entry.get())
-    result = calculate(expr, mod)
-    result_label.config(text=f"Результат: {result}")
+    if check_prime(mod):
+        result = calculate(expr, mod)
+        result_label.config(text=f"Результат: {result}")
+    else:
+        result_label.config(text="Введите модуль являющийся простым числом")
 
 # --- Графический интерфейс ---
 root = tk.Tk()
