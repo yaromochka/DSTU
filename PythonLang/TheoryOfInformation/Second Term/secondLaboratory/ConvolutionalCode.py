@@ -1,5 +1,6 @@
 from typing import List, Tuple, Dict
 from collections import defaultdict
+from random import randint
 
 
 class ConvolutionalCode:
@@ -44,6 +45,19 @@ class ConvolutionalCode:
         self.encoded_text = ''.join(self.encoded_list)
 
 
+    def add_mistake(self):
+        if self.encoded_list:
+            n: int = len(self.encoded_list[0]) - 1 # length of encoded word
+            for idx, enc in enumerate(self.encoded_list):
+                if idx > 2:
+                    have_mistake: int = randint(0, 1)
+                    if have_mistake:
+                        place_to_mistake: int = randint(1, n - 1)
+                        enc = list(enc)
+                        enc[place_to_mistake] = str(int(enc[place_to_mistake]) ^ 1)
+                        self.encoded_list[idx] = ''.join(enc)
+
+
     def decode(self) -> None:
         self._build_graph()
         for encoded in self.encoded_list:
@@ -52,11 +66,23 @@ class ConvolutionalCode:
             for idx in range(0, len(encoded), self.count_adders):
                 encoded_text = encoded[idx:idx + self.count_adders]
                 ways: List[Tuple[str, str]] = self.graph[window]
+                min_hamming_distance = float('inf')
+                best_path = None
+                best_state = None
+
                 for num, way in enumerate(ways):
                     state, decode = way[0], way[1]
-                    if encoded_text == decode:
-                        decoded_list.append(str(num))
-                        window = state
+                    hamming_distance = sum(b1 != b2 for b1, b2 in zip(encoded_text, decode))
+
+                    if hamming_distance < min_hamming_distance:
+                        min_hamming_distance = hamming_distance
+                        best_path = str(num)
+                        best_state = state
+
+                if best_path is not None:
+                    decoded_list.append(best_path)
+                    window = best_state
+
             self.decoded_list.append(decoded_list)
         self.decoded_text = ''.join([chr(int(''.join(text), 2)) for text in self.decoded_list])
 
@@ -98,4 +124,6 @@ if __name__ == '__main__':
     coder.set_text(text_to_encode)
     coder.set_adders(adders)
     coder.encode()
+    coder.add_mistake()
     coder.decode()
+    print(coder.decoded_text)

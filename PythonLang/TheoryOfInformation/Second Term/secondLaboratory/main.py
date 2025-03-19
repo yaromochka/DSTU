@@ -2,6 +2,15 @@ import tkinter as tk
 from tkinter import messagebox
 from ConvolutionalCode import ConvolutionalCode
 
+"""
+Для кодера с памятью 4 (5-разрядное состояние)
+Исправляет 1 ошибку гарантированно
+
+Сумматор 1: 0, 1, 3, 4
+Сумматор 2: 1, 2, 4
+
+"""
+
 
 def on_set_adders():
     try:
@@ -33,6 +42,7 @@ def on_process():
     coder.set_text(text_to_encode)
     coder.set_adders(adders)
     coder.encode()
+    coder.add_mistake()
     coder.decode()
 
     result_text.config(state=tk.NORMAL)
