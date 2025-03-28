@@ -49,7 +49,7 @@ class ConvolutionalCode:
         if self.encoded_list:
             n: int = len(self.encoded_list[0]) - 1 # length of encoded word
             for idx, enc in enumerate(self.encoded_list):
-                if idx > 2:
+                if 5 < idx < len(self.encoded_list) - 2:
                     have_mistake: int = randint(0, 1)
                     if have_mistake:
                         place_to_mistake: int = randint(1, n - 1)
@@ -126,4 +126,5 @@ if __name__ == '__main__':
     coder.encode()
     coder.add_mistake()
     coder.decode()
+    print(coder.graph)
     print(coder.decoded_text)
