@@ -26,6 +26,9 @@ if __name__ == "__main__":
     ht = HashTable()
     ht.insert("apple", 10)
     ht.insert("orange", 20)
+    ht.insert("egnaro", 20)
+    ht.insert("orange", 150)
+    ht.insert("banana", 27)
     ht.insert("banana", 30)
     ht.insert("apple", 15)
     print(ht)
@@ -36,9 +39,11 @@ if __name__ == "__main__":
     oht = OpenAddressingHashTable()
     oht.insert(1, "one")
     oht.insert(11, "eleven")
+    oht.insert(11, "two")
     oht.insert(21, "twenty-one")
     print(oht.get(1))
     print(oht.get(11))
+    print(oht)
     oht.delete(11)
 
     print("\n### ResizableHashTable ###")
@@ -46,3 +51,4 @@ if __name__ == "__main__":
     for i in range(10):
         rht.insert(f"key{i}", i)
         print(f"Inserted key{i}, size: {rht.size}, count: {rht.count}")
+    print(rht)

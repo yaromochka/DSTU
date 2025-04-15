@@ -11,12 +11,8 @@ class HashTable:
         hash_key = self._hash(key)
         bucket = self.table[hash_key]
 
-        # Проверяем, нет ли уже такого ключа в цепочке
-        for i, (k, v) in enumerate(bucket):
-            if k == key:
-                bucket[i] = (key, value)  # Обновляем значение, если ключ существует
-                return
-        bucket.append((key, value))  # Добавляем новую пару ключ-значение
+        bucket.append((key, value))
+        return
 
     def get(self, key):
         hash_key = self._hash(key)
@@ -39,4 +35,3 @@ class HashTable:
 
     def __str__(self):
         return str(self.table)
-
