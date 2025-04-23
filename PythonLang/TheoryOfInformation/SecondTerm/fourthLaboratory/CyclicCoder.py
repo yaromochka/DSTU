@@ -112,13 +112,11 @@ class CyclicCoder:
                 corrected_block = block
             else:
                 # попробуем найти и исправить одиночную ошибку
-                fixed = False
                 for i in range(len(block)):
                     temp = block.copy()
                     temp[i] ^= 1  # flip bit
                     if sum(self.poly_div(temp.copy(), self.generator_poly)) == 0:
                         block = temp
-                        fixed = True
                         break
                 corrected_block = block
 
