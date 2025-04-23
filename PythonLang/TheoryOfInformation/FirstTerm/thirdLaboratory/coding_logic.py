@@ -80,7 +80,7 @@ class BlockCoder:
     def set_encoded_text(self, encode_text) -> None:
         self._encoded_text = encode_text
 
-    def get_encoded_text(self) -> str:
+    def get_encoded_text(self) -> list[list[int]]:
         return self._encoded_text
 
     def set_count_mistakes(self, count_mistakes) -> None:
@@ -120,6 +120,9 @@ class BlockCoder:
         self.__fill_code_table()
         self.__count_correction()
         self.__fill_syndromes()
+        print('Вывод вспомогательных матриц для кодирования и декодирования')
+        print(f'Таблица кодовых слов: {self._decode_table}')
+        print(f'Таблица синдромов {self._syndromes}')
 
     def __fill_code_table(self) -> None:
         for idx in range(2 ** self._k):
@@ -231,6 +234,7 @@ class BlockCoder:
     def decode_text(self) -> None:
         blocks = np.array(list(_separate_text(self.get_string_encoded_text(), self._n)))
         self._decoded_text = list(self.__decode_blocks(blocks))
+        self.set_decoded_text(self._decoded_text)
 
     def __decode_blocks(self, blocks: np.array) -> []:
         for block in blocks:
@@ -243,12 +247,35 @@ class BlockCoder:
     Метод для перевода бинарного декодированного текста в 
     символьный декодированный текст
     """
-    def decode_to_text(self) -> str:
-        text = self.get_string_decoded_text()
-        decoded_text = ''
-        if self._decoded_text is not None:
-            for i in range(len(text), 0, -16):
-                temp_bin_code = text[max(0, i-16):i]
-                if len(temp_bin_code) == 16: decoded_text += chr(int(temp_bin_code, 2))
-                else: break
-        return decoded_text[::-1]
+    # def decode_to_text(self) -> str:
+    #     text = self.get_string_decoded_text()
+    #     decoded_text = ''
+    #     if self._decoded_text is not None:
+    #         for i in range(len(text), 0, -16):
+    #             temp_bin_code = text[max(0, i-16):i]
+    #             if len(temp_bin_code) == 16: decoded_text += chr(int(temp_bin_code, 2))
+    #             else: break
+    #     return decoded_text[::-1]
+
+
+if __name__ == "__main__":
+    bc = BlockCoder()
+    matrix_G = np.array([
+        [1, 0, 0, 0, 1, 0, 1],
+        [0, 1, 0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 1, 0, 1],
+        [0, 0, 0, 1, 0, 0, 1],
+    ])
+    bc.set_matrix_G(matrix_G)
+
+    text = ['255', '121', '12', '41', '5', '36']
+    encode = ''
+    for t in text:
+        while len(t) < 3:
+            t = '0' + t
+        encode += t
+    bc.set_text(encode)
+    bc.encode_text()
+    print(bc.get_encoded_text())
+    bc.decode_text()
+    print(bc.get_decoded_text())

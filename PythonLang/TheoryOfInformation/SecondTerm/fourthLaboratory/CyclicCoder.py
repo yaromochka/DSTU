@@ -143,8 +143,8 @@ class CyclicCoder:
 
 
 if __name__ == "__main__":
-    text = "Hi"
-    poly = [1, 0, 1, 1]  # x³ + x + 1
+    text = "Хеллоу ворлд"
+    poly = [1, 0, 1, 1]
     coder = CyclicCoder(generator_poly=poly)
 
     encoded = coder.encode_text(text)

@@ -87,7 +87,7 @@ class ConvolutionalCode:
                     window = best_state
 
             self.decoded_list.append(decoded_list)
-        self.decoded_text = ''.join([chr(int(''.join(text), 2)) for text in self.decoded_list])
+        # self.decoded_text = ''.join([chr(int(''.join(text), 2)) for text in self.decoded_list])
 
 
     def _encode_to_binary(self) -> None:
