@@ -1,5 +1,7 @@
-import numpy as np
 import random
+from typing import Sized, Sequence
+
+import numpy as np
 
 
 class CyclicCoder:
@@ -16,7 +18,7 @@ class CyclicCoder:
         else:
             raise ValueError("Нужно ввести либо полином, либо матрицу.")
 
-    def poly_degree(self, poly):
+    def poly_degree(self, poly: Sized) -> int:
         return len(poly) - 1
 
     def poly_div(self, dividend, divisor):
@@ -70,12 +72,14 @@ class CyclicCoder:
         message_bits = np.array(message_bits, dtype=int)
         return message_bits.dot(self.generator_matrix) % 2
 
-    def text_to_bits(self, text):
+    def text_to_bits(self, text: str) -> Sequence[int]:
         return [int(bit) for char in text.encode('utf-8') for bit in format(char, '08b')]
 
-    def bits_to_text(self, bits):
+    def bits_to_text(self, bits: Sequence[str]) -> bytes | str:
         chars = [bits[i:i + 8] for i in range(0, len(bits), 8)]
         bytes_list = [int(''.join(map(str, b)), 2) for b in chars if len(b) == 8]
+        print(""" Полученное информационное слово """)
+        print(chars)
         try:
             return bytes(bytes_list).decode('utf-8')
         except UnicodeDecodeError:
@@ -114,13 +118,20 @@ class CyclicCoder:
                 # попробуем найти и исправить одиночную ошибку
                 for i in range(len(block)):
                     temp = block.copy()
-                    temp[i] ^= 1  # flip bit
+                    temp[i] ^= 1
                     if sum(self.poly_div(temp.copy(), self.generator_poly)) == 0:
+                        print(f'В блоке {block}. Ошибка была в символе {i + 1}')
                         block = temp
+                        print(f'Исправленный блок {block}')
                         break
                 corrected_block = block
-
             corrected.extend(corrected_block[:self.k])
+        print(""" Таблица синдромов """)
+        for s in syndromes:
+            if sum(s) == 0:
+                print('Ошибок нет')
+            else:
+                print(f'Полученный синдром {s}')
         return self.bits_to_text(corrected)
 
     # Ручное внесение ошибок
