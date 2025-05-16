@@ -43,7 +43,7 @@ class ConvolutionalCode:
 
 
     def encode(self) -> None:
-        # self._encode_to_binary()
+        self._encode_to_binary()
         self.encoded_list = [self._encode_sequence(binary) for binary in self.binary_bits]
         self.encoded_text = ''.join(self.encoded_list)
 
